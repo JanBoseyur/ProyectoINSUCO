@@ -1,0 +1,23 @@
+
+/* Tarjeta del formulario */
+
+.loginCardContainer {
+    padding: 25px;
+    border-radius: 20px;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 10px;
+
+}
+
+.loginButton {
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}

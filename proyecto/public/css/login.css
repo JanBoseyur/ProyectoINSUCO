@@ -1,0 +1,41 @@
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 1rem;
+
+    /* Centrado horizontal y vertical */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* quítalo si no quieres apilar los elementos */
+    text-align: center;
+
+    /* Altura: fallback + unidad correcta para móviles */
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    /* Texto */
+    color: white;
+}
+
+/* Fondo en una capa fija detrás del contenido */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: url("../assets/images/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
