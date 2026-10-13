@@ -4,17 +4,38 @@
 </head>
 
 <div class = "loginCardContainer">
-    
+
     <h2>Iniciar Sesión</h2>
 
-    <form class = "formContainer" action = "">
-        <label for = "correo">Correo Eléctronico</label>
-        <input type = "text" id = "fname" name = "firstname" placeholder = "">
+    <form class = "formContainer" action = "/app/views/auth/login.php" method = "POST">
 
-        <label for = "contraseña">Contraseña</label>
-        <input type = "password" id = "pass" name = "lastname" placeholder = "">
+        <label for = "correo">Correo electrónico</label>
+        
+        <input
+            type="email"
+            id="correo"
+            name="correo"
+            placeholder="Ingresa tu correo"
+            autocomplete="username"
+            required
+        >
 
-        <button type = "submit" class = "loginButton">Iniciar Sesión</button>
+        <label for = "contrasena">Contraseña</label>
+        
+        <input
+            type="password"
+            id="contrasena"
+            name="contrasena"
+            placeholder="Ingresa tu contraseña"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type = "submit" class = "loginButton">
+            Iniciar Sesión
+        </button>
+
     </form>
 
 </div>
+
