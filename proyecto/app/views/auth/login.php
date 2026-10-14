@@ -1,5 +1,4 @@
 
-
 <?php
 
 session_start();
@@ -49,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Renovar el ID de sesión después de autenticar.
         session_regenerate_id(true);
 
+        // Guardar los datos del usuario autenticado.
         $_SESSION['usuario'] = [
             'id' => $usuario['id'],
             'nombre' => $usuario['nombre'],
@@ -56,7 +56,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'correo' => $usuario['correo']
         ];
 
-        header('Location: /app/dashboard.php');
+        // Redirigir según el rol.
+        switch ($usuario['rol']) {
+
+            case 'admin':
+                header('Location: /app/views/admin/dashboard.php');
+                break;
+
+            case 'tecnico':
+                header('Location: /app/views/admin/dashboard.php');
+                break;
+
+            case 'usuario':
+                header('Location: /app/views/admin/dashboard.php');
+                break;
+
+            default:
+                session_unset();
+                session_destroy();
+
+                header('Location: /app/views/auth/login.php?error=1');
+                break;
+        }
+
         exit;
 
     } catch (PDOException $e) {
@@ -78,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <title>Proyecto INSUCO</title>
 
-    <link rel = "stylesheet" hre f= "/css/login.css">
+    <link rel = "stylesheet" href = "/public/css/login.css">
 </head>
 
 <body>

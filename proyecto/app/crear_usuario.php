@@ -3,10 +3,10 @@
 
 require_once __DIR__ . '/../config/database.php';
 
-$nombre = 'Administrador';
-$rol = 'admin';
-$correo = 'a@gmail.com';
-$contrasena = 'Prueba1234';
+$nombre = 'Profesor de Prueba';
+$rol = 'usuario';
+$correo = 'profe@gmail.com';
+$contrasena = 'Profe123';
 
 $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
 
