@@ -36,7 +36,8 @@
     justify-content: center;
     align-self: center;
 
-    padding: 12px;
+    margin-top: 10px;
+    padding: 10px;
     border-radius: 10px;
 
     border: 1px solid rgb(255, 255, 255);
@@ -73,18 +74,6 @@
 .inputField:focus {
     border-color: #535355;
     box-shadow: 0 0 0 3px rgba(10, 10, 10, 0.15);
-}
-
-/* Encabezado superior de la tarjeta */
-.pageHeader {
-    width: 100%;
-    text-align: center;
-}
-
-.pageHeader h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
 }
 
 .loginCardContainer {

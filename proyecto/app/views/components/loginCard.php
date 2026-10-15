@@ -6,10 +6,6 @@
 
 <div class = "loginCardContainer">
 
-    <header class = "pageHeader">
-        <h4>Plataforma de Soporte Técnico</h4>
-    </header>
-
     <i data-lucide = "wrench"></i>
 
     <h2>Iniciar Sesión</h2>

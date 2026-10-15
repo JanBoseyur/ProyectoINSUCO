@@ -1,0 +1,58 @@
+
+.body {
+    font-family: 'Inter', sans-serif;
+}
+
+.ticketContainer {
+    font-family: 'Inter', sans-serif;
+
+
+    width: 100%;
+    max-width: 100%;
+
+    margin-top: 10px;
+
+    overflow-x: auto;
+}
+
+.ticketTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.ticketTable th,
+.ticketTable td {
+    padding: 12px 16px;
+    text-align: left;
+    overflow-wrap: break-word;
+}
+
+.ticketTable thead {
+    background-color: #f2f2f2;
+}
+
+.ticketTable th {
+    font-weight: bold;
+}
+
+.headerLabel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.iconLabel {
+    width: 18px;
+    height: 18px;
+}
+
+.state {
+    background-color: red;
+    text-align: center;
+
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 8px;
+}
