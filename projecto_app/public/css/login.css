@@ -40,15 +40,6 @@ body {
     }
 }
 
-.pageHeader {
-    z-index: 1;
-    
-    width: 100%;
-    text-align: center;
-
-    color: black;
-}
-
 /* Fondo en una capa fija detrás del contenido */
 body::before {
     content: "";

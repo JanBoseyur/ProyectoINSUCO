@@ -28,10 +28,6 @@ procesarLogin();
 </head>
 
 <body>
-    <header class = "pageHeader">
-        <h4>Plataforma de Soporte Técnico</h4>
-    </header>
-
     <?php require_once __DIR__ . '/../components/loginCard.php'; ?>
 
     <script src = "/js/app.js"></script>
