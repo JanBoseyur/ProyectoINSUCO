@@ -4,20 +4,22 @@
 require_once __DIR__ . '/../config/database.php';
 
 $id_usuario = 6;
-$descripcion = 'Computador no enciende';
-$lugar = 'PIE';
+$encargado = 'Sebastián Muñoz';
+$descripcion = 'Computador sin imagen';
+$lugar = 'Sala 162';
 $estado = 'Pendiente';
 
 try {
     $sql = 'INSERT INTO ticket
-                (id_usuario, descripcion, lugar, estado, fecha_creacion, fecha_cierre)
+                (id_usuario, encargado, descripcion, lugar, estado)
             VALUES
-                (:id_usuario, :descripcion, :lugar, :estado, CURRENT_TIMESTAMP, NULL)';
+                (:id_usuario, :encargado, :descripcion, :lugar, :estado)';
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
         'id_usuario' => $id_usuario,
+        'encargado' => $encargado,
         'descripcion' => $descripcion,
         'lugar' => $lugar,
         'estado' => $estado

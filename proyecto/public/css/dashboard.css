@@ -1,0 +1,341 @@
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+img,
+svg {
+    max-width: 100%;
+}
+
+.mainContainer {
+    min-height: 100vh;
+}
+
+.contentContainer {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    min-width: 0;
+
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+
+    padding: 30px;
+
+    box-sizing: border-box;
+}
+
+.subtitle {
+    color: rgb(56, 55, 55);
+}
+
+.navbar {
+    flex: 0 0 220px;
+    width: 220px;
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    background-color: black;
+}
+
+.contentContainer h1,
+.contentContainer h2,
+.contentContainer h3 {
+    overflow-wrap: anywhere;
+}
+
+.graphsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+
+    gap: 20px;
+    width: 100%;
+    min-width: 0;
+    margin: 20px 0;
+}
+
+.graphsContainer .metricCard {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 160px;
+    padding: 20px;
+
+    overflow-wrap: anywhere;
+    overflow: hidden;
+}
+
+.metricHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+    min-width: 0;
+}
+
+.metricHeader span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.metricHeader i,
+.metricHeader svg {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+}
+
+.ticketContainer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 20px;
+
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ticketTable {
+    width: 100%;
+    min-width: 700px;
+}
+
+.ticketTable th,
+.ticketTable td {
+    padding: 12px 16px;
+
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.ticketTable thead {
+    background-color: transparent;
+}
+
+.ticketTable th {
+    padding: 8px 4px;
+    font-weight: 700;
+}
+
+.headerLabel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    width: 100%;
+    min-height: 45px;
+    padding: 10px;
+
+    border-radius: 8px;
+    text-align: center;
+    background-color: rgb(0, 0, 0);
+    color: white;
+}
+
+.contenidoTabla {
+    color: black;
+}
+
+.iconLabel {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.state {
+    text-align: center;
+    display: inline-block;
+
+    max-width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+
+    border-radius: 8px;
+    padding: 4px 8px;
+    overflow-wrap: anywhere;
+}
+
+.state.pendiente {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.state.en-proceso {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.state.resuelto {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.state.cancelado {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        flex-basis: 180px;
+        width: 180px;
+    }
+
+    .contentContainer {
+        padding: 24px;
+    }
+
+    .graphsContainer {
+        gap: 12px;
+    }
+
+    .graphsContainer .metricCard {
+        padding: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar {
+        /* Barra superior en lugar de lateral */
+        flex: 0 0 auto;
+        width: 100%;
+        min-height: 0;
+    }
+
+    .contentContainer {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 16px;
+    }
+
+    .graphsContainer {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        width: 100%;
+        margin: 16px 0;
+    }
+
+    .graphsContainer .metricCard {
+        width: 100%;
+        min-width: 0;
+        height: 150px;
+        padding: 14px;
+    }
+
+    .metricHeader {
+        gap: 6px;
+        font-size: 13px;
+    }
+
+    .metricHeader i,
+    .metricHeader svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .metricCard h2 {
+        font-size: 24px;
+        overflow-wrap: anywhere;
+    }
+
+    .metricCard p {
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .ticketContainer {
+        width: 100%;
+        margin-top: 16px;
+    }
+
+    .ticketTable {
+        min-width: 700px;
+    }
+
+    .ticketTable th,
+    .ticketTable td {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    .headerLabel {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .contentContainer {
+        padding: 16px 12px;
+    }
+
+    .graphsContainer {
+        gap: 8px;
+    }
+
+    .graphsContainer .metricCard {
+        height: 140px;
+        padding: 10px;
+    }
+
+    .metricHeader {
+        font-size: 11px;
+    }
+
+    .metricHeader i,
+    .metricHeader svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    .metricCard h2 {
+        font-size: 21px;
+    }
+
+    .metricCard p {
+        font-size: 11px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
