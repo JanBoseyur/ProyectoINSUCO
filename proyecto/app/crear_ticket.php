@@ -3,11 +3,53 @@
 
 require_once __DIR__ . '/../config/database.php';
 
-$id_usuario = 6;
-$encargado = 'Sebastián Muñoz';
-$descripcion = 'Computador sin imagen';
-$lugar = 'Sala 162';
-$estado = 'Pendiente';
+$encargados = [
+    'Sebastián Muñoz',
+    'Juan Pérez',
+    'María González',
+    'Camila Soto',
+    'Pedro Ramírez'
+];  
+
+$descripciones = [
+    'Computador sin imagen',
+    'Teclado no funciona',
+    'Mouse defectuoso',
+    'Problemas de conexión a Internet',
+    'Impresora no imprime',
+    'Monitor parpadea',
+    'Computador lento',
+    'Problemas con el sistema operativo',
+    'Cable de red dañado',
+    'Puerto de red sin conexión',
+    'Proyector no enciende',
+    'Problemas de audio',
+    'No se puede iniciar sesión',
+    'Software no funciona correctamente',
+    'Equipo no enciende'
+];
+
+$lugares = [
+    'Sala 101',
+    'Sala 102',
+    'Sala 103',
+    'Sala 104',
+    'Sala 105',
+    'Sala 162',
+    'Laboratorio 1',
+    'Laboratorio 2',
+    'Oficina administrativa',
+    'Biblioteca'
+];
+
+$estados = [
+    'Pendiente',
+    'En proceso',
+    'Resuelto'
+];
+
+$id_usuario = 1;
+$cantidad = 20;
 
 try {
     $sql = 'INSERT INTO ticket
@@ -17,18 +59,31 @@ try {
 
     $stmt = $pdo->prepare($sql);
 
-    $stmt->execute([
-        'id_usuario' => $id_usuario,
-        'encargado' => $encargado,
-        'descripcion' => $descripcion,
-        'lugar' => $lugar,
-        'estado' => $estado
-    ]);
+    $pdo->beginTransaction();
 
-    echo 'Ticket creado correctamente.';
+    for ($i = 0; $i < $cantidad; $i++) {
 
-} catch (PDOException $e) {
+        $stmt->execute([
+            'id_usuario' => $id_usuario,
+            'encargado' => $encargados[array_rand($encargados)],
+            'descripcion' => $descripciones[array_rand($descripciones)],
+            'lugar' => $lugares[array_rand($lugares)],
+            'estado' => $estados[array_rand($estados)]
+        ]);
+    }
+
+    $pdo->commit();
+
+    echo "$cantidad tickets creados correctamente.";
+
+} catch (Throwable $e) {
+
+    if ($pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
+
     error_log($e->getMessage());
     http_response_code(500);
-    echo 'No se pudo crear el ticket.';
+
+    echo 'No se pudieron crear los tickets.';
 }

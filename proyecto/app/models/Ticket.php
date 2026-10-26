@@ -52,7 +52,9 @@ function contarTicketsPorEstado(string $estado): int
     return (int) $stmt->fetchColumn();
 }
 
+#####################################################################
 # Retornadores
+#####################################################################
 
 function obtenerTicketsDeHoy(): int
 {
@@ -74,5 +76,38 @@ function listarTicketsResueltos(): int
     return contarTicketsPorEstado('Resuelto');
 }
 
+#####################################################################
+# Historial Tickets
+#####################################################################
 
+function obtenerHistorialTicket(int $idTicket): array
+{
+    global $pdo;
 
+    $sql = '
+        SELECT
+            h.id,
+            h.id_ticket,
+            h.id_autor,
+            u.nombre AS autor,
+            t.encargado,
+            h.tipo_cambio,
+            h.estado_anterior,
+            h.estado_nuevo,
+            h.detalle,
+            h.fecha_cambio
+        FROM historial_ticket h
+        INNER JOIN usuario u ON u.id = h.id_autor
+        LEFT JOIN ticket t ON t.id = h.id_ticket
+        WHERE h.id_ticket = :id_ticket
+        ORDER BY h.fecha_cambio DESC, h.id DESC
+    ';
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        'id_ticket' => $idTicket
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

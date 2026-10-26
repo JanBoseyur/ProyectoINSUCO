@@ -1,15 +1,13 @@
 
 <?php
-
-$titulo = $titulo ?? 'Métrica';
-$subtitulo = $subtitulo ?? '';
-$icono = $icono ?? 'bi-bar-chart';
-$valor = $valor ?? 0;
-
+    $titulo = $titulo ?? 'Métrica';
+    $subtitulo = $subtitulo ?? '';
+    $icono = $icono ?? 'bi-bar-chart';
+    $valor = $valor ?? 0;
 ?>
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name = "viewport" content="width=device-width, initial-scale=1">
     <link rel = "stylesheet" href = "/public/components/metricCard.css">
 
     <link rel = "preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +16,7 @@ $valor = $valor ?? 0;
 </head>
 
 <div class = "metricCard">
+    
     <div class = "metricHeader">
         <span><?= htmlspecialchars($titulo) ?></span>
 
@@ -28,8 +27,9 @@ $valor = $valor ?? 0;
 
     <p><?= htmlspecialchars($subtitulo) ?></p>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src = "https://unpkg.com/lucide@latest"></script>
     <script>
         lucide.createIcons();
     </script>
+
 </div>

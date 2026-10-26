@@ -7,7 +7,6 @@
 
 html,
 body {
-
     margin: 0;
     padding: 0;
     width: 100%;
@@ -28,6 +27,13 @@ svg {
     max-width: 100%;
 }
 
+.titleContainer {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
 .mainContainer {
     min-height: 100vh;
 }
@@ -40,8 +46,8 @@ svg {
     flex: 1 1 0;
     min-width: 0;
     max-width: 100%;
-
-    padding: 30px;
+    
+    padding: 20px 30px; /* Y y X*/ 
 
     box-sizing: border-box;
 }
@@ -113,7 +119,7 @@ svg {
     max-width: 100%;
     min-width: 0;
     margin-top: 20px;
-
+    
     overflow-x: auto;
     overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
@@ -170,7 +176,12 @@ svg {
 }
 
 .state {
-    text-align: center;
+    text-align: center;.mainContainer {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+}
     display: inline-block;
 
     max-width: 100%;
@@ -337,5 +348,251 @@ svg {
         scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==============================
+   TABLA DE TICKETS
+============================== */
+
+.ticketContainer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 24px;
+
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+/* Tabla */
+
+.ticketTable {
+    width: 100%;
+    min-width: 760px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: #ffffff;
+    color: #262626;
+    font-size: 0.875rem;
+    text-align: left;
+}
+
+/* Encabezado */
+
+.ticketTable thead {
+    background: #f7f7f7;
+}
+
+.ticketTable thead th,
+.ticketTable tbody td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Centrar el contenido de los encabezados */
+.ticketTable .headerLabel {
+    justify-content: center;
+}
+
+.ticketTable .headerLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    width: 100%;
+    min-height: 54px;
+    padding: 16px 18px;
+
+    border-radius: 0;
+    background: transparent;
+    color: #525252;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.ticketTable .iconLabel {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+/* Celdas */
+.ticketTable tbody td {
+    padding: 17px 18px;
+
+    border-bottom: 1px solid #eeeeee;
+
+    line-height: 1.6;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.ticketTable tbody tr {
+    background: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.ticketTable tbody tr:hover {
+    background: #f8f8f8;
+}
+
+.ticketTable tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ID del ticket */
+.ticketTable tbody td:first-child {
+    color: #171717;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Funcionario */
+.ticketTable tbody td:nth-child(2) {
+    min-width: 150px;
+    font-weight: 500;
+}
+
+/* Ubicación */
+.ticketTable tbody td:nth-child(3) {
+    color: #525252;
+}
+
+/* Descripción */
+.ticketTable tbody td:nth-child(4) {
+    min-width: 220px;
+    max-width: 360px;
+    color: #525252;
+    overflow-wrap: anywhere;
+}
+
+/* Botón de historial */
+.ticketTable .btnHistorial {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #404040;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ticketTable .btnHistorial:hover {
+    background: #171717;
+    color: #ffffff;
+    border-color: #171717;
+}
+
+.ticketTable .btnHistorial:active {
+    transform: scale(0.94);
+}
+
+.ticketTable .btnHistorial:focus-visible {
+    outline: 2px solid #171717;
+    outline-offset: 3px;
+}
+
+.ticketTable .btnHistorial svg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ticketTable .btnHistorial .iconDefault {
+    opacity: 1;
+    transform: scale(1);iconHover {
+    opacity: 1;
+    transform: scale(1);
+}
+}
+
+.ticketTable .btnHistorial .iconHover {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.ticketTable .btnHistorial:hover .iconDefault {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.ticketTable .btnHistorial:hover .iconHover {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Mensaje cuando no hay tickets */
+.ticketTable .emptyState,
+.ticketTable tbody td[colspan] {
+    padding: 36px 18px;
+    text-align: center;
+    color: #737373;
+    font-size: 0.9rem;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    .ticketContainer {
+        margin-top: 18px;
+        border-radius: 11px;
+    } 
+
+    .ticketTable {
+        min-width: 760px;
+        font-size: 0.82rem;
+    }
+
+    .ticketTable .headerLabel {
+        min-height: 48px;
+        padding: 13px 14px;
+        font-size: 0.68rem;
+    }
+
+    .ticketTable tbody td {
+        padding: 13px 14px;
+    }
+}
+
+/* Accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+    .ticketTable tbody tr,
+    .ticketTable .btnHistorial,
+    .ticketTable .btnHistorial svg {
+        transition: none;
     }
 }

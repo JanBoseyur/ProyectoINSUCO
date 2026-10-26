@@ -1,32 +1,33 @@
 
 <?php
+    session_start();
 
-session_start();
+    $usuario = $_SESSION['usuario'] ?? null;
+    $rol = is_array($usuario)
+        ? ($usuario['rol'] ?? null)
+        : null;
 
-if (
-    !isset($_SESSION['usuario']) ||
-    !in_array($_SESSION['usuario']['rol'], ['admin', 'tecnico'], true)
-) {
-    http_response_code(403);
-    exit('No tienes permiso para acceder a esta página.');
-}
+    if (
+        !is_array($usuario) ||
+        !in_array($rol, ['admin'], true)
+    ) {
+        http_response_code(403);
+        exit('No tienes permiso para acceder a esta página.');
+    }
 
-$nombre = $_SESSION['usuario']['nombre'];
-$rol = $_SESSION['usuario']['rol'];
+    $nombre = $usuario['nombre'] ?? '';
 
-###############################################################################
-# Tickets
-###############################################################################
+    ###############################################################################
+    # Tickets
+    ###############################################################################
 
-require_once __DIR__ . '/../../controllers/TicketController.php';
+    require_once __DIR__ . '/../../controllers/TicketController.php';
 
-$tickets = obtenerTickets();
-$ticketsHoy = obtenerTicketsDeHoy();
-$ticketsAbiertos = obtenerTicketsAbiertos();
-$ticketsEnProceso = obtenerTicketsEnProceso();
-$ticketsResueltos = obtenerTicketsResueltos();
-
-$estado = strtolower(trim($ticket['estado'] ?? ''));
+    $tickets = obtenerTickets();
+    $ticketsHoy = obtenerTicketsDeHoy();
+    $ticketsAbiertos = obtenerTicketsAbiertos();
+    $ticketsEnProceso = obtenerTicketsEnProceso();
+    $ticketsResueltos = obtenerTicketsResueltos();
 ?>
 
 <!DOCTYPE html>
@@ -36,12 +37,13 @@ $estado = strtolower(trim($ticket['estado'] ?? ''));
 <head>
     <meta charset = "UTF-8">
     <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-aa
+    
     <title>Dashboard</title>
 
     <link rel = "stylesheet" href = "/public/css/dashboard.css">
     <link rel = "stylesheet" href = "/public/components/metricCard.css">
     <link rel = "stylesheet" href = "/public/css/navbar.css">
+    <link rel = "icon" type = "image/svg+xml" href = "/public/assets/images/wrench.png">
 </head>
 
 <body>
@@ -52,9 +54,12 @@ aa
 
         <div class = "contentContainer">
 
-            <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
+            <div class = "titleContainer">
+                <i data-lucide = "user-round"></i>
+                <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
+            </div>
 
-            <text class = "subtitle">Aquí puedes supervisar las solicitudes de soporte técnico y el estado de atención de la institución</h2>
+            <text class = "subtitle">Aquí puedes supervisar las solicitudes de soporte técnico y el estado de atención de la institución</text>
 
             <div class = "graphsContainer">
 
@@ -107,14 +112,14 @@ aa
                                 <div class = "headerLabel">             
                                     <span>ID</span>
                                 </div>
-                            </div>    </th>
+                            </th>
 
                             <th>
                                 <div class = "headerLabel">
                                     <span>Funcionario</span>
                                 </div>
                             </th>
-                            
+
                             <th>
                                 <div class = "headerLabel">
                                     <span>Ubicación</span>
@@ -130,6 +135,12 @@ aa
                             <th>
                                 <div class = "headerLabel">
                                     <span>Estado</span>
+                                </div>
+                            </th>
+
+                            <th>
+                                <div class = "headerLabel">
+                                    <span></span>
                                 </div>
                             </th>
                         </tr>
@@ -162,13 +173,27 @@ aa
                                         <?= htmlspecialchars($ticket['estado'] ?? '') ?>
                                     </span>
                                 </td>
+
+                                <td>
+                                    <button
+                                        type = "button"
+                                        class = "btnHistorial"
+                                        onclick = "abrirHistorial(<?= (int) $ticket['id'] ?>)"
+                                        aria-label = "Ver historial del ticket"
+                                        title = "Ver historial"
+                                    >
+                                        <i data-lucide = "eye-closed" class = "iconDefault"></i>
+                                        <i data-lucide = "eye" class = "iconHover"></i>
+                                    </button>
+                                </td>
+                                
                             </tr>
 
                         <?php endforeach; ?>
 
                         <?php if (empty($tickets)): ?>
                             <tr>
-                                <td colspan = "4">No hay tickets registrados.</td>
+                                <td colspan = "6">No hay tickets registrados.</td>
                             </tr>
                         <?php endif; ?>
 
@@ -178,7 +203,26 @@ aa
 
             </div>
 
+        <?php
+            $tituloModal = 'Historial del ticket';
+            $idModal = 'modalHistorial';
+            $anchoModal = '1000px';
+
+            ob_start();
+
+            ?>
+
+            <div id = "contenidoHistorial">
+                <p>Selecciona un ticket para consultar su historial.</p>
+            </div>
+
+            <?php
+                $contenidoModal = ob_get_clean();
+                require __DIR__ . '/../components/modal.php';
+        ?>
+
         </div>
+        
     </div>
 
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -186,7 +230,10 @@ aa
         lucide.createIcons();
     </script>
 
+    <script src = "/public/js/modal.js" defer></script>
+
     <script src = "/js/app.js"></script>
+    
 </body>
 
 </html>

@@ -1,14 +1,18 @@
 
+<!DOCTYPE html>
+<html lang = "es">
+
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel = "stylesheet" href = "/public/components/loginCard.css">
 </head>
 
 <div class = "loginCardContainer">
     
-    <header class = "pageHeader">
-        <h4>Plataforma de Soporte Técnico</h4>
-    </header>
+    <a href = "/app/views/auth/register.php" class = "pageHeader"">
+        <i data-lucide = "circle-user"></i>
+    </a>
 
     <i data-lucide = "wrench"></i>
 
