@@ -1,33 +1,148 @@
 
-<?php
-    session_start();
 
-    $usuario = $_SESSION['usuario'] ?? null;
-    $rol = is_array($usuario)
-        ? ($usuario['rol'] ?? null)
-        : null;
+<?php
+
+session_start();
+
+require_once __DIR__ . '/../../controllers/TicketController.php';
+
+$usuario = $_SESSION['usuario'] ?? null;
+$rol = is_array($usuario) ? ($usuario['rol'] ?? null) : null;
+
+// Validar acceso al dashboard.
+if (!is_array($usuario) || !in_array($rol, ['admin'], true)) {
+    http_response_code(403);
+    exit('No tienes permiso para acceder a esta página.');
+}
+
+// Procesar solicitudes para cambiar el estado.
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json; charset=utf-8');
+
+    $datos = json_decode(
+        file_get_contents('php://input'),
+        true
+    );
 
     if (
-        !is_array($usuario) ||
-        !in_array($rol, ['admin'], true)
+        !is_array($datos) ||
+        ($datos['accion'] ?? '') !== 'cambiar_estado'
     ) {
-        http_response_code(403);
-        exit('No tienes permiso para acceder a esta página.');
+        http_response_code(400);
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'Solicitud no válida.'
+        ]);
+
+        exit;
     }
 
-    $nombre = $usuario['nombre'] ?? '';
+    try {
+        $idTicket = filter_var(
+            $datos['id_ticket'] ?? null,
+            FILTER_VALIDATE_INT
+        );
 
-    ###############################################################################
-    # Tickets
-    ###############################################################################
+        $estadoNuevo = trim(
+            (string) ($datos['estado'] ?? '')
+        );
 
-    require_once __DIR__ . '/../../controllers/TicketController.php';
+        // Obtener los campos opcionales.
+        $descripcionCambio = trim(
+            (string) ($datos['descripcion'] ?? '')
+        );
 
-    $tickets = obtenerTickets();
-    $ticketsHoy = obtenerTicketsDeHoy();
-    $ticketsAbiertos = obtenerTicketsAbiertos();
-    $ticketsEnProceso = obtenerTicketsEnProceso();
-    $ticketsResueltos = obtenerTicketsResueltos();
+        $encargadoRecibido = trim(
+            (string) ($datos['encargado'] ?? '')
+        );
+
+        // Si está vacío, se mantiene el encargado actual.
+        $nuevoEncargado = $encargadoRecibido !== ''
+            ? $encargadoRecibido
+            : null;
+
+        $idAutor = (int) ($usuario['id'] ?? 0);
+
+        // Validaciones.
+        if (!$idTicket || $idAutor <= 0) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'El ticket o el usuario no son válidos.'
+            ]);
+
+            exit;
+        }
+
+        if (mb_strlen($descripcionCambio) > 1000) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'La descripción no puede superar los 1000 caracteres.'
+            ]);
+
+            exit;
+        }
+
+        if (
+            $nuevoEncargado !== null &&
+            mb_strlen($nuevoEncargado) > 150
+        ) {
+            http_response_code(400);
+
+            echo json_encode([
+                'success' => false,
+                'message' => 'El encargado no puede superar los 150 caracteres.'
+            ]);
+
+            exit;
+        }
+
+        // Ejecutar el cambio.
+        $cambioRealizado = cambiarEstado(
+            $idTicket,
+            $estadoNuevo,
+            $idAutor,
+            $descripcionCambio,
+            $nuevoEncargado
+        );
+
+        echo json_encode([
+            'success' => true,
+            'changed' => $cambioRealizado,
+            'message' => $cambioRealizado
+                ? 'Cambios guardados correctamente.'
+                : 'El ticket no existe o no hubo cambios.'
+        ]);
+
+    } catch (Throwable $e) {
+        error_log(
+            'Error al cambiar estado: ' . $e->getMessage()
+        );
+
+        http_response_code(500);
+
+        echo json_encode([
+            'success' => false,
+            'message' => 'No se pudieron guardar los cambios.'
+        ]);
+    }
+
+    exit;
+}
+
+// Cargar datos para mostrar el dashboard.
+$nombre = $usuario['nombre'] ?? '';
+
+$tickets = obtenerTickets();
+$ticketsHoy = obtenerTicketsDeHoy();
+$ticketsAbiertos = obtenerTicketsAbiertos();
+$ticketsEnProceso = obtenerTicketsEnProceso();
+$ticketsResueltos = obtenerTicketsResueltos();
+
 ?>
 
 <!DOCTYPE html>
@@ -168,10 +283,21 @@
                                     <?= htmlspecialchars($ticket['descripcion'] ?? '') ?>
                                 </td>
 
-                                <td>
-                                    <span class="state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
+                                <td class = "estadoContainer">
+                                    <span class = "state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
                                         <?= htmlspecialchars($ticket['estado'] ?? '') ?>
                                     </span>
+
+                                    <button
+                                        type = "button"
+                                        class = "btnHistorial"
+                                        onclick = "abrirModalEstado(<?= (int) $ticket['id'] ?>, '<?= htmlspecialchars($ticket['estado'] ?? '', ENT_QUOTES, 'UTF-8') ?>')"
+                                        title = "Cambiar estado"
+                                        aria-label = "Cambiar estado del ticket <?= (int) $ticket['id'] ?>"
+                                    >
+                                        <i data-lucide = "refresh-cw" class = "iconDefault"></i>
+                                        <i data-lucide = "refresh-ccw" class = "iconHover"></i>
+                                    </button>
                                 </td>
 
                                 <td>
@@ -190,6 +316,10 @@
                             </tr>
 
                         <?php endforeach; ?>
+
+                        <?php
+                                require __DIR__ . '/../components/modalState.php';
+                        ?>
 
                         <?php if (empty($tickets)): ?>
                             <tr>
@@ -231,8 +361,7 @@
     </script>
 
     <script src = "/public/js/modal.js" defer></script>
-
-    <script src = "/js/app.js"></script>
+    <script src = "/public/js/modalEstado.js" defer></script>
     
 </body>
 

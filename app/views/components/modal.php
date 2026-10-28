@@ -4,7 +4,7 @@
 $title = $titulo ?? '';
 $tituloModal = $contenidoModal ?? '';
 $idModal = $idModal ?? 'modal';
-$anchoModal = $anchoModal ?? '600px';
+$anchoModal = $anchoModal ?? '10000px';
 
 ?>
 
@@ -23,6 +23,8 @@ $anchoModal = $anchoModal ?? '600px';
         style = "--modal-width: <?= htmlspecialchars($anchoModal) ?>"
     >
         <header class = "modalHeader">
+            
+            Historial de Cambios
 
             <button
                 type = "button"
@@ -34,17 +36,26 @@ $anchoModal = $anchoModal ?? '600px';
             </button>
 
         </header>
+        
+        <div class = "row">
 
-        <div class = "modalHeader">
-            <h2 id = "<?= htmlspecialchars($idModal)?>Titulo">
-                <?= $contenidoModal ?>
-            </h2>
+            <div class = "modalHeader">
+                <h2 id = "<?= htmlspecialchars($idModal)?>Titulo">
+                    <?= $contenidoModal ?>
+                </h2>
+            </div>
+
+            <div class = "modalHeader">
+                aaaaaaaaaaaaaaaaaaaaaa
+            </div>
+
         </div>
-    
+        
         <!--
         <div class="modalBody">
         </div>
         -->
-        
+
     </section>
+
 </div>

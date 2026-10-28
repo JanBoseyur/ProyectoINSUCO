@@ -52,6 +52,95 @@ function contarTicketsPorEstado(string $estado): int
     return (int) $stmt->fetchColumn();
 }
 
+function actualizarEstadoTicket(
+    int $idTicket,
+    string $estadoNuevo,
+    int $idAutor,
+    string $descripcionCambio = '',
+    ?string $nuevoEncargado = null
+    
+): bool {
+    global $pdo;
+
+    $estadosPermitidos = [
+        'Pendiente',
+        'En Proceso',
+        'Resuelto'
+    ];
+
+    if (
+        $idTicket <= 0 ||
+        $idAutor <= 0 ||
+        !in_array($estadoNuevo, $estadosPermitidos, true)
+    ) {
+        return false;
+    }
+
+    try {
+        $pdo->beginTransaction();
+
+        $stmt = $pdo->prepare(
+            'SET @id_autor = :id_autor,
+                @detalle_cambio = :detalle'
+        );
+
+        $stmt->execute([
+            'id_autor' => $idAutor,
+            'detalle' => $descripcionCambio !== ''
+                ? $descripcionCambio
+                : null
+        ]);
+
+        if ($nuevoEncargado !== null) {
+            $stmt = $pdo->prepare(
+                'UPDATE ticket
+                SET estado = :estado,
+                    encargado = :encargado
+                WHERE id = :id_ticket'
+            );
+
+            $stmt->execute([
+                'estado' => $estadoNuevo,
+                'encargado' => $nuevoEncargado,
+                'id_ticket' => $idTicket
+            ]);
+        } else {
+            $stmt = $pdo->prepare(
+                'UPDATE ticket
+                SET estado = :estado
+                WHERE id = :id_ticket'
+            );
+
+            $stmt->execute([
+                'estado' => $estadoNuevo,
+                'id_ticket' => $idTicket
+            ]);
+        }
+
+        $cambioRealizado = $stmt->rowCount() > 0;
+
+        $pdo->commit();
+
+        return $cambioRealizado;
+
+    } catch (Throwable $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+
+        throw $e;
+
+    } finally {
+        try {
+            $pdo->exec(
+                'SET @id_autor = NULL, @detalle_cambio = NULL'
+            );
+        } catch (Throwable $e) {
+            error_log($e->getMessage());
+        }
+    }
+}
+
 #####################################################################
 # Retornadores
 #####################################################################

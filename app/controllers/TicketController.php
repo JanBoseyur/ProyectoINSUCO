@@ -22,3 +22,21 @@ function obtenerTicketsResueltos(): int
 {
     return listarTicketsResueltos();
 }
+
+function cambiarEstado(
+    int $idTicket,
+    string $estadoNuevo,
+    int $idAutor,
+    string $descripcionCambio = '',
+    ?string $nuevoEncargado = null
+
+): bool {
+    
+    return actualizarEstadoTicket(
+        $idTicket,
+        $estadoNuevo,
+        $idAutor,
+        $descripcionCambio,
+        $nuevoEncargado
+    );
+}

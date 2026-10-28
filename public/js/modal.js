@@ -26,28 +26,25 @@ async function abrirHistorial(idTicket) {
     abrirModal('modalHistorial');
 
     const contenido = document.getElementById('contenidoHistorial');
-
     if (!contenido) return;
 
     contenido.replaceChildren();
 
     const titulo = document.createElement('h3');
     titulo.className = 'historialTitulo';
-    titulo.textContent = `Historial de Cambios Ticket #${idTicket}`;
-    contenido.appendChild(titulo);
+    titulo.textContent = `Ticket #${idTicket}`;
 
     const carga = document.createElement('p');
     carga.className = 'historialMensaje';
     carga.textContent = 'Cargando historial...';
-    contenido.appendChild(carga);
+
+    contenido.append(titulo, carga);
 
     try {
         const respuesta = await fetch(
             `/public/api/historial_ticket.php?id_ticket=${encodeURIComponent(idTicket)}`,
             {
-                headers: {
-                    Accept: 'application/json'
-                },
+                headers: { Accept: 'application/json' },
                 credentials: 'same-origin'
             }
         );
@@ -55,9 +52,7 @@ async function abrirHistorial(idTicket) {
         const datos = await respuesta.json();
 
         if (!respuesta.ok) {
-            throw new Error(
-                datos.error || 'No se pudo cargar el historial.'
-            );
+            throw new Error(datos.error || 'No se pudo cargar el historial.');
         }
 
         if (!Array.isArray(datos)) {
@@ -81,6 +76,11 @@ async function abrirHistorial(idTicket) {
         lista.className = 'historialLista';
 
         datos.forEach(registro => {
+            const estadoAnterior = registro.estado_anterior ?? null;
+            const estadoSiguiente = registro.estado_nuevo ?? null;
+            const fecha = registro.fecha_cambio ?? 'Fecha no disponible';
+            const autor = registro.autor ?? 'No disponible';
+
             const tarjeta = document.createElement('article');
             tarjeta.className = 'historialRegistro';
 
@@ -91,47 +91,54 @@ async function abrirHistorial(idTicket) {
             accion.className = 'historialAccion';
             accion.textContent = registro.tipo_cambio || 'Actividad';
 
-            const fecha = document.createElement('span');
-            fecha.className = 'historialFecha';
-            fecha.textContent = registro.fecha_cambio || 'Fecha no disponible';
+            const elementoFecha = document.createElement('time');
+            elementoFecha.className = 'historialFecha';
+            elementoFecha.textContent = fecha;
 
-            encabezado.append(accion, fecha);
+            if (registro.fecha_cambio) {
+                elementoFecha.dateTime =
+                    String(registro.fecha_cambio).replace(' ', 'T');
+            }
+
+            encabezado.append(accion, elementoFecha);
             tarjeta.appendChild(encabezado);
 
-            const autor = document.createElement('p');
-            autor.className = 'historialAutor';
-            autor.textContent = `Generado por: ${registro.autor || 'No disponible'}`;
-            tarjeta.appendChild(autor);
+            const elementoAutor = document.createElement('p');
+            elementoAutor.className = 'historialAutor';
+            elementoAutor.textContent = `Generado por: ${autor}`;
+            tarjeta.appendChild(elementoAutor);
 
-            if (registro.encargado && registro.encargado.trim() !== '') {
+            if (registro.encargado?.trim()) {
                 const encargado = document.createElement('p');
                 encargado.className = 'historialEncargado';
                 encargado.textContent = `Encargado: ${registro.encargado}`;
                 tarjeta.appendChild(encargado);
             }
 
-            if (registro.estado_anterior || registro.estado_nuevo) {
-                const estados = document.createElement('p');
+            if (estadoAnterior || estadoSiguiente) {
+                const estados = document.createElement('div');
                 estados.className = 'historialEstados';
 
-                if (registro.estado_anterior) {
+                if (estadoAnterior) {
                     const anterior = document.createElement('span');
-                    anterior.className = `historialEstado ${obtenerClaseEstado(registro.estado_anterior)}`;
-                    anterior.textContent = registro.estado_anterior;
-
+                    anterior.className =
+                        `historialEstado ${obtenerClaseEstado(estadoAnterior)}`;
+                    anterior.textContent = estadoAnterior;
                     estados.appendChild(anterior);
                 }
 
-                const flecha = document.createElement('span');
-                flecha.className = 'historialFlecha';
-                flecha.textContent = '→';
-                estados.appendChild(flecha);
+                if (estadoAnterior && estadoSiguiente) {
+                    const flecha = document.createElement('span');
+                    flecha.className = 'historialFlecha';
+                    flecha.textContent = '→';
+                    estados.appendChild(flecha);
+                }
 
-                if (registro.estado_nuevo) {
+                if (estadoSiguiente) {
                     const nuevo = document.createElement('span');
-                    nuevo.className = `historialEstado ${obtenerClaseEstado(registro.estado_nuevo)}`;
-                    nuevo.textContent = registro.estado_nuevo;
-
+                    nuevo.className =
+                        `historialEstado ${obtenerClaseEstado(estadoSiguiente)}`;
+                    nuevo.textContent = estadoSiguiente;
                     estados.appendChild(nuevo);
                 }
 
@@ -151,6 +158,8 @@ async function abrirHistorial(idTicket) {
         contenido.appendChild(lista);
 
     } catch (error) {
+        console.error('Error al cargar el historial:', error);
+
         contenido.replaceChildren();
 
         const mensaje = document.createElement('p');

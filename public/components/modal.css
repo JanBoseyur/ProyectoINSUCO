@@ -1,13 +1,12 @@
 
+/* Fondo y contenedor del modal */
 .modalOverlay {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 1000;
-
     justify-content: center;
     align-items: center;
-
     padding: 16px;
     background: rgba(0, 0, 0, 0.5);
 }
@@ -17,47 +16,59 @@
 }
 
 .modalContainer {
-    width: 100%;
-    max-width: var(--modal-width, 600px);
-    max-height: 90vh;
-
     display: flex;
     flex-direction: column;
 
+    width: 100%;
+
+    max-width: var(--modal-width, 600px);
+    max-height: 90vh;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
-
     overflow: hidden;
     animation: modalEntrada 0.2s ease;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+/* Título y botón de cierre */
 .modalHeader {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 
+    width: 100%;
+
+    gap: 16px;
     padding: 18px 22px;
     border-bottom: 1px solid #e5e7eb;
 }
 
 .modalHeader h2 {
+    min-width: 0;
     margin: 0;
     font-size: 1.2rem;
     font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
 .modalClose {
+    display: inline-flex;
     flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
     margin-left: auto;
-
-    font-size: 28px;
-    line-height: 1;
-
+    padding: 2px;
     border: none;
     background: transparent;
-
     color: #6b7280;
+    font-size: 28px;
+    line-height: 1;
     cursor: pointer;
 }
 
@@ -65,45 +76,42 @@
     color: #111827;
 }
 
+/* Cuerpo del modal */
 .modalBody {
+    min-height: 0;
     overflow-y: auto;
-
     padding: 22px;
 }
 
+/* Botón para abrir el historial */
 .btnHistorial {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    border: none;
 
     width: 36px;
     height: 36px;
-    padding: 0;    
+    padding: 0;
     border-radius: 8px;
-
-    background-color: black;
-    color: white;
+    
+    border: none;
+    background-color: #000;
+    color: #fff;
     cursor: pointer;
-
-    transition:
-        background-color 0.25s ease,
-        color 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 .btnHistorial:hover {
-    background-color: black;
-    color: white;
+    background-color: #000;
+    color: #fff;
 }
 
 .btnHistorial svg {
     position: absolute;
     width: 18px;
     height: 18px;
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .btnHistorial .iconDefault {
@@ -126,6 +134,7 @@
     transform: scale(1);
 }
 
+/* Animación */
 @keyframes modalEntrada {
     from {
         opacity: 0;
@@ -138,10 +147,185 @@
     }
 }
 
-@media (max-width: 480px) {
+/* Contenido del historial */
+#contenidoHistorial {
+    width: 100%;
+    min-width: 0;
+}
+
+.historialTitulo {
+    margin: 0 0 20px;
+    color: #222;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* Lista de registros */
+.historialLista {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    gap: 14px;
+    max-height: 60vh;
+    padding: 2px 4px 2px 2px;
+}
+
+/* Tarjetas */
+.historialRegistro {
+    padding: 16px;
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+    background: #fff;
+}
+
+/* Acción y fecha */
+.historialEncabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    
+    gap: 12px;
+}
+
+.historialAccion {
+    color: #222;
+    
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+}
+
+.historialFecha {
+    color: #737373;
+
+    font-size: 12px;
+}
+
+/* Autor */
+.historialAutor {
+    color: #666;
+
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+/* Encargado */
+.historialEncargado {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 6px;
+    margin: 4px 0;
+    padding: 6px;
+
+    color: #374151;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Estados */
+.historialEstados {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    gap: 6px;
+    margin: 12px 0 0;
+    font-size: 13px;
+}
+
+.historialEstado {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.historialMensaje {
+    margin: 16px 0;
+    color: #666;
+}
+
+.historialEstado.estado-pendiente {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.historialEstado.estado-en-proceso {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.historialEstado.estado-resuelto,
+.historialEstado.estado-resueltos {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.historialEstado.estado-cancelado {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.historialEstado.estado-desconocido {
+    background-color: #f3f4f6;
+    color: #4b5563;
+}
+
+.historialFlecha 
+.historialMensaje {
+    margin: 16px 0;
+    padding: 0 2px;
+    font-weight: 600;
+
+    color: #666;
+    color: #888;
+}
+
+/* Descripción del cambio */
+.historialDetalle {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+
+    color: #555;
+    overflow-wrap: anywhere;
+}
+
+/* Mensajes */
+.historialMensaje {
+    font-size: 14px;
+    margin: 16px 0;
+
+    color: #666;
+}
+
+.historialError {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Responsividad */
+@media (max-width: 600px) {
     .modalOverlay {
         padding: 12px;
-    }
+    }aaaaaaaaaaaaaaaaaaaaaa
 
     .modalContainer {
         max-height: 90vh;
@@ -151,161 +335,7 @@
     .modalBody {
         padding: 16px;
     }
-}
 
-@media (prefers-reduced-motion: reduce) {
-    .modalContainer {
-        animation: none;
-    }
-}
-
-/* Área donde se muestra el contenido */
-#contenidoHistorial {
-    width: 60%;
-    min-width: 0;
-}
-
-/* Título principal */
-.historialTitulo {
-    margin: 20px 0 20px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #222;
-}
-
-/* Lista de registros */
-.historialLista {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    max-height: 60vh;
-    overflow-y: auto;
-    padding: 2px 4px 2px 2px;
-}
-
-/* Tarjeta de cada registro */
-.historialRegistro {
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #fff;
-}
-
-/* Fila superior: acción y fecha */
-.historialEncabezado {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-/* Nombre de la acción */
-.historialAccion {
-    margin: 0;
-    font-size: 15px;
-    font-weight: 650;
-    color: #222;
-}
-
-/* Fecha del cambio */
-.historialFecha {
-    font-size: 12px;
-    color: #737373;
-}
-
-/* Persona que realizó la acción */
-.historialAutor {
-    margin: 10px 0;
-    font-size: 13px;
-    color: #666;
-}
-
-/* Estados anterior y nuevo */
-.historialEstados {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px;
-    margin: 12px 0 0;
-    font-size: 13px;
-}
-
-/* Estilo base de las etiquetas de estado */
-.historialEstado {
-    display: inline-flex;
-    align-items: center;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-/* Pendiente: amarillo */
-.historialEstado.estado-pendiente {
-    background-color: #fef3c7;
-    color: #92400e;
-}
-
-/* En proceso: azul */
-.historialEstado.estado-en-proceso {
-    background-color: #dbeafe;
-    color: #1d4ed8;
-}
-
-/* Resuelto: verde */
-.historialEstado.estado-resuelto,
-.historialEstado.estado-resueltos {
-    background-color: #dcfce7;
-    color: #166534;
-}
-
-/* Cancelado: rojo */
-.historialEstado.estado-cancelado {
-    background-color: #fee2e2;
-    color: #991b1b;
-}
-
-/* Estado no reconocido */
-.historialEstado.estado-desconocido {
-    background-color: #f3f4f6;
-    color: #4b5563;
-}
-
-.historialFlecha {
-    color: #888;
-    font-weight: 600;
-    padding: 0 2px;
-}
-
-/* Descripción adicional */
-.historialDetalle {
-    margin: 12px 0 0;
-    font-size: 13px;
-    line-height: 1.6;
-    color: #555;
-    overflow-wrap: anywhere;
-}
-
-/* Mensajes de carga y sin registros */
-.historialMensaje {
-    margin: 16px 0;
-    color: #666;
-    font-size: 14px;
-}
-
-/* Errores */
-.historialError {
-    padding: 12px;
-    border-radius: 8px;
-    background: #fef2f2;
-    color: #b91c1c;
-    font-size: 14px;
-}
-
-/* Adaptación a móviles */
-@media (max-width: 600px) {
     .historialTitulo {
         font-size: 19px;
     }
@@ -324,24 +354,27 @@
     }
 }
 
-.historialEncargado {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-
-    margin: 4px 0;
-    padding: 6px 6px;
-
-    color: #374151;
-    background-color: #f3f4f6;
-    border: 1px solid #e5e7eb;
-
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 1.5;
+/* Respeto por la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .modalContainer,
+    .btnHistorial,
+    .btnHistorial svg {
+        animation: none;
+        transition: none;
+    }
 }
 
-.historialEncargado::first-letter {
-    color: #111827;
+.trazaContainer {
+    align-items: center;
+    text-align: center;
+    
+    width: 100%;
+}
+
+.estadoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    gap: 8px;
 }

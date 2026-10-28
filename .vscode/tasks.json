@@ -1,0 +1,45 @@
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PHP - Servidor local",
+            "type": "shell",
+            "command": "php -S localhost:8000",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "panel": "new",
+                "reveal": "always",
+                "focus": false
+            }
+        },
+        {
+            "label": "BrowserSync",
+            "type": "shell",
+            "command": "browser-sync start --proxy localhost:8000 --files '**/*.php, **/*.css, **/*.js'",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "panel": "new",
+                "reveal": "always",
+                "focus": true
+            }
+        },
+        {
+            "label": "Iniciar PHP y BrowserSync",
+            "dependsOn": [
+                "PHP - Servidor local",
+                "BrowserSync"
+            ],
+            "dependsOrder": "parallel",
+            "problemMatcher": []
+        }
+    ]
+}

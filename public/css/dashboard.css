@@ -596,3 +596,33 @@ svg {
         transition: none;
     }
 }
+
+.selectEstadoContainer {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.iconoEstado {
+    position: absolute;
+    
+    left: 10px;
+    width: 16px;
+    height: 16px;
+
+    pointer-events: none;
+    color: #555;
+}
+
+.btnHistorial {
+    appearance: none;
+    -webkit-appearance: none;
+
+    padding: 8px 30px 8px 34px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    background-color: #fff;
+    font: inherit;
+    cursor: pointer;
+}
