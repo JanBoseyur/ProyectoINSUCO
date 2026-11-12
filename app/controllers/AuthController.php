@@ -1,6 +1,10 @@
 
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../models/User.php';
 
 function procesarLogin(): void
@@ -31,8 +35,16 @@ function procesarLogin(): void
         exit;
     }
 
+    // Validar roles autorizados.
+    if (!in_array($usuario['rol'], ['admin', 'funcionario'], true)) {
+        header('Location: /app/views/auth/login.php?error=1');
+        exit;
+    }
+
+    // Regenerar ID de sesión.
     session_regenerate_id(true);
 
+    // Crear sesión única para ambos roles.
     $_SESSION['usuario'] = [
         'id' => $usuario['id'],
         'nombre' => $usuario['nombre'],
@@ -40,26 +52,14 @@ function procesarLogin(): void
         'correo' => $usuario['correo']
     ];
 
-    switch ($usuario['rol']) {
-        case 'admin':
-            header('Location: /app/views/admin/dashboard.php');
-            break;
+    // Ambos utilizan el mismo layout.
+    $seccionInicial = $usuario['rol'] === 'admin'
+        ? 'dashboard'
+        : 'home';
 
-        case 'tecnico':
-            header('Location: /a    pp/views/admin/dashboard.php');
-            break;
-
-        case 'usuario':
-            header('Location: /app/views/admin/dashboard.php');
-            break;
-
-        default:
-            session_unset();
-            session_destroy();
-
-            header('Location: /app/views/auth/login.php?error=1');
-            break;
-    }
+    header(
+        'Location: /app/views/layout/main.php?seccion=' . $seccionInicial
+    );
 
     exit;
 }

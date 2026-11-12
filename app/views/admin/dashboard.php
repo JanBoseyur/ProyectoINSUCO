@@ -1,16 +1,16 @@
 
-
 <?php
-
-session_start();
 
 require_once __DIR__ . '/../../controllers/TicketController.php';
 
 $usuario = $_SESSION['usuario'] ?? null;
-$rol = is_array($usuario) ? ($usuario['rol'] ?? null) : null;
+
+$rol = is_array($usuario)
+    ? ($usuario['rol'] ?? null)
+    : null;
 
 // Validar acceso al dashboard.
-if (!is_array($usuario) || !in_array($rol, ['admin'], true)) {
+if (!is_array($usuario) || !in_array($rol, ['admin', 'funcionario'], true)) {
     http_response_code(403);
     exit('No tienes permiso para acceder a esta página.');
 }
@@ -101,7 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Ejecutar el cambio.
+        error_log('ID AUTOR ANTES DE CAMBIAR: ' . var_export($idAutor, true));
+        error_log('USUARIO EN SESION: ' . print_r($_SESSION['usuario'] ?? null, true));
+
         $cambioRealizado = cambiarEstado(
             $idTicket,
             $estadoNuevo,
@@ -110,12 +112,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nuevoEncargado
         );
 
+        if (!$cambioRealizado) {
+            http_response_code(400);
+        }
+
         echo json_encode([
-            'success' => true,
+            'success' => $cambioRealizado,
             'changed' => $cambioRealizado,
             'message' => $cambioRealizado
                 ? 'Cambios guardados correctamente.'
-                : 'El ticket no existe o no hubo cambios.'
+                : 'No se pudo actualizar el ticket. Revisa el registro de errores de PHP.'
         ]);
 
     } catch (Throwable $e) {
@@ -134,226 +140,275 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// Cargar datos para mostrar el dashboard.
 $nombre = $usuario['nombre'] ?? '';
 
 $tickets = obtenerTickets();
+
 $ticketsHoy = obtenerTicketsDeHoy();
 $ticketsAbiertos = obtenerTicketsAbiertos();
 $ticketsEnProceso = obtenerTicketsEnProceso();
 $ticketsResueltos = obtenerTicketsResueltos();
 
+$funcionarios = [];
+
+foreach ($tickets as $ticket) {
+    $nombreFuncionario = trim($ticket['funcionario'] ?? '');
+
+    if ($nombreFuncionario !== '') {
+        $funcionarios[$nombreFuncionario] = $nombreFuncionario;
+    }
+}
+
+natcasesort($funcionarios);
+
+$estadoFiltro = $_GET['estado'] ?? 'Todos';
+
+$estadosPermitidos = [
+    'Todos',
+    'Pendiente',
+    'En Proceso',
+    'Resuelto'
+];
+
+if (!in_array($estadoFiltro, $estadosPermitidos, true)) {
+    $estadoFiltro = 'Todos';
+}
+
+$funcionarioFiltro = trim($_GET['funcionario'] ?? '');
+$tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcionarioFiltro) {
+
+    $coincideEstado = $estadoFiltro === 'Todos' ||
+        ($ticket['estado'] ?? '') === $estadoFiltro;
+
+    $coincideFuncionario = $funcionarioFiltro === '' ||
+        stripos($ticket['funcionario'] ?? '', $funcionarioFiltro) !== false;
+
+    return $coincideEstado && $coincideFuncionario;
+});
+
 ?>
 
-<!DOCTYPE html>
-
-<html lang = "es">
-
-<head>
-    <meta charset = "UTF-8">
-    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Dashboard</title>
-
-    <link rel = "stylesheet" href = "/public/css/dashboard.css">
-    <link rel = "stylesheet" href = "/public/components/metricCard.css">
-    <link rel = "stylesheet" href = "/public/css/navbar.css">
-    <link rel = "icon" type = "image/svg+xml" href = "/public/assets/images/wrench.png">
-</head>
-
 <body>
+    
+    <div class = "titleContainer">
+        <i data-lucide = "user-round"></i>
+        <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
+    </div>
 
-    <div class = "mainContainer">
+    <text class = "subtitle">Aquí puedes supervisar las solicitudes de soporte técnico y el estado de atención de la institución</text>
 
-        <?php include __DIR__ . '/../components/navbar.php'; ?>
-
-        <div class = "contentContainer">
-
-            <div class = "titleContainer">
-                <i data-lucide = "user-round"></i>
-                <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
-            </div>
-
-            <text class = "subtitle">Aquí puedes supervisar las solicitudes de soporte técnico y el estado de atención de la institución</text>
-
-            <div class = "graphsContainer">
-
-                <?php
-                    $titulo = 'Tickets de Hoy';
-                    $subtitulo = 'Tickets registrados el día de hoy';
-                    $icono = 'ticket';
-                    $valor = $ticketsHoy;
-
-                    include __DIR__ . '/../components/metricCard.php';
-                ?>
-
-                <?php
-                    $titulo = 'Tickets Abiertos';
-                    $subtitulo = 'Pendientes de resolución';
-                    $icono = 'clock';
-                    $valor = $ticketsAbiertos;
-
-                    include __DIR__ . '/../components/metricCard.php';
-                ?>
-
-                <?php
-                    $titulo = 'Tickets en Proceso';
-                    $subtitulo = 'Solicitudes que están siendo atendidas';
-                    $icono = 'wrench';
-                    $valor = $ticketsEnProceso;
-
-                    include __DIR__ . '/../components/metricCard.php';
-                ?>
-                
-                <?php
-                    $titulo = 'Tickets Resueltos';
-                    $subtitulo = 'Solicitudes correctamente terminadas';
-                    $icono = 'circle-check-big';
-                    $valor = $ticketsResueltos;
-
-                    include __DIR__ . '/../components/metricCard.php';
-                ?>
-
-            </div>
-
-            <div class = "ticketContainer">
-
-                <table class = "ticketTable">
-                    
-                    <thead class = "col">
-                    
-                        <tr class = "colContainer">
-                            <th>
-                                <div class = "headerLabel">             
-                                    <span>ID</span>
-                                </div>
-                            </th>
-
-                            <th>
-                                <div class = "headerLabel">
-                                    <span>Funcionario</span>
-                                </div>
-                            </th>
-
-                            <th>
-                                <div class = "headerLabel">
-                                    <span>Ubicación</span>
-                                </div>
-                            </th>
-                        
-                            <th>
-                                <div class = "headerLabel">
-                                    <span>Descripción</span>
-                                </div>
-                            </th>
-
-                            <th>
-                                <div class = "headerLabel">
-                                    <span>Estado</span>
-                                </div>
-                            </th>
-
-                            <th>
-                                <div class = "headerLabel">
-                                    <span></span>
-                                </div>
-                            </th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody class = "contenidoTabla">
-
-                        <?php foreach ($tickets as $ticket): ?>
-
-                            <tr>
-                                <td>
-                                    <?= htmlspecialchars((string) $ticket['id']) ?>
-                                </td>
-
-                                <td>
-                                    <?= htmlspecialchars($ticket['funcionario'] ?? '') ?>
-                                </td>
-
-                                <td>
-                                    <?= htmlspecialchars($ticket['lugar']) ?>
-                                </td>
-
-                                <td>
-                                    <?= htmlspecialchars($ticket['descripcion'] ?? '') ?>
-                                </td>
-
-                                <td class = "estadoContainer">
-                                    <span class = "state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
-                                        <?= htmlspecialchars($ticket['estado'] ?? '') ?>
-                                    </span>
-
-                                    <button
-                                        type = "button"
-                                        class = "btnHistorial"
-                                        onclick = "abrirModalEstado(<?= (int) $ticket['id'] ?>, '<?= htmlspecialchars($ticket['estado'] ?? '', ENT_QUOTES, 'UTF-8') ?>')"
-                                        title = "Cambiar estado"
-                                        aria-label = "Cambiar estado del ticket <?= (int) $ticket['id'] ?>"
-                                    >
-                                        <i data-lucide = "refresh-cw" class = "iconDefault"></i>
-                                        <i data-lucide = "refresh-ccw" class = "iconHover"></i>
-                                    </button>
-                                </td>
-
-                                <td>
-                                    <button
-                                        type = "button"
-                                        class = "btnHistorial"
-                                        onclick = "abrirHistorial(<?= (int) $ticket['id'] ?>)"
-                                        aria-label = "Ver historial del ticket"
-                                        title = "Ver historial"
-                                    >
-                                        <i data-lucide = "eye-closed" class = "iconDefault"></i>
-                                        <i data-lucide = "eye" class = "iconHover"></i>
-                                    </button>
-                                </td>
-                                
-                            </tr>
-
-                        <?php endforeach; ?>
-
-                        <?php
-                                require __DIR__ . '/../components/modalState.php';
-                        ?>
-
-                        <?php if (empty($tickets)): ?>
-                            <tr>
-                                <td colspan = "6">No hay tickets registrados.</td>
-                            </tr>
-                        <?php endif; ?>
-
-                    </tbody>
-
-                </table>
-
-            </div>
+    <div class = "graphsContainer">
 
         <?php
-            $tituloModal = 'Historial del ticket';
-            $idModal = 'modalHistorial';
-            $anchoModal = '1000px';
+            $titulo = 'Tickets de Hoy';
+            $subtitulo = 'Tickets registrados el día de hoy';
+            $icono = 'ticket';
+            $valor = $ticketsHoy;
 
-            ob_start();
-
-            ?>
-
-            <div id = "contenidoHistorial">
-                <p>Selecciona un ticket para consultar su historial.</p>
-            </div>
-
-            <?php
-                $contenidoModal = ob_get_clean();
-                require __DIR__ . '/../components/modal.php';
+            include __DIR__ . '/../components/metricCard.php';
         ?>
 
-        </div>
+        <?php
+            $titulo = 'Tickets Abiertos';
+            $subtitulo = 'Pendientes de resolución';
+            $icono = 'clock';
+            $valor = $ticketsAbiertos;
+
+            include __DIR__ . '/../components/metricCard.php';
+        ?>
+
+        <?php
+            $titulo = 'Tickets en Proceso';
+            $subtitulo = 'Solicitudes que están siendo atendidas';
+            $icono = 'wrench';
+            $valor = $ticketsEnProceso;
+
+            include __DIR__ . '/../components/metricCard.php';
+        ?>
         
+        <?php
+            $titulo = 'Tickets Resueltos';
+            $subtitulo = 'Solicitudes correctamente terminadas';
+            $icono = 'circle-check-big';
+            $valor = $ticketsResueltos;
+
+            include __DIR__ . '/../components/metricCard.php';
+        ?>
+
     </div>
+
+    <div class = "ticketFilters">
+
+        <select
+            name = "estado"
+            id = "filtroEstado"
+            class = "filterSelect"
+        >
+            <option value="Todos" <?= $estadoFiltro === 'Todos' ? 'selected' : '' ?>>
+                Todos los tickets
+            </option>
+
+            <option value="Pendiente" <?= $estadoFiltro === 'Pendiente' ? 'selected' : '' ?>>
+                Pendientes
+            </option>
+
+            <option value="En Proceso" <?= $estadoFiltro === 'En Proceso' ? 'selected' : '' ?>>
+                En proceso
+            </option>
+
+            <option value="Resuelto" <?= $estadoFiltro === 'Resuelto' ? 'selected' : '' ?>>
+                Resueltos
+            </option>
+
+        </select>
+    
+    </div>
+
+    <div class = "ticketContainer">
+
+        <table class = "ticketTable">
+            
+            <thead class = "col">
+            
+                <tr class = "colContainer">
+                    <th>
+                        <div class = "headerLabel">             
+                            <span>ID</span>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class = "headerLabel">
+                            <span>Funcionario</span>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class = "headerLabel">
+                            <span>Ubicación</span>
+                        </div>
+                    </th>
+                
+                    <th>
+                        <div class = "headerLabel">
+                            <span>Descripción</span>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class = "headerLabel">
+                            <span>Estado</span>
+                        </div>
+                    </th>
+
+                    <th>
+                        <div class = "headerLabel">
+                            <span></span>
+                        </div>
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody class = "contenidoTabla" id = "tablaTickets">
+
+               <?php foreach ($tickets as $ticket): ?>
+
+                    <tr data-estado="<?= htmlspecialchars($ticket['estado']) ?>">
+                        <td>
+                            <?= htmlspecialchars((string) $ticket['id']) ?>
+                        </td>
+
+                        <td>
+                            <?= htmlspecialchars($ticket['funcionario'] ?? '') ?>
+                        </td>
+
+                        <td>
+                            <?= htmlspecialchars($ticket['lugar']) ?>
+                        </td>
+
+                        <td>
+                            <?= htmlspecialchars($ticket['descripcion'] ?? '') ?>
+                        </td>
+                        
+                        <td class = "estadoContainer">
+                            <span class = "state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
+                                <?= htmlspecialchars($ticket['estado'] ?? '') ?>
+                            </span>
+
+                            <button
+                                type = "button"
+                                class = "btnHistorial"
+                                onclick = "abrirModalEstado(<?= (int) $ticket['id'] ?>, '<?= htmlspecialchars($ticket['estado'] ?? '', ENT_QUOTES, 'UTF-8') ?>')"
+                                title = "Cambiar estado"
+                                aria-label = "Cambiar estado del ticket <?= (int) $ticket['id'] ?>"
+                            >
+                                <i data-lucide = "refresh-cw" class = "iconDefault"></i>
+                                <i data-lucide = "refresh-ccw" class = "iconHover"></i>
+                            </button>
+                        </td>
+
+                        <td>
+                            <button
+                                type = "button"
+                                class = "btnHistorial"
+                                onclick = "abrirHistorial(<?= (int) $ticket['id'] ?>)"
+                                aria-label = "Ver historial del ticket"
+                                title = "Ver historial"
+                            >
+                                <i data-lucide = "eye-closed" class = "iconDefault"></i>
+                                <i data-lucide = "eye" class = "iconHover"></i>
+                            </button>
+
+                            <button
+                                type = "button"
+                                class = "btnHistorial2"
+                                onclick = "eliminarTicket(<?= (int) $ticket['id'] ?>)"
+                                aria-label = "Eliminar ticket"
+                                title = "Ver historial"
+                            >
+                                <i data-lucide = "circle-x" class = "iconDefault2"></i>
+                                <i data-lucide = "x" class = "iconHover2"></i>
+                            </button>
+                        </td>
+                        
+                    </tr>
+
+                <?php endforeach; ?>
+
+                <?php
+                        require __DIR__ . '/../components/modalState.php';
+                ?>
+
+                <?php if (empty($tickets)): ?>
+                    <tr>
+                        <td colspan = "6">No hay tickets registrados.</td>
+                    </tr>
+                <?php endif; ?>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <?php
+    $tituloModal = 'Historial del ticket';
+    $idModal = 'modalHistorial';
+    $anchoModal = '1000px';
+
+    ob_start();
+
+    ?>
+
+    <div id = "contenidoHistorial">
+        <p>Selecciona un ticket para consultar su historial.</p>
+    </div>
+
+    <?php
+        $contenidoModal = ob_get_clean();
+        require __DIR__ . '/../components/modal.php';
+    ?>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
@@ -362,6 +417,37 @@ $ticketsResueltos = obtenerTicketsResueltos();
 
     <script src = "/public/js/modal.js" defer></script>
     <script src = "/public/js/modalEstado.js" defer></script>
+    <script src = "/public/js/modalConfirmacion.js" defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const filtro = document.getElementById('filtroEstado');
+            const filas = document.querySelectorAll('#tablaTickets tr');
+
+            filtro.addEventListener('change', function () {
+
+                const estadoSeleccionado = this.value.toLowerCase();
+
+                filas.forEach(fila => {
+
+                    const estadoTicket = fila.dataset.estado.toLowerCase();
+
+                    if (
+                        estadoSeleccionado === 'todos' ||
+                        estadoTicket === estadoSeleccionado
+                    ) {
+                        fila.style.display = '';
+                    } else {
+                        fila.style.display = 'none';
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
     
 </body>
 

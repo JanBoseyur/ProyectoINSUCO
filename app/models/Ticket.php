@@ -10,6 +10,7 @@ function listarTickets(): array
     $sql = 'SELECT
                 t.id,
                 u.nombre AS funcionario,
+                t.encargado,
                 t.lugar,
                 t.descripcion,
                 t.estado
@@ -20,6 +21,44 @@ function listarTickets(): array
     $stmt = $pdo->query($sql);
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function insertarTicket(
+    int $idUsuario,
+    string $lugar,
+    string $descripcion
+): int {
+    global $pdo;
+
+    $lugar = trim($lugar);
+    $descripcion = trim($descripcion);
+
+    if (
+        $idUsuario <= 0 ||
+        $lugar === '' ||
+        $lugar === 'Otra ubicación' ||
+        mb_strlen($lugar) > 150 ||
+        $descripcion === '' ||
+        mb_strlen($descripcion) > 2000
+    ) {
+        throw new InvalidArgumentException('Los datos del ticket no son válidos.');
+    }
+
+    $sql = 'INSERT INTO ticket
+            (id_usuario, encargado, lugar, descripcion)
+            VALUES
+            (:id_usuario, :encargado, :lugar, :descripcion)';
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        'id_usuario' => $idUsuario,
+        'encargado' => 'Sin asignar',
+        'lugar' => $lugar,
+        'descripcion' => $descripcion
+    ]);
+
+    return (int) $pdo->lastInsertId();
 }
 
 function contarTicketsDeHoy(): int
@@ -58,7 +97,6 @@ function actualizarEstadoTicket(
     int $idAutor,
     string $descripcionCambio = '',
     ?string $nuevoEncargado = null
-    
 ): bool {
     global $pdo;
 
@@ -68,10 +106,19 @@ function actualizarEstadoTicket(
         'Resuelto'
     ];
 
+    $descripcionCambio = trim($descripcionCambio);
+
+    if ($nuevoEncargado !== null) {
+        $nuevoEncargado = trim($nuevoEncargado);
+    }
+
     if (
         $idTicket <= 0 ||
         $idAutor <= 0 ||
-        !in_array($estadoNuevo, $estadosPermitidos, true)
+        !in_array($estadoNuevo, $estadosPermitidos, true) ||
+        mb_strlen($descripcionCambio) > 1000 ||
+        ($nuevoEncargado !== null &&
+            ($nuevoEncargado === '' || mb_strlen($nuevoEncargado) > 150))
     ) {
         return false;
     }
@@ -79,65 +126,244 @@ function actualizarEstadoTicket(
     try {
         $pdo->beginTransaction();
 
+        // 1. Obtener los datos actuales del ticket.
         $stmt = $pdo->prepare(
-            'SET @id_autor = :id_autor,
-                @detalle_cambio = :detalle'
+            'SELECT estado, encargado
+             FROM ticket
+             WHERE id = :id
+             FOR UPDATE'
+        );
+
+        $stmt->execute(['id' => $idTicket]);
+
+        $ticket = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$ticket) {
+            $pdo->rollBack();
+            return false;
+        }
+
+        $estadoAnterior = $ticket['estado'];
+        $encargadoAnterior = $ticket['encargado'];
+
+        // 2. Determinar los nuevos valores.
+        $encargadoFinal = $nuevoEncargado !== null
+            ? $nuevoEncargado
+            : $encargadoAnterior;
+
+        $cambioEstado = $estadoAnterior !== $estadoNuevo;
+        $cambioEncargado = $encargadoAnterior !== $encargadoFinal;
+
+        // Si no hubo cambios, no registrar nada.
+        if (!$cambioEstado && !$cambioEncargado) {
+            $pdo->commit();
+            return false;
+        }
+
+        // 3. Actualizar el ticket.
+        $stmt = $pdo->prepare(
+            'UPDATE ticket
+             SET estado = :estado,
+                 encargado = :encargado,
+                 fecha_actualizacion = CURRENT_TIMESTAMP
+             WHERE id = :id'
         );
 
         $stmt->execute([
-            'id_autor' => $idAutor,
-            'detalle' => $descripcionCambio !== ''
-                ? $descripcionCambio
-                : null
+            'estado' => $estadoNuevo,
+            'encargado' => $encargadoFinal,
+            'id' => $idTicket
         ]);
 
-        if ($nuevoEncargado !== null) {
-            $stmt = $pdo->prepare(
-                'UPDATE ticket
-                SET estado = :estado,
-                    encargado = :encargado
-                WHERE id = :id_ticket'
-            );
+        // 4. Construir el detalle del historial.
+        $detalles = [];
 
-            $stmt->execute([
-                'estado' => $estadoNuevo,
-                'encargado' => $nuevoEncargado,
-                'id_ticket' => $idTicket
-            ]);
-        } else {
-            $stmt = $pdo->prepare(
-                'UPDATE ticket
-                SET estado = :estado
-                WHERE id = :id_ticket'
-            );
-
-            $stmt->execute([
-                'estado' => $estadoNuevo,
-                'id_ticket' => $idTicket
-            ]);
+        if ($descripcionCambio !== '') {
+            $detalles[] = $descripcionCambio;
         }
 
-        $cambioRealizado = $stmt->rowCount() > 0;
+        if ($cambioEncargado) {
+            $detalles[] = 'Encargado cambiado de "' .
+                $encargadoAnterior . '" a "' .
+                $encargadoFinal . '".';
+        }
 
+        $detalleFinal = !empty($detalles)
+            ? implode(' ', $detalles)
+            : 'Actualización realizada desde la plataforma.';
+
+        // 5. Determinar el tipo de cambio.
+        if ($cambioEstado && $cambioEncargado) {
+            $tipoCambio = 'Cambio de estado y encargado';
+        } elseif ($cambioEstado) {
+            $tipoCambio = 'Cambio de estado';
+        } else {
+            $tipoCambio = 'Cambio de encargado';
+        }
+
+        // 6. Registrar el historial con las nuevas columnas.
+        $sql = "INSERT INTO historial_ticket (
+                    id_ticket,
+                    id_autor,
+                    tipo_cambio,
+                    estado_anterior,
+                    estado_nuevo,
+                    funcionario_anterior,
+                    funcionario_actual,
+                    detalle
+                ) VALUES (
+                    :id_ticket,
+                    :id_autor,
+                    :tipo_cambio,
+                    :estado_anterior,
+                    :estado_nuevo,
+                    :funcionario_anterior,
+                    :funcionario_actual,
+                    :detalle
+                )";
+
+        $stmt = $pdo->prepare($sql);
+
+        $stmt->execute([
+            'id_ticket' => $idTicket,
+            'id_autor' => $idAutor,
+            'tipo_cambio' => $tipoCambio,
+            'estado_anterior' => $estadoAnterior,
+            'estado_nuevo' => $estadoNuevo,
+
+            // Solo se completan cuando realmente cambia el encargado.
+            'funcionario_anterior' => $cambioEncargado
+                ? $encargadoAnterior
+                : null,
+
+            'funcionario_actual' => $cambioEncargado
+                ? $encargadoFinal
+                : null,
+
+            'detalle' => $detalleFinal
+        ]);
+
+        // 7. Confirmar las operaciones.
         $pdo->commit();
 
-        return $cambioRealizado;
+        return true;
 
     } catch (Throwable $e) {
+
         if ($pdo->inTransaction()) {
             $pdo->rollBack();
         }
 
-        throw $e;
+        error_log('Error al actualizar ticket: ' . $e->getMessage());
 
-    } finally {
-        try {
-            $pdo->exec(
-                'SET @id_autor = NULL, @detalle_cambio = NULL'
-            );
-        } catch (Throwable $e) {
-            error_log($e->getMessage());
+        return false;
+    }
+}
+
+function listarTicketsPorUsuario(int $idUsuario): array
+{
+    global $pdo;
+
+    $sql = 'SELECT
+                t.id,
+                u.nombre AS funcionario,
+                t.encargado,
+                t.lugar,
+                t.descripcion,
+                t.estado
+            FROM ticket t
+            INNER JOIN usuario u ON t.id_usuario = u.id
+            WHERE t.id_usuario = :id_usuario
+            ORDER BY t.id DESC';
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        'id_usuario' => $idUsuario
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function obtenerHistorialTicket(int $idTicket): array
+{
+    global $pdo;
+
+    $sql = '
+        SELECT
+            h.id,
+            h.id_ticket,
+            h.id_autor,
+            u.nombre AS autor,
+            t.encargado,
+            h.tipo_cambio,
+            h.estado_anterior,
+            h.estado_nuevo,
+            h.funcionario_anterior,
+            h.funcionario_actual,
+            h.detalle,
+            h.fecha_cambio
+        FROM historial_ticket h
+        INNER JOIN usuario u ON u.id = h.id_autor
+        LEFT JOIN ticket t ON t.id = h.id_ticket
+        WHERE h.id_ticket = :id_ticket
+        ORDER BY h.fecha_cambio DESC, h.id DESC
+    ';
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        'id_ticket' => $idTicket
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function eliminarTicket(int $idTicket): bool
+{
+    global $pdo;
+
+    try {
+
+        $pdo->beginTransaction();
+
+        // Eliminar primero el historial asociado
+        $sqlHistorial = "
+            DELETE FROM historial_ticket
+            WHERE id_ticket = :id
+        ";
+
+        $stmt = $pdo->prepare($sqlHistorial);
+        $stmt->execute(['id' => $idTicket]);
+
+        // Eliminar el ticket
+        $sqlTicket = "
+            DELETE FROM ticket
+            WHERE id = :id
+        ";
+
+        $stmt = $pdo->prepare($sqlTicket);
+        $stmt->execute(['id' => $idTicket]);
+
+        // Comprobar que realmente se eliminó
+        if ($stmt->rowCount() === 0) {
+            $pdo->rollBack();
+            return false;
         }
+
+        $pdo->commit();
+
+        return true;
+
+    } catch (PDOException $e) {
+
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+
+        error_log($e->getMessage());
+
+        return false;
     }
 }
 
@@ -168,35 +394,3 @@ function listarTicketsResueltos(): int
 #####################################################################
 # Historial Tickets
 #####################################################################
-
-function obtenerHistorialTicket(int $idTicket): array
-{
-    global $pdo;
-
-    $sql = '
-        SELECT
-            h.id,
-            h.id_ticket,
-            h.id_autor,
-            u.nombre AS autor,
-            t.encargado,
-            h.tipo_cambio,
-            h.estado_anterior,
-            h.estado_nuevo,
-            h.detalle,
-            h.fecha_cambio
-        FROM historial_ticket h
-        INNER JOIN usuario u ON u.id = h.id_autor
-        LEFT JOIN ticket t ON t.id = h.id_ticket
-        WHERE h.id_ticket = :id_ticket
-        ORDER BY h.fecha_cambio DESC, h.id DESC
-    ';
-
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-        'id_ticket' => $idTicket
-    ]);
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}

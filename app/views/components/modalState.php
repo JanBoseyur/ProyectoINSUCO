@@ -1,16 +1,23 @@
 
 <head>
-    <link rel = "stylesheet" href="/public/components/modalState.css">
+    <link rel = "stylesheet" href = "/public/components/modalState.css">
 </head> 
 
 <div class = "modalOverlay" id = "modalEstado" aria-hidden="true">
+    
     <section
         class = "modalContainer modalEstadoContainer"
+        id = "modalContainerState"
         role = "dialog"
         aria-modal="true"
         aria-labelledby="tituloModalEstado"
     >
         <header class = "modalHeader">
+
+            <div class = "modalEstadoIcon">
+                <i data-lucide = "square-pen"></i>
+            </div>
+            
             <h2 id = "tituloModalEstado">Cambiar estado</h2>
 
             <button

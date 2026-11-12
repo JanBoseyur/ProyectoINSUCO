@@ -22,9 +22,15 @@ $anchoModal = $anchoModal ?? '10000px';
         aria-labelledby = "<?= htmlspecialchars($idModal) ?>Titulo"
         style = "--modal-width: <?= htmlspecialchars($anchoModal) ?>"
     >
-        <header class = "modalHeader">
+        <header class = "modalHeader1" id = "modalHeader1">
             
-            Historial de Cambios
+            <div class = "modalHistorialIcon">
+                <i data-lucide = "rotate-ccw-clock"></i>
+            </div>
+
+            <h2 class = "tituloModal">
+                Historial de Cambios
+            </h2>
 
             <button
                 type = "button"
@@ -36,25 +42,10 @@ $anchoModal = $anchoModal ?? '10000px';
             </button>
 
         </header>
-        
-        <div class = "row">
 
-            <div class = "modalHeader">
-                <h2 id = "<?= htmlspecialchars($idModal)?>Titulo">
-                    <?= $contenidoModal ?>
-                </h2>
-            </div>
-
-            <div class = "modalHeader">
-                aaaaaaaaaaaaaaaaaaaaaa
-            </div>
-
+        <div class = "modalHeader1-2" id = "modalHeader1-2">
+            <?= $contenidoModal ?>
         </div>
-        
-        <!--
-        <div class="modalBody">
-        </div>
-        -->
 
     </section>
 

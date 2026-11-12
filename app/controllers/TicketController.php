@@ -3,6 +3,7 @@
 
 require_once __DIR__ . '/../models/Ticket.php';
 
+# Funciones Administrativas
 function obtenerTickets(): array
 {
     return listarTickets();
@@ -23,6 +24,11 @@ function obtenerTicketsResueltos(): int
     return listarTicketsResueltos();
 }
 
+function obtenerTicketsFuncionario(int $idUsuario): array
+{
+    return listarTicketsPorUsuario($idUsuario);
+}
+
 function cambiarEstado(
     int $idTicket,
     string $estadoNuevo,
@@ -40,3 +46,14 @@ function cambiarEstado(
         $nuevoEncargado
     );
 }
+
+function registrarTicket(
+    int $idUsuario,
+    string $lugar,
+    string $descripcion
+): int {
+    return insertarTicket($idUsuario, $lugar, $descripcion);
+}
+
+# Funciones de Usuario
+

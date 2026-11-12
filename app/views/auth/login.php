@@ -5,9 +5,20 @@ session_start();
 
 require_once __DIR__ . '/../../controllers/AuthController.php';
 
-if (isset($_SESSION['usuario'])) {
-    header('Location: /app/views/admin/dashboard.php');
-    exit;
+if (is_array($usuario)) {
+
+    $rol = $usuario['rol'] ?? null;
+
+    if ($rol === 'admin') {
+        header('Location: /app/views/layout/main.php?seccion=dashboard');
+        exit;
+    }
+
+    if ($rol === 'funcionario') {
+        header('Location: /app/views/layout/main.php?seccion=home');
+        exit;
+    }
+
 }
 
 procesarLogin();

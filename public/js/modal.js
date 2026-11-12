@@ -30,15 +30,11 @@ async function abrirHistorial(idTicket) {
 
     contenido.replaceChildren();
 
-    const titulo = document.createElement('h3');
-    titulo.className = 'historialTitulo';
-    titulo.textContent = `Ticket #${idTicket}`;
-
     const carga = document.createElement('p');
     carga.className = 'historialMensaje';
     carga.textContent = 'Cargando historial...';
 
-    contenido.append(titulo, carga);
+    contenido.appendChild(carga);
 
     try {
         const respuesta = await fetch(
@@ -60,7 +56,6 @@ async function abrirHistorial(idTicket) {
         }
 
         contenido.replaceChildren();
-        contenido.appendChild(titulo);
 
         if (datos.length === 0) {
             const mensaje = document.createElement('p');
@@ -80,7 +75,6 @@ async function abrirHistorial(idTicket) {
             const estadoSiguiente = registro.estado_nuevo ?? null;
             const fecha = registro.fecha_cambio ?? 'Fecha no disponible';
             const autor = registro.autor ?? 'No disponible';
-
             const tarjeta = document.createElement('article');
             tarjeta.className = 'historialRegistro';
 
@@ -167,7 +161,7 @@ async function abrirHistorial(idTicket) {
         mensaje.textContent =
             error.message || 'Error al cargar el historial.';
 
-        contenido.append(titulo, mensaje);
+        contenido.appendChild(mensaje);
     }
 }
 

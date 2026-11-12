@@ -1,0 +1,128 @@
+
+/* Fondo del modal */
+.modalOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modalOverlay.isOpen {
+    display: flex;
+}
+
+/* Contenedor */
+
+.modalEliminar {
+    width: 100%;
+    max-width: 420px;
+
+    padding: 28px;
+    background: #fff;
+    border-radius: 14px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+
+    animation: aparecerModal 0.2s ease;
+}
+
+/* Icono */
+.modalEliminarIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 55px;
+    height: 55px;
+
+    margin: 0 auto 16px;
+
+    border-radius: 50%;
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.modalEliminarIcon svg {
+    width: 27px;
+    height: 27px;
+}
+
+/* Textos */
+
+.modalEliminar h2 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    color: #1f2937;
+}
+
+.modalEliminar p {
+    margin: 0 0 25px;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Botones */
+
+.modalEliminarBotones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modalEliminarBotones button {
+    flex: 1;
+    padding: 11px 14px;
+
+    border: none;
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btnCancelarEliminar {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.btnCancelarEliminar:hover {
+    background: #e5e7eb;
+}
+
+.btnConfirmarEliminar {
+    background: #dc2626;
+    color: white;
+}
+
+.btnConfirmarEliminar:hover {
+    background: #b91c1c;
+}
+
+.btnConfirmarEliminar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@keyframes aparecerModal {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

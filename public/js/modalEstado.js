@@ -61,7 +61,8 @@ document.querySelectorAll('#modalEstado [data-estado]')
             procesandoCambioEstado = true;
 
             try {
-                const respuesta = await fetch(window.location.pathname, {
+                const respuesta = await fetch(window.location.pathname + window.location.search,
+                    {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -1,0 +1,164 @@
+
+/* =========================================
+   FORMULARIO DE CREACIÓN DE TICKETS
+========================================= */
+
+.contenedor-tickets {
+    padding: 30px;
+}
+
+.formularioContainer {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    
+    gap: 22px;
+
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+}
+
+/* =========================================
+   GRUPOS DE CAMPOS
+========================================= */
+
+.formularioContainer .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.formularioContainer label {
+    color: #222222;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* =========================================
+   INPUTS Y TEXTAREA
+========================================= */
+
+.formularioContainer input,
+.formularioContainer textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 15px;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: #222222;
+
+    background: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 7px;
+
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.formularioContainer input::placeholder,
+.formularioContainer textarea::placeholder {
+    color: #999999;
+}
+
+/* Hover */
+
+.formularioContainer input:hover:not(:disabled),
+.formularioContainer textarea:hover {
+    border-color: #888888;
+    background: #ffffff;
+}
+
+/* Focus */
+
+.formularioContainer input:focus,
+.formularioContainer textarea:focus {
+    background: #ffffff;
+    border-color: #222222;
+    
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.07);
+}
+
+/* Campo del solicitante */
+
+.formularioContainer input:disabled {
+    background: #eeeeee;
+    color: #555555;
+    border-color: #e0e0e0;
+
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+/* Textarea */
+
+.formularioContainer textarea {
+    min-height: 140px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+/* =========================================
+   BOTÓN ENVIAR
+========================================= */
+
+.formularioContainer button {
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+
+    gap: 8px;
+
+    width: fit-content;
+    min-width: 160px;
+
+    margin-top: 5px;
+    padding: 13px 24px;
+
+    background: #030303;
+    color: #ffffff;
+
+    border: 1px solid #474747;
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.formularioContainer button:hover {
+    background: #424242;
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.formularioContainer button:active {
+    transform: scale(0.98);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+    .contenedor-tickets {
+        padding: 18px;
+    }
+
+    .formularioContainer {
+        padding: 20px;
+    }
+
+    .formularioContainer button {
+        width: 100%;
+    }
+}

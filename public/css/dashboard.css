@@ -35,19 +35,19 @@ svg {
 }
 
 .mainContainer {
+    display: flex;
+    width: 100%;
     min-height: 100vh;
+    min-height: 100dvh;
 }
 
 .contentContainer {
-    margin-left: 220px;
     width: calc(100% - 220px);
     min-width: 0;
+    min-height: 100vh;
 
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: 100%;
-    
-    padding: 20px 30px; /* Y y X*/ 
+    margin-left: 220px;
+    padding: 20px 30px;
 
     box-sizing: border-box;
 }
@@ -57,12 +57,16 @@ svg {
 }
 
 .navbar {
-    flex: 0 0 220px;
+    position: fixed;
+    top: 0;
+    left: 0;
+
     width: 220px;
-    min-height: 100vh;
+    height: 100vh;
     min-height: 100dvh;
 
     background-color: black;
+    z-index: 1000;
 }
 
 .contentContainer h1,
@@ -176,18 +180,11 @@ svg {
 }
 
 .state {
-    text-align: center;.mainContainer {
-    display: flex;
-    min-height: 100vh;
-    min-height: 100dvh;
-    width: 100%;
-}
     display: inline-block;
-
     max-width: 100%;
     font-size: 13px;
     font-weight: 600;
-
+    text-align: center;
     border-radius: 8px;
     padding: 4px 8px;
     overflow-wrap: anywhere;
@@ -234,29 +231,29 @@ svg {
 
 @media (max-width: 768px) {
     .mainContainer {
-        flex-direction: column;
+        display: block;
         width: 100%;
     }
 
     .navbar {
-        /* Barra superior en lugar de lateral */
-        flex: 0 0 auto;
-        width: 100%;
-        min-height: 0;
+        display: none !important;
     }
 
     .contentContainer {
         width: 100%;
         max-width: 100%;
+        min-width: 0;
+
+        margin-left: 0;
         padding: 20px 16px;
     }
 
     .graphsContainer {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
         gap: 12px;
         width: 100%;
-        margin: 16px 0;
+
     }
 
     .graphsContainer .metricCard {
@@ -289,11 +286,12 @@ svg {
 
     .ticketContainer {
         width: 100%;
+        max-width: 100%;
         margin-top: 16px;
     }
 
     .ticketTable {
-        min-width: 700px;
+        min-width: 760px;
     }
 
     .ticketTable th,
@@ -535,10 +533,7 @@ svg {
 
 .ticketTable .btnHistorial .iconDefault {
     opacity: 1;
-    transform: scale(1);iconHover {
-    opacity: 1;
     transform: scale(1);
-}
 }
 
 .ticketTable .btnHistorial .iconHover {
@@ -555,6 +550,88 @@ svg {
     opacity: 1;
     transform: scale(1);
 }
+
+/*********************************/
+/*********************************/
+/* Boton N2 */
+/*********************************/
+/*********************************/
+
+.ticketTable .btnHistorial2 {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #404040;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ticketTable .btnHistorial2:hover {
+    background: #cf0a0a;
+    color: #ffffff;
+    border-color: #cf0a0a;
+}
+
+.ticketTable .btnHistorial2:active {
+    transform: scale(0.94);
+}
+
+.ticketTable .btnHistorial2:focus-visible {
+    outline: 2px solid #171717;
+    outline-offset: 3px;
+}
+
+.ticketTable .btnHistorial2 svg {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ticketTable .btnHistorial2 .iconDefault2 {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.ticketTable .btnHistorial2 .iconHover2 {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.ticketTable .btnHistorial2:hover .iconDefault2 {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.ticketTable .btnHistorial2:hover .iconHover2 {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/*********************************/
+/*********************************/
+/*********************************/
+/*********************************/
 
 /* Mensaje cuando no hay tickets */
 .ticketTable .emptyState,
@@ -625,4 +702,184 @@ svg {
     background-color: #fff;
     font: inherit;
     cursor: pointer;
+}
+
+.ticketFilters {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+
+    width: 100%;
+}
+
+.filterSelect {
+    padding: 10px;
+    border-radius: 50px;
+    background-color: black;
+
+    color: white;
+}
+
+/* =========================================
+   TABLA DE TICKETS
+========================================= */
+
+.ticketContainer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 24px;
+
+    overflow-x: auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    background: #fff;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.ticketTable {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+    color: #262626;
+    background: #fff;
+}
+
+.ticketTable th {
+    padding: 15px 12px;
+    background: #f5f5f5;
+    color: #525252;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.ticketTable td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.ticketTable tbody tr:hover {
+    background: #fafafa;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+    .ticketContainer {
+        overflow-x: auto;
+        border-radius: 10px;
+    }
+
+    .ticketTable {
+        min-width: 700px;
+    }
+
+    .ticketTable th,
+    .ticketTable td {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+}
+
+/* =========================================
+   MÓVILES
+========================================= */
+
+@media (max-width: 480px) {
+
+    .ticketContainer {
+        overflow: visible;
+        border: none;
+        background: transparent;
+    }
+
+    .ticketTable {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        border-collapse: separate;
+    }
+
+    .ticketTable thead {
+        display: none;
+    }
+
+    .ticketTable tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+    }
+
+    .ticketTable tbody tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        width: 100%;
+        padding: 15px;
+
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .ticketTable tbody td {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+
+        min-width: 0;
+        padding: 4px 0;
+        border: none;
+
+        font-size: 13px;
+        text-align: left;
+        overflow-wrap: anywhere;
+    }
+
+    .ticketTable tbody td::before {
+        content: attr(data-label);
+        margin-bottom: 5px;
+
+        color: #737373;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    /* Descripción ocupa todo el ancho */
+    .ticketTable tbody td:nth-child(4) {
+        grid-column: 1 / -1;
+    }
+
+    /* Estado y acciones */
+    .ticketTable tbody td:nth-child(5),
+    .ticketTable tbody td:nth-child(6) {
+        align-items: flex-start;
+    }
+
+    .ticketTable .btnHistorial {
+        margin-top: 5px;
+    }
+
+    /* Mensaje sin registros */
+    .ticketTable tbody td[colspan] {
+        grid-column: 1 / -1;
+        align-items: center;
+        text-align: center;
+    }
 }

@@ -1,4 +1,8 @@
 
+/* =========================================
+   NAVBAR PRINCIPAL
+========================================= */
+
 .navbar {
     position: fixed;
     top: 0;
@@ -11,59 +15,119 @@
 
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 25px;
 
-    padding: 20px;
+    padding: 24px 16px;
     box-sizing: border-box;
 
-    background-color: #030303;
-    color: #f9fafb;
+    background: #080808;
+    color: #ffffff;
 
-    border-right: 1px solid #1f2937;
+    border-right: 1px solid #222222;
 
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-/* CONTENIDO */
+/* =========================================
+   CONTENIDO Y NAVEGACIÓN
+========================================= */
+
 .navbarContent {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
+
+    width: 100%;
     text-align: left;
 }
 
-/* SECCIONES */
+/* =========================================
+   ELEMENTOS DE NAVEGACIÓN
+========================================= */
+
 .containerSection {
+    position: relative;
+
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 13px;
 
-    padding: 12px 16px;
-    border-radius: 8px;
-
-    font-size: 14px;
+    width: 100%;
     min-width: 0;
+
+    padding: 12px 14px;
+    box-sizing: border-box;
+
+    border-radius: 7px;
+
+    color: #a3a3a3;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .containerSection i,
 .navbarBottom i {
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
     flex-shrink: 0;
 }
 
+/* ENLACES */
+
 .containerSection a {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 46px;
+    box-sizing: border-box;
+
     color: inherit;
     text-decoration: none;
     white-space: nowrap;
+
+    font: inherit;
 }
+
+/* HOVER */
 
 .containerSection:hover {
-    background-color: #2a2a2b;
+    background: #202020;
+    color: #ffffff;
 }
 
-/* CERRAR SESIÓN */
+/* SECCIÓN ACTIVA */
+
+.containerSection.active {
+    background: #252525;
+    color: #ffffff;
+
+    border-left: 3px solid #ffffff;
+    padding-left: 11px;
+}
+
+.containerSection.active a {
+    font-weight: 600;
+}
+
+.containerSection.active i {
+    color: #ffffff;
+}
+
+/* =========================================
+   CERRAR SESIÓN
+========================================= */
+
 .navbarBottom {
     display: flex;
     align-items: center;
@@ -72,87 +136,95 @@
 
     width: 100%;
     min-width: 0;
+
     margin-top: auto;
-    padding: 11px;
+    padding: 12px;
 
     box-sizing: border-box;
-    flex-shrink: 0;
 
-    border: 1px solid #2a2a2b;
-    border-radius: 8px;
+    background: #ffffff;
+    color: #111111;
 
-    background-color: white;
-    color: black;
+    border: 1px solid #ffffff;
+    border-radius: 7px;
 
     font-family: 'Inter', sans-serif;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
+
     text-decoration: none;
     white-space: nowrap;
 
-    transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .navbarBottom:hover {
+    background: #252525;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+/* SECCIÓN ACTIVA */
+.containerSection.active {
     background-color: #2a2a2b;
     color: #ffffff;
+    border-left: 3px solid #ffffff;
+    padding-left: 13px;
 }
 
-/* TABLETS */
-@media (max-width: 1024px) {
-    .navbar {
-        width: 200px;
-        padding: 16px 12px;
-    }
-
-    .containerSection {
-        gap: 10px;
-        padding: 11px 12px;
-        font-size: 13px;
-    }
+.containerSection.active a {
+    color: #ffffff;
+    font-weight: 600;
 }
 
-/* MÓVILES */
-@media (max-width: 600px) {
+.containerSection.active i {
+    color: #f9f9fa;
+}
+
+/* EFECTO HOVER */
+.containerSection {
+    cursor: pointer;
+    transition: 
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.containerSection:hover {
+    background-color: #252525;
+    transform: translateX(4px);
+}
+
+/* =========================================
+   RESPONSIVE - MÓVILES Y PANTALLAS PEQUEÑAS
+========================================= */
+
+@media (max-width: 768px) {
+
+    /* Ocultar navbar */
     .navbar {
-        width: 68px;
-        padding: 16px 8px;
-        align-items: center;
-        gap: 12px;
+        display: none !important;
     }
 
-    .navbarContent {
+    /* Recuperar ancho normal del contenido */
+    main,
+    .main-content,
+    .contenido-principal,
+    .contenedor-tickets {
+        margin-left: 0 !important;
+        padding-left: 20px;
+        padding-right: 20px;
         width: 100%;
-        align-items: center;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
-    .containerSection {
+    /* Evitar desplazamientos horizontales */
+    html,
+    body {
+        margin: 0;
+        padding: 0;
         width: 100%;
-        justify-content: center;
-        gap: 0;
-        padding: 12px 0;
-    }
-
-    /* Ocultar textos y dejar los iconos */
-    .containerSection a {
-        display: none;
-    }
-
-    .containerSection i,
-    .navbarBottom i {
-        width: 22px;
-        height: 22px;
-    }
-
-    .navbarBottom {
-        justify-content: center;
-        padding: 11px 0;
-    }
-
-    .navbarBottom span {
-        display: none;
+        overflow-x: hidden;
     }
 }

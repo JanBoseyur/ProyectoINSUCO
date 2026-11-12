@@ -47,11 +47,13 @@
 
     outline: none;
     box-sizing: border-box;
+
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .loginButton:hover {
-    background-color: rgb(41, 39, 39);
-    border: 1px solid gray;
+    background: #3b3b3b;
+    transform: translateY(-1px);
 
     cursor: pointer;
 }
