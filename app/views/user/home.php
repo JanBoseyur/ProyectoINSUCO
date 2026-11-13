@@ -2,8 +2,12 @@
 <?php
 
 require_once __DIR__ . '/../../controllers/TicketController.php';
+require_once __DIR__ . '/../components/modalNotificacion.php';
 
 $usuario = $_SESSION['usuario'] ?? null;
+
+$lugar = '';
+$descripcion = '';
 
 $rol = is_array($usuario)
     ? ($usuario['rol'] ?? null)
@@ -63,23 +67,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['crear_ticket'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+
     <link rel = "stylesheet" href = "/public/css/home.css">
+    <link rel = "stylesheet" href = "/public/components/modalNotificacion.css">
 </head>
 
 <body>
 
 <div class = "ticket-container">
 
-    <?php if ($mensaje !== ''): ?>
-        <div class="mensaje-ticket <?= $tipoMensaje ?>">
-            <?= htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8') ?>
-        </div>
-    <?php endif; ?>
-
     <form class = "formularioContainer" method="POST" action="">
 
         <div>
-            <h2>Crear nuevo ticket</h3>
+            <h2>Crear nuevo ticket</h2>
             <p>Describe el problema que necesitas solucionar.</p>
         </div>
 
@@ -138,8 +138,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['crear_ticket'])) {
         lucide.createIcons();
     </script>
 
-    <script src = "/public/js/modal.js" defer></script>
-    <script src = "/public/js/modalEstado.js" defer></script>
+    <script src="/public/js/modalNotificacion.js"></script>
+
+    <?php if ($tipoMensaje === 'exito'): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                mostrarModalExito(
+                    '¡Ticket creado con éxito!',
+                    'El ticket ha sido registrado correctamente en el sistema.'
+                );
+            });
+        </script>
+    <?php endif; ?>
     
 </body>
 

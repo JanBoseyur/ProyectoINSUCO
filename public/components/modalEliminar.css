@@ -98,7 +98,7 @@
 }
 
 .btnCancelarEliminar:hover {
-    background: #e5e7eb;
+    background: #c9caca;
 }
 
 .btnConfirmarEliminar {
@@ -107,7 +107,7 @@
 }
 
 .btnConfirmarEliminar:hover {
-    background: #b91c1c;
+    background: #9e1818;
 }
 
 .btnConfirmarEliminar:disabled {

@@ -1,13 +1,7 @@
 
 <?php
 
-session_start();
-
-// Configuración de errores
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-ini_set('log_errors', 1);
-error_reporting(E_ALL);
+require_once __DIR__ . '/app/helpers/logger.php';
 
 // Conexión a la base de datos
 require_once __DIR__ . '/config/database.php';
@@ -16,14 +10,24 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/app/controllers/AuthController.php';
 require_once __DIR__ . '/app/controllers/TicketController.php';
 
+session_start();
+
+// Configuración de errores
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+ini_set('log_errors', 1);
+error_reporting(E_ALL);
+
+ini_set('log_errors', '1');
+ini_set('error_log', __DIR__ . '/logs/errores.log');
+
+error_log('[PRUEBA] El registro de errores funciona correctamente.');
+
 // Determinar página solicitada
 $pagina = $_GET['pagina'] ?? 'login';
 
 // Obtener usuario de la sesión
 $usuario = $_SESSION['usuario'] ?? null;
-
-error_log("Página solicitada: " . $pagina);
-error_log("Usuario: " . print_r($usuario, true));
 
 // Rutas
 switch ($pagina) {

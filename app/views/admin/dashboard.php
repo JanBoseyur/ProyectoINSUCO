@@ -239,13 +239,21 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
 
     <div class = "ticketFilters">
 
+        <input
+            type = "search"
+            class = "buscadorTicket"
+            id = "buscadorTicket"
+            placeholder = "Buscar tickets..."
+            autocomplete = "off"
+        >
+
         <select
             name = "estado"
             id = "filtroEstado"
             class = "filterSelect"
         >
             <option value="Todos" <?= $estadoFiltro === 'Todos' ? 'selected' : '' ?>>
-                Todos los tickets
+                Todos
             </option>
 
             <option value="Pendiente" <?= $estadoFiltro === 'Pendiente' ? 'selected' : '' ?>>
@@ -261,7 +269,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
             </option>
 
         </select>
-    
+
     </div>
 
     <div class = "ticketContainer">
@@ -335,7 +343,9 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
                             <span class = "state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
                                 <?= htmlspecialchars($ticket['estado'] ?? '') ?>
                             </span>
+                        </td>
 
+                        <td class = "iconContainer">
                             <button
                                 type = "button"
                                 class = "btnHistorial"
@@ -346,9 +356,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
                                 <i data-lucide = "refresh-cw" class = "iconDefault"></i>
                                 <i data-lucide = "refresh-ccw" class = "iconHover"></i>
                             </button>
-                        </td>
 
-                        <td>
                             <button
                                 type = "button"
                                 class = "btnHistorial"
@@ -377,7 +385,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
                 <?php endforeach; ?>
 
                 <?php
-                        require __DIR__ . '/../components/modalState.php';
+                    require __DIR__ . '/../components/modalState.php';
                 ?>
 
                 <?php if (empty($tickets)): ?>
@@ -418,6 +426,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
     <script src = "/public/js/modal.js" defer></script>
     <script src = "/public/js/modalEstado.js" defer></script>
     <script src = "/public/js/modalConfirmacion.js" defer></script>
+    <script src = "/public/js/buscadorTicket.js" defer></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

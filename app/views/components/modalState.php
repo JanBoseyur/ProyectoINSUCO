@@ -1,6 +1,6 @@
 
 <head>
-    <link rel = "stylesheet" href = "/public/components/modalState.css">
+    <link rel = "stylesheet" href="<?= BASE_URL ?>/public/components/modalState.css">
 </head> 
 
 <div class = "modalOverlay" id = "modalEstado" aria-hidden="true">

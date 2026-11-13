@@ -208,8 +208,7 @@ function actualizarEstadoTicket(
                     tipo_cambio,
                     estado_anterior,
                     estado_nuevo,
-                    funcionario_anterior,
-                    funcionario_actual,
+
                     detalle
                 ) VALUES (
                     :id_ticket,
@@ -217,8 +216,6 @@ function actualizarEstadoTicket(
                     :tipo_cambio,
                     :estado_anterior,
                     :estado_nuevo,
-                    :funcionario_anterior,
-                    :funcionario_actual,
                     :detalle
                 )";
 
@@ -230,16 +227,6 @@ function actualizarEstadoTicket(
             'tipo_cambio' => $tipoCambio,
             'estado_anterior' => $estadoAnterior,
             'estado_nuevo' => $estadoNuevo,
-
-            // Solo se completan cuando realmente cambia el encargado.
-            'funcionario_anterior' => $cambioEncargado
-                ? $encargadoAnterior
-                : null,
-
-            'funcionario_actual' => $cambioEncargado
-                ? $encargadoFinal
-                : null,
-
             'detalle' => $detalleFinal
         ]);
 
@@ -299,8 +286,6 @@ function obtenerHistorialTicket(int $idTicket): array
             h.tipo_cambio,
             h.estado_anterior,
             h.estado_nuevo,
-            h.funcionario_anterior,
-            h.funcionario_actual,
             h.detalle,
             h.fecha_cambio
         FROM historial_ticket h
@@ -365,6 +350,28 @@ function eliminarTicket(int $idTicket): bool
 
         return false;
     }
+}
+
+function buscarTickets(string $termino): array
+{
+    global $pdo;
+
+    $sql = "
+        SELECT *
+        FROM ticket
+        WHERE encargado LIKE :busqueda
+           OR lugar LIKE :busqueda
+           OR descripcion LIKE :busqueda
+        ORDER BY id DESC
+    ";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        ':busqueda' => '%' . $termino . '%'
+    ]);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 #####################################################################

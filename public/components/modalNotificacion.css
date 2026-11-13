@@ -1,0 +1,144 @@
+
+/* Fondo del modal */
+.modalOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+/* Mostrar modal */
+.modalOverlay.isOpen {
+    display: flex;
+}
+
+/* Contenedor */
+.modalExito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+
+    background: #fff;
+    border-radius: 12px;
+    text-align: center;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Ícono */
+.modalExitoIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 60px;
+    height: 60px;
+    margin-bottom: 18px;
+
+    border-radius: 50%;
+    background: #f1f1f1;
+    color: #222;
+}
+
+.modalExitoIcon svg {
+    width: 30px;
+    height: 30px;
+    stroke-width: 2.5;
+}
+
+/* Título */
+.modalExito h2 {
+    margin: 0 0 10px;
+    color: #171717;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+/* Mensaje */
+.modalExito p {
+    margin: 0 0 24px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Botón */
+.modalExito button {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #171717;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: background 0.2s ease;
+}
+
+.modalExito button:hover {
+    background: #333;
+}
+
+/* Fondo del modal */
+.modalOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+/* Modal visible */
+.modalOverlay.isOpen {
+    display: flex;
+    animation: aparecerFondo 0.25s ease forwards;
+}
+
+/* Contenedor del modal */
+.modalExito {
+    animation: aparecerModal 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Animación del fondo */
+@keyframes aparecerFondo {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animación del contenedor */
+@keyframes aparecerModal {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
