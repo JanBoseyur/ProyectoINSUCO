@@ -161,7 +161,9 @@ foreach ($tickets as $ticket) {
 
 natcasesort($funcionarios);
 
-$estadoFiltro = $_GET['estado'] ?? 'Todos';
+$cantidadPendientes = count(array_filter($tickets, function ($ticket) {
+    return ($ticket['estado'] ?? '') === 'Pendiente';
+}));
 
 $estadosPermitidos = [
     'Todos',
@@ -237,7 +239,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
 
     </div>
 
-    <div class = "ticketFilters">
+<!--     <div class = "ticketFilters">
 
         <input
             type = "search"
@@ -252,23 +254,63 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
             id = "filtroEstado"
             class = "filterSelect"
         >
-            <option value="Todos" <?= $estadoFiltro === 'Todos' ? 'selected' : '' ?>>
+            <option value = "Todos" <?= $estadoFiltro === 'Todos' ? 'selected' : '' ?>>
                 Todos
             </option>
 
-            <option value="Pendiente" <?= $estadoFiltro === 'Pendiente' ? 'selected' : '' ?>>
+            <option value = "Pendiente" <?= $estadoFiltro === 'Pendiente' ? 'selected' : '' ?>>
                 Pendientes
             </option>
 
-            <option value="En Proceso" <?= $estadoFiltro === 'En Proceso' ? 'selected' : '' ?>>
+            <option value = "En Proceso" <?= $estadoFiltro === 'En Proceso' ? 'selected' : '' ?>>
                 En proceso
             </option>
 
-            <option value="Resuelto" <?= $estadoFiltro === 'Resuelto' ? 'selected' : '' ?>>
+            <option value = "Resuelto" <?= $estadoFiltro === 'Resuelto' ? 'selected' : '' ?>>
                 Resueltos
             </option>
 
         </select>
+
+    </div> -->
+
+    <div class = "filterSelectorContainer">
+
+        <div class = "buttonFilterSelectorContainer">
+
+            <button type="button"
+                class="buttonFilterSelector active"
+                data-filter="abiertos"
+                aria-pressed="true">
+                Abiertos
+                <span class="filterCount"><?= $ticketsAbiertos ?></span>
+            </button>
+
+            <button type="button"
+                class="buttonFilterSelector"
+                data-filter="Pendiente"
+                aria-pressed="false">
+                Pendientes
+                <span class="filterCount"><?= $cantidadPendientes ?></span>
+            </button>
+
+            <button type="button"
+                class="buttonFilterSelector"
+                data-filter="En Proceso"
+                aria-pressed="false">
+                En Proceso
+                <span class="filterCount"><?= $ticketsEnProceso ?></span>
+            </button>
+
+            <button type="button"
+                class="buttonFilterSelector"
+                data-filter="Resuelto"
+                aria-pressed="false">
+                Cerrados
+                <span class="filterCount"><?= $ticketsResueltos ?></span>
+            </button>
+
+        </div>
 
     </div>
 
@@ -431,31 +473,55 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            const filtro = document.getElementById('filtroEstado');
-            const filas = document.querySelectorAll('#tablaTickets tr');
+            const botones = document.querySelectorAll('.buttonFilterSelector');
+            const filas = document.querySelectorAll('#tablaTickets tr[data-estado]');
 
-            filtro.addEventListener('change', function () {
+            botones.forEach(boton => {
 
-                const estadoSeleccionado = this.value.toLowerCase();
+                boton.addEventListener('click', function () {
 
-                filas.forEach(fila => {
+                    const filtroSeleccionado = this.dataset.filter;
 
-                    const estadoTicket = fila.dataset.estado.toLowerCase();
+                    // Actualizar botones activos.
+                    botones.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.setAttribute('aria-pressed', 'false');
+                    });
 
-                    if (
-                        estadoSeleccionado === 'todos' ||
-                        estadoTicket === estadoSeleccionado
-                    ) {
-                        fila.style.display = '';
-                    } else {
-                        fila.style.display = 'none';
-                    }
+                    this.classList.add('active');
+                    this.setAttribute('aria-pressed', 'true');
+
+                    // Filtrar tickets.
+                    filas.forEach(fila => {
+
+                        const estado = fila.dataset.estado;
+
+                        let mostrar = false;
+
+                        switch (filtroSeleccionado) {
+
+                            case 'abiertos':
+                                mostrar = estado === 'Pendiente' ||
+                                        estado === 'En Proceso';
+                                break;
+
+                            case 'Pendiente':
+                            case 'En Proceso':
+                            case 'Resuelto':
+                                mostrar = estado === filtroSeleccionado;
+                                break;
+                        }
+
+                        fila.style.display = mostrar ? '' : 'none';
+
+                    });
 
                 });
 
             });
 
         });
+
     </script>
     
 </body>

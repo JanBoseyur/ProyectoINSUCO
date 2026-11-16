@@ -1,7 +1,6 @@
 
-
 /* =========================================
-   1. CONFIGURACIÓN GENERAL
+   1. CONFIGURACION GENERAL
 ========================================= */
 
 *,
@@ -622,6 +621,74 @@ svg {
 
 .contenidoTabla {
     color: #000;
+}
+
+/* =========================================
+   XX. SELECTORES DE FILTROS
+========================================= */
+
+.filterSelectorContainer {
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.buttonFilterSelectorContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.buttonFilterSelector {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 4px;
+
+    background: transparent;
+    color: #777;
+
+    border: none;
+    border-bottom: 2px solid transparent;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.buttonFilterSelector:hover {
+    color: #000;
+}
+
+.buttonFilterSelector.active {
+    color: #000;
+    font-weight: 600;
+    border-bottom: 2px solid #000;
+}
+
+.filterCount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+
+    border-radius: 12px;
+    background: #eeeeee;
+    color: #555;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.buttonFilterSelector.active .filterCount {
+    background: #000;
+    color: #fff;
 }
 
 /* =========================================

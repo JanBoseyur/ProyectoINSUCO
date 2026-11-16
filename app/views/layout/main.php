@@ -221,15 +221,34 @@ $navbar = $rol === 'admin'
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soporte Técnico INSUCO</title>
 
-    <link rel = "stylesheet" href = "/public/css/navbar.css">
-    <link rel = "stylesheet" href = "/public/css/dashboard.css">
-    <link rel = "stylesheet" href = "/public/components/modalEliminar.css">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/css/style.css') ?>">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/css/dashboard.css') ?>">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/components/modal.css') ?>">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/components/modalState.css') ?>">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/components/modalEliminar.css') ?>">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/css/navbar.css') ?>">
+    <link rel = "stylesheet" href = "<?= versionCSS('/public/css/modalState.css') ?>">
+
     <link href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel = "stylesheet">
 
-    <link rel="icon" type="image/png" href = "/public/assets/images/wrench.png">
+    <link rel = "icon" type = "image/png" href = "/public/assets/images/wrench.png">
 </head>
 
 <body>
+
+    <?php
+
+    function versionCSS($archivo) {
+        $ruta = $_SERVER['DOCUMENT_ROOT'] . $archivo;
+
+        if (file_exists($ruta)) {
+            return $archivo . '?v=' . filemtime($ruta);
+        }
+
+        return $archivo;
+    }
+    
+    ?>
 
     <?php require $navbar;?>
 
@@ -247,15 +266,6 @@ $navbar = $rol === 'admin'
                     try {
                         require $pagina;
                     } catch (Throwable $e) {
-
-                        echo '<pre style="color:red; background:#fff; padding:20px;">';
-
-                        echo 'ERROR AL CARGAR VISTA' . PHP_EOL;
-                        echo 'Archivo: ' . $e->getFile() . PHP_EOL;
-                        echo 'Línea: ' . $e->getLine() . PHP_EOL;
-                        echo 'Mensaje: ' . $e->getMessage() . PHP_EOL;
-
-                        echo '</pre>';
 
                     }
                 ?>      
