@@ -11,12 +11,27 @@ function listarTickets(): array
                 t.id,
                 u.nombre AS funcionario,
                 t.encargado,
-                t.lugar,
+                l.nombre AS lugar,
                 t.descripcion,
                 t.estado
             FROM ticket t
             INNER JOIN usuario u ON t.id_usuario = u.id
+            INNER JOIN lugar l ON t.id_lugar = l.id
             ORDER BY t.id ASC';
+
+    $stmt = $pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function listarLugaresActivos(): array
+{
+    global $pdo;
+
+    $sql = 'SELECT id, nombre
+            FROM lugar
+            WHERE activo = 1
+            ORDER BY nombre ASC';
 
     $stmt = $pdo->query($sql);
 
@@ -25,36 +40,58 @@ function listarTickets(): array
 
 function insertarTicket(
     int $idUsuario,
-    string $lugar,
+    int $idLugar,
     string $descripcion
 ): int {
     global $pdo;
 
-    $lugar = trim($lugar);
     $descripcion = trim($descripcion);
 
     if (
         $idUsuario <= 0 ||
-        $lugar === '' ||
-        $lugar === 'Otra ubicación' ||
-        mb_strlen($lugar) > 150 ||
+        $idLugar <= 0 ||
         $descripcion === '' ||
         mb_strlen($descripcion) > 2000
     ) {
-        throw new InvalidArgumentException('Los datos del ticket no son válidos.');
+        throw new InvalidArgumentException(
+            'Los datos del ticket no son válidos.'
+        );
     }
 
-    $sql = 'INSERT INTO ticket
-            (id_usuario, encargado, lugar, descripcion)
-            VALUES
-            (:id_usuario, :encargado, :lugar, :descripcion)';
+    // Comprobar que el lugar exista y esté activo.
+    $sqlLugar = 'SELECT id
+                 FROM lugar
+                 WHERE id = :id
+                 AND activo = 1';
+
+    $stmtLugar = $pdo->prepare($sqlLugar);
+    $stmtLugar->execute(['id' => $idLugar]);
+
+    if (!$stmtLugar->fetchColumn()) {
+        throw new InvalidArgumentException(
+            'El lugar seleccionado no existe o está inactivo.'
+        );
+    }
+
+    // Registrar el ticket.
+    $sql = 'INSERT INTO ticket (
+                id_usuario,
+                id_lugar,
+                encargado,
+                descripcion
+            ) VALUES (
+                :id_usuario,
+                :id_lugar,
+                :encargado,
+                :descripcion
+            )';
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
         'id_usuario' => $idUsuario,
+        'id_lugar' => $idLugar,
         'encargado' => 'Sin asignar',
-        'lugar' => $lugar,
         'descripcion' => $descripcion
     ]);
 
@@ -102,7 +139,7 @@ function actualizarEstadoTicket(
 
     $estadosPermitidos = [
         'Pendiente',
-        'En Proceso',
+        'En proceso',
         'Resuelto'
     ];
 
@@ -251,22 +288,24 @@ function listarTicketsPorUsuario(int $idUsuario): array
 {
     global $pdo;
 
-    $sql = 'SELECT
+    $sql = "SELECT
                 t.id,
                 u.nombre AS funcionario,
                 t.encargado,
-                t.lugar,
+                l.nombre AS lugar,
                 t.descripcion,
-                t.estado
+                t.estado,
+                t.fecha_creacion
             FROM ticket t
             INNER JOIN usuario u ON t.id_usuario = u.id
+            INNER JOIN lugar l ON t.id_lugar = l.id
             WHERE t.id_usuario = :id_usuario
-            ORDER BY t.id DESC';
+            ORDER BY t.id DESC";
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
-        'id_usuario' => $idUsuario
+        ':id_usuario' => $idUsuario
     ]);
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -356,19 +395,29 @@ function buscarTickets(string $termino): array
 {
     global $pdo;
 
-    $sql = "
-        SELECT *
-        FROM ticket
-        WHERE encargado LIKE :busqueda
-           OR lugar LIKE :busqueda
-           OR descripcion LIKE :busqueda
-        ORDER BY id DESC
-    ";
+    $sql = '
+        SELECT
+            t.id,
+            t.id_usuario,
+            u.nombre AS funcionario,
+            t.encargado,
+            l.nombre AS lugar,
+            t.descripcion,
+            t.estado
+        FROM ticket t
+        INNER JOIN usuario u ON t.id_usuario = u.id
+        INNER JOIN lugar l ON t.id_lugar = l.id
+        WHERE t.encargado LIKE :busqueda
+           OR l.nombre LIKE :busqueda
+           OR t.descripcion LIKE :busqueda
+           OR u.nombre LIKE :busqueda
+        ORDER BY t.id DESC
+    ';
 
     $stmt = $pdo->prepare($sql);
 
     $stmt->execute([
-        ':busqueda' => '%' . $termino . '%'
+        'busqueda' => '%' . trim($termino) . '%'
     ]);
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -390,7 +439,7 @@ function listarTicketsAbiertos(): int
 
 function listarTicketsEnProceso(): int
 {
-    return contarTicketsPorEstado('En Proceso');
+    return contarTicketsPorEstado('En proceso');
 }
 
 function listarTicketsResueltos(): int

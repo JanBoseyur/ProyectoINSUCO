@@ -1,187 +1,46 @@
-
 <?php
 
 require_once __DIR__ . '/../../controllers/TicketController.php';
 
 $usuario = $_SESSION['usuario'] ?? null;
 
-$rol = is_array($usuario)
-    ? ($usuario['rol'] ?? null)
-    : null;
-
-// Validar acceso al dashboard.
-if (!is_array($usuario) || !in_array($rol, ['admin', 'funcionario'], true)) {
+if (!is_array($usuario) || ($usuario['rol'] ?? null) !== 'admin') {
     http_response_code(403);
     exit('No tienes permiso para acceder a esta página.');
 }
 
-// Procesar solicitudes para cambiar el estado.
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json; charset=utf-8');
-
-    $datos = json_decode(
-        file_get_contents('php://input'),
-        true
-    );
-
-    if (
-        !is_array($datos) ||
-        ($datos['accion'] ?? '') !== 'cambiar_estado'
-    ) {
-        http_response_code(400);
-
-        echo json_encode([
-            'success' => false,
-            'message' => 'Solicitud no válida.'
-        ]);
-
-        exit;
-    }
-
-    try {
-        $idTicket = filter_var(
-            $datos['id_ticket'] ?? null,
-            FILTER_VALIDATE_INT
-        );
-
-        $estadoNuevo = trim(
-            (string) ($datos['estado'] ?? '')
-        );
-
-        // Obtener los campos opcionales.
-        $descripcionCambio = trim(
-            (string) ($datos['descripcion'] ?? '')
-        );
-
-        $encargadoRecibido = trim(
-            (string) ($datos['encargado'] ?? '')
-        );
-
-        // Si está vacío, se mantiene el encargado actual.
-        $nuevoEncargado = $encargadoRecibido !== ''
-            ? $encargadoRecibido
-            : null;
-
-        $idAutor = (int) ($usuario['id'] ?? 0);
-
-        // Validaciones.
-        if (!$idTicket || $idAutor <= 0) {
-            http_response_code(400);
-
-            echo json_encode([
-                'success' => false,
-                'message' => 'El ticket o el usuario no son válidos.'
-            ]);
-
-            exit;
-        }
-
-        if (mb_strlen($descripcionCambio) > 1000) {
-            http_response_code(400);
-
-            echo json_encode([
-                'success' => false,
-                'message' => 'La descripción no puede superar los 1000 caracteres.'
-            ]);
-
-            exit;
-        }
-
-        if (
-            $nuevoEncargado !== null &&
-            mb_strlen($nuevoEncargado) > 150
-        ) {
-            http_response_code(400);
-
-            echo json_encode([
-                'success' => false,
-                'message' => 'El encargado no puede superar los 150 caracteres.'
-            ]);
-
-            exit;
-        }
-
-        error_log('ID AUTOR ANTES DE CAMBIAR: ' . var_export($idAutor, true));
-        error_log('USUARIO EN SESION: ' . print_r($_SESSION['usuario'] ?? null, true));
-
-        $cambioRealizado = cambiarEstado(
-            $idTicket,
-            $estadoNuevo,
-            $idAutor,
-            $descripcionCambio,
-            $nuevoEncargado
-        );
-
-        if (!$cambioRealizado) {
-            http_response_code(400);
-        }
-
-        echo json_encode([
-            'success' => $cambioRealizado,
-            'changed' => $cambioRealizado,
-            'message' => $cambioRealizado
-                ? 'Cambios guardados correctamente.'
-                : 'No se pudo actualizar el ticket. Revisa el registro de errores de PHP.'
-        ]);
-
-    } catch (Throwable $e) {
-        error_log(
-            'Error al cambiar estado: ' . $e->getMessage()
-        );
-
-        http_response_code(500);
-
-        echo json_encode([
-            'success' => false,
-            'message' => 'No se pudieron guardar los cambios.'
-        ]);
-    }
-
-    exit;
-}
-
 $nombre = $usuario['nombre'] ?? '';
-
 $tickets = obtenerTickets();
 
 $ticketsHoy = obtenerTicketsDeHoy();
+$ticketsTodos = count($tickets);
 $ticketsAbiertos = obtenerTicketsAbiertos();
 $ticketsEnProceso = obtenerTicketsEnProceso();
 $ticketsResueltos = obtenerTicketsResueltos();
 
 $funcionarios = [];
-
 foreach ($tickets as $ticket) {
     $nombreFuncionario = trim($ticket['funcionario'] ?? '');
-
     if ($nombreFuncionario !== '') {
         $funcionarios[$nombreFuncionario] = $nombreFuncionario;
     }
 }
-
 natcasesort($funcionarios);
 
-$cantidadPendientes = count(array_filter($tickets, function ($ticket) {
+$cantidadPendientes = count(array_filter($tickets, static function ($ticket) {
     return ($ticket['estado'] ?? '') === 'Pendiente';
 }));
 
-$estadosPermitidos = [
-    'Todos',
-    'Pendiente',
-    'En Proceso',
-    'Resuelto'
-];
-
+$estadosPermitidos = ['Todos', 'Pendiente', 'En proceso', 'Resuelto'];
+$estadoFiltro = trim((string) ($_GET['estado'] ?? 'Todos'));
 if (!in_array($estadoFiltro, $estadosPermitidos, true)) {
     $estadoFiltro = 'Todos';
 }
 
-$funcionarioFiltro = trim($_GET['funcionario'] ?? '');
-$tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcionarioFiltro) {
-
+$funcionarioFiltro = trim((string) ($_GET['funcionario'] ?? ''));
+$tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, $funcionarioFiltro) {
     $coincideEstado = $estadoFiltro === 'Todos' ||
         ($ticket['estado'] ?? '') === $estadoFiltro;
-
     $coincideFuncionario = $funcionarioFiltro === '' ||
         stripos($ticket['funcionario'] ?? '', $funcionarioFiltro) !== false;
 
@@ -192,12 +51,17 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
 
 <body>
     
-    <div class = "titleContainer">
-        <i data-lucide = "user-round"></i>
-        <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
+    <div class = "welcomeContainer">
+        <div class = "titleContainer">
+            <i data-lucide = "user-round" class = "iconAnimated"></i>
+            <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
+        </div>
     </div>
 
-    <text class = "subtitle">Aquí puedes supervisar las solicitudes de soporte técnico y el estado de atención de la institución</text>
+    <div class = "sectionHeader misTicketsHeader">
+        <h1>Dashboard</h1>
+        <p>Aquí puedes supervisar las solicitudes de soporte técnico y el estado de atención de la institución.</p>
+    </div>
 
     <div class = "graphsContainer">
 
@@ -262,7 +126,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
                 Pendientes
             </option>
 
-            <option value = "En Proceso" <?= $estadoFiltro === 'En Proceso' ? 'selected' : '' ?>>
+            <option value = "En proceso" <?= $estadoFiltro === 'En proceso' ? 'selected' : '' ?>>
                 En proceso
             </option>
 
@@ -280,10 +144,10 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
 
             <button type="button"
                 class="buttonFilterSelector active"
-                data-filter="abiertos"
+                data-filter="todos"
                 aria-pressed="true">
-                Abiertos
-                <span class="filterCount"><?= $ticketsAbiertos ?></span>
+                Todos
+                <span class="filterCount"><?= $ticketsTodos ?></span>
             </button>
 
             <button type="button"
@@ -296,9 +160,9 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
 
             <button type="button"
                 class="buttonFilterSelector"
-                data-filter="En Proceso"
+                data-filter="En proceso"
                 aria-pressed="false">
-                En Proceso
+                En proceso
                 <span class="filterCount"><?= $ticketsEnProceso ?></span>
             </button>
 
@@ -364,7 +228,7 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
 
                <?php foreach ($tickets as $ticket): ?>
 
-                    <tr data-estado="<?= htmlspecialchars($ticket['estado']) ?>">
+                    <tr data-estado = "<?= htmlspecialchars($ticket['estado']) ?>">
                         <td>
                             <?= htmlspecialchars((string) $ticket['id']) ?>
                         </td>
@@ -468,62 +332,6 @@ $tickets = array_filter($tickets, function ($ticket) use ($estadoFiltro, $funcio
     <script src = "/public/js/modal.js" defer></script>
     <script src = "/public/js/modalEstado.js" defer></script>
     <script src = "/public/js/modalConfirmacion.js" defer></script>
-    <script src = "/public/js/buscadorTicket.js" defer></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-
-            const botones = document.querySelectorAll('.buttonFilterSelector');
-            const filas = document.querySelectorAll('#tablaTickets tr[data-estado]');
-
-            botones.forEach(boton => {
-
-                boton.addEventListener('click', function () {
-
-                    const filtroSeleccionado = this.dataset.filter;
-
-                    // Actualizar botones activos.
-                    botones.forEach(btn => {
-                        btn.classList.remove('active');
-                        btn.setAttribute('aria-pressed', 'false');
-                    });
-
-                    this.classList.add('active');
-                    this.setAttribute('aria-pressed', 'true');
-
-                    // Filtrar tickets.
-                    filas.forEach(fila => {
-
-                        const estado = fila.dataset.estado;
-
-                        let mostrar = false;
-
-                        switch (filtroSeleccionado) {
-
-                            case 'abiertos':
-                                mostrar = estado === 'Pendiente' ||
-                                        estado === 'En Proceso';
-                                break;
-
-                            case 'Pendiente':
-                            case 'En Proceso':
-                            case 'Resuelto':
-                                mostrar = estado === filtroSeleccionado;
-                                break;
-                        }
-
-                        fila.style.display = mostrar ? '' : 'none';
-
-                    });
-
-                });
-
-            });
-
-        });
-
-    </script>
+    <script src = "/public/js/filtroEstado.js" defer></script>
     
 </body>
-
-</html>

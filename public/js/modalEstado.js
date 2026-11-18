@@ -42,7 +42,7 @@ document.querySelectorAll('#modalEstado [data-estado]')
 
             const estados = {
                 'pendiente': 'Pendiente',
-                'en-proceso': 'En Proceso', 
+                'en-proceso': 'En proceso', 
                 'resuelto': 'Resuelto'
             };
 

@@ -630,6 +630,12 @@ svg {
 .filterSelectorContainer {
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    background: white;
 }
 
 .buttonFilterSelectorContainer {
@@ -689,6 +695,33 @@ svg {
 .buttonFilterSelector.active .filterCount {
     background: #000;
     color: #fff;
+}
+
+/* Efecto al presionar */
+.buttonFilterSelector:active {
+    transform: scale(0.95);
+    background: #f0f0f0;
+}
+
+/* Transición suave */
+.buttonFilterSelector {
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.12s ease;
+}
+
+/* Efecto del contador */
+.filterCount {
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.buttonFilterSelector:active .filterCount {
+    transform: scale(0.92);
 }
 
 /* =========================================

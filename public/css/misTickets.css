@@ -1,0 +1,235 @@
+/* Apartado Mis Tickets: paleta monocromática */
+
+.misTicketsHeader {
+    position: relative;
+    margin: 12px 0 28px;
+    padding: 4px 0 4px 17px;
+    border-left: 3px solid #111;
+}
+
+.misTicketsHeader h1 {
+    margin: 0 0 7px;
+    color: #111;
+    font-size: clamp(1.7rem, 3vw, 2.15rem);
+    font-weight: 750;
+    letter-spacing: -0.045em;
+}
+
+.misTicketsHeader p {
+    margin: 0;
+    color: #666;
+    font-size: 0.94rem;
+    line-height: 1.6;
+}
+
+/* Igual separación y distribución de filtros que en el dashboard. */
+.misTicketsHeader + .filterSelectorContainer {
+    margin-bottom: 24px;
+}
+
+.misTicketsHeader + .filterSelectorContainer .buttonFilterSelectorContainer {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.misTicketsHeader + .filterSelectorContainer .buttonFilterSelector {
+    padding: 10px 4px;
+}
+
+.misTicketsTableContainer {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #dedede;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.055);
+}
+
+.misTicketsTableContainer .ticketTable {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-spacing: 0;
+    background: #fff;
+    color: #222;
+}
+
+.misTicketsTableContainer .ticketTable thead {
+    background: #111;
+}
+
+.misTicketsTableContainer .ticketTable th {
+    padding: 15px 18px;
+    border: 0;
+}
+
+.misTicketsTableContainer .ticketTable .headerLabel {
+    min-height: unset;
+    justify-content: center;
+    padding: 4px 0;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.misTicketsTableContainer .ticketTable th:nth-child(1) { width: 22%; }
+.misTicketsTableContainer .ticketTable th:nth-child(2) { width: 21%; }
+.misTicketsTableContainer .ticketTable th:nth-child(3) { width: 39%; }
+.misTicketsTableContainer .ticketTable th:nth-child(4) { width: 18%; }
+
+.misTicketsTableContainer .ticketTable tbody tr {
+    background: #fff;
+    transition: background-color 160ms ease;
+}
+
+.misTicketsTableContainer .ticketTable tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.misTicketsTableContainer .ticketTable tbody tr:hover {
+    background: #f1f1f1;
+}
+
+.misTicketsTableContainer .ticketTable tbody td {
+    padding: 17px 18px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.misTicketsTableContainer .ticketTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.misTicketsTableContainer .ticketTable tbody td:first-child {
+    color: #171717;
+    font-weight: 650;
+}
+
+.misTicketsTableContainer .ticketTable tbody td:nth-child(3) {
+    white-space: pre-wrap;
+}
+
+.misTicketsTableContainer .ticketTable tbody td.estadoContainer {
+    text-align: center;
+}
+
+.misTicketsTableContainer .ticketTable tbody td[colspan] {
+    padding: 42px 18px;
+    color: #666;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .misTicketsHeader {
+        margin: 5px 0 19px;
+        padding-left: 13px;
+    }
+
+    .misTicketsHeader p {
+        font-size: 0.88rem;
+    }
+
+    .misTicketsHeader + .filterSelectorContainer {
+        margin-bottom: 18px;
+    }
+
+    .misTicketsHeader + .filterSelectorContainer .buttonFilterSelectorContainer {
+        gap: 20px;
+        overflow-x: auto;
+    }
+
+    .misTicketsTableContainer {
+        overflow: visible;
+        border: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .misTicketsTableContainer .ticketTable,
+    .misTicketsTableContainer .ticketTable tbody {
+        display: block;
+        width: 100%;
+    }
+
+    .misTicketsTableContainer .ticketTable {
+        min-width: 0;
+    }
+
+    .misTicketsTableContainer .ticketTable thead {
+        display: none;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody tr,
+    .misTicketsTableContainer .ticketTable tbody tr:nth-child(even) {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0 12px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        border: 1px solid #dedede;
+        border-radius: 10px;
+        background: #fff;
+        box-shadow: 0 4px 13px rgba(0, 0, 0, 0.045);
+    }
+
+    .misTicketsTableContainer .ticketTable tbody tr:hover {
+        background: #fff;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td {
+        display: block;
+        width: auto !important;
+        padding: 12px 14px;
+        border: 0;
+        text-align: center;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td:nth-child(1) {
+        grid-column: 1 / -1;
+        padding-bottom: 4px;
+        color: #111;
+        font-size: 0.95rem;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td:nth-child(2) {
+        grid-column: 1 / -1;
+        padding-top: 2px;
+        color: #666;
+        font-size: 0.82rem;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td:nth-child(3) {
+        grid-column: 1 / -1;
+        padding-top: 5px;
+        color: #444;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td.estadoContainer {
+        grid-column: 1 / -1;
+        padding-top: 2px;
+        padding-bottom: 14px;
+        text-align: center;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td[colspan] {
+        display: block;
+        padding: 25px 16px;
+        border: 1px solid #dedede;
+        border-radius: 10px;
+        background: #fff;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .misTicketsTableContainer .ticketTable tbody tr {
+        transition: none;
+    }
+}

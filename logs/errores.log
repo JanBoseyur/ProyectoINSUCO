@@ -176,3 +176,470 @@ Stack trace:
 [16-Nov-2026 13:32:09 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
 [16-Nov-2026 13:33:32 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
 [16-Nov-2026 13:33:50 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[16-Nov-2026 13:35:20 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[16-Nov-2026 15:27:05 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[16-Nov-2026 15:27:05 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[16-Nov-2026 15:27:05 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[16-Nov-2026 15:27:07 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[16-Nov-2026 15:27:07 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[16-Nov-2026 15:27:07 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[16-Nov-2026 15:27:11 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[16-Nov-2026 15:27:11 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[16-Nov-2026 15:27:15 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[16-Nov-2026 15:34:15 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[16-Nov-2026 15:34:38 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:47:01 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 09:47:01 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 09:47:01 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 09:47:03 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 09:47:03 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 09:47:03 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 09:48:25 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 09:48:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:48:31 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:48:37 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 09:48:42 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 09:48:42 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:48:56 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:49:09 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:49:11 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:49:32 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 09:49:32 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 09:49:32 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 09:49:32 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:49:54 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:49:56 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:49:57 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:51:16 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:52:03 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:52:41 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:52:58 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:53:01 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:53:01 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:53:31 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:53:34 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:53:37 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:54:10 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:55:03 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:55:05 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:55:05 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:56:14 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:56:36 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:56:56 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:57:24 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:57:33 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:57:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:58:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:58:11 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:58:39 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:58:41 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 09:58:42 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:00:26 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 50
+[18-Nov-2026 10:00:31 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 50
+[18-Nov-2026 10:01:45 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:04:15 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:04:34 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:09 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:29 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:30 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:50 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:51 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:53 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:05:54 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:06:19 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:07:09 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:07:20 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:08:20 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:09:10 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:10:32 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:12:06 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:12:07 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:12:45 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:12:53 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:12:55 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:12:55 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:13:38 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:13:41 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:13:41 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:14:19 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:14:21 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:15:06 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:15:29 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:15:33 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:16:24 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:16:28 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:16:28 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:16:36 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:16:53 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:16:55 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:16:55 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:17:20 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:17:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:17:35 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:17:43 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:17:50 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:18:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:18:50 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:19:09 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:19:12 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:19:18 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:19:21 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:19:21 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:19:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:19:45 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:19:59 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:02 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:14 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:31 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:45 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:49 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:20:51 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:21:01 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:21:08 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:21:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:21:42 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:21:44 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:21:51 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:21:55 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:21:55 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:34 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:37 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:44 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:51 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:53 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:22:55 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:23:19 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:23:43 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:23:47 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:23:53 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:23:56 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:23:57 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:24:00 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:24:04 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:24:26 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:24:28 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:24:58 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:25:24 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 10:25:24 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 10:25:24 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 10:25:36 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:25:36 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:25:39 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 10:25:39 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 10:25:39 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 10:25:39 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:25:39 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:25:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:25:40 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:25:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:25:43 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:25:46 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:25:46 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:26:04 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:26:13 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:26:17 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:27:15 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:27:26 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:29:41 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:29:43 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:29:43 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:22 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:27 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:29 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:32 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:38 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:41 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:30:44 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:31:18 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:31:27 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:31:51 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:31:58 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:31:59 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:32:00 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:32:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:32:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:32:31 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:32:37 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:33:06 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:33:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:33:30 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:33:34 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:33:34 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:33:34 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:34:42 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:34:46 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:35:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:35:38 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:35:39 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 10:35:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:36:01 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:38:02 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:38:58 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:41:47 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:41:48 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:42:16 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:42:20 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:42:23 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:42:24 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:42:26 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:44:26 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 175
+[18-Nov-2026 10:45:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:45:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:45:25 America/Santiago] PHP Warning:  Undefined variable $obtenerTickets in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 287
+[18-Nov-2026 10:45:42 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:45:42 America/Santiago] PHP Warning:  Array to string conversion in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 287
+[18-Nov-2026 10:46:12 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:46:12 America/Santiago] PHP Warning:  Array to string conversion in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 287
+[18-Nov-2026 10:46:39 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:46:39 America/Santiago] PHP Warning:  Array to string conversion in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 287
+[18-Nov-2026 10:46:51 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:46:51 America/Santiago] PHP Warning:  Array to string conversion in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 287
+[18-Nov-2026 10:46:57 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:46:57 America/Santiago] PHP Warning:  Array to string conversion in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 287
+[18-Nov-2026 10:48:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:48:53 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:49:11 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:49:12 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:49:21 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:49:48 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:50:54 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:51:00 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:51:04 America/Santiago] PHP Fatal error:  Cannot redeclare listarTickets() (previously declared in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php:8) in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php on line 315
+[18-Nov-2026 10:51:10 America/Santiago] PHP Fatal error:  Cannot redeclare listarTickets() (previously declared in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php:8) in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php on line 315
+[18-Nov-2026 10:51:30 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:51:33 America/Santiago] PHP Fatal error:  Cannot redeclare listarTickets() (previously declared in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php:8) in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php on line 315
+[18-Nov-2026 10:51:38 America/Santiago] PHP Fatal error:  Cannot redeclare listarTickets() (previously declared in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php:8) in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php on line 315
+[18-Nov-2026 10:51:58 America/Santiago] PHP Fatal error:  Cannot redeclare listarTickets() (previously declared in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php:8) in /home/sebastian/ProyectoINSUCO/app/models/Ticket.php on line 315
+[18-Nov-2026 10:52:54 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:53:50 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 10:53:52 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:02:07 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:02:10 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:02:23 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:02:32 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:08:12 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:08:14 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:11:50 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:11:54 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:11:55 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:12:03 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:12:07 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:28:55 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:28:58 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:28:58 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:29:00 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:29:01 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:35:01 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:35:06 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:35:07 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:35:32 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:35:34 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:49:20 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:49:22 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:49:22 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 11:49:25 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:49:35 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:58:58 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 11:59:07 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:32 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:34 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:35 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:37 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:37 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:14:40 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:43 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:51 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:54 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:54 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:14:55 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:14:57 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:21 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:23 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:24 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:15:29 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:32 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:37 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:40 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:15:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:16:05 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:16:08 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:16:17 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:16:56 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:17:00 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:17:08 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:19:29 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:19:34 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:19:46 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:19:48 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:19:48 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:19:52 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:19:56 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:02 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:04 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:04 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:33 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:36 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:37 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:43 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:47 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:49 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:49 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:53 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:54 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:56 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:20:57 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:20:59 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:30:55 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:30:57 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:30:57 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:31:00 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:31:02 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:35:01 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:35:03 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:35:10 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:35:16 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:35:17 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:35:20 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:35:28 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:35:42 America/Santiago] SQLSTATE[HY000]: General error: 1364 Field 'id_lugar' doesn't have a default value
+[18-Nov-2026 12:36:03 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:36:04 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:36:04 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:36:05 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:36:05 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:36:08 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:39:30 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:39:33 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:39:33 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:39:34 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:39:36 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:39:41 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:39:43 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:39:44 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:39:46 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:40:54 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:40:57 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:40:58 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:40:59 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:41:00 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:41:01 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:41:03 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:42:31 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:42:33 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:42:33 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:42:41 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:42:45 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:42:46 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:42:49 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:42:50 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:42:51 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:42:52 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:43:03 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:43:05 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:43:05 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:43:09 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:43:21 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:43:25 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 12:44:00 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:44:03 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:54:09 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:54:11 America/Santiago] PHP Warning:  Undefined variable $usuario in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 8
+[18-Nov-2026 12:57:10 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:57:10 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:57:10 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:57:10 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:03 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:03 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:03 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:03 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:04 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:04 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:04 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:04 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:06 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:06 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:06 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:06 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:06 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:06 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:06 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:06 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:06 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:07 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:07 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:07 America/Santiago] PHP Warning:  require_once(/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php): Failed to open stream: No such file or directory in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:07 America/Santiago] PHP Fatal error:  Uncaught Error: Failed opening required '/home/sebastian/ProyectoINSUCO/app/views/auth/../../config/session.php' (include_path='.:/usr/share/php') in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php:4
+Stack trace:
+#0 /home/sebastian/ProyectoINSUCO/index.php(36): require_once()
+#1 {main}
+  thrown in /home/sebastian/ProyectoINSUCO/app/views/auth/login.php on line 4
+[18-Nov-2026 12:58:28 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 12:58:28 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 12:58:28 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 8
+[18-Nov-2026 12:58:28 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 9
+[18-Nov-2026 12:58:28 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 10
+[18-Nov-2026 12:58:28 America/Santiago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 12
+[18-Nov-2026 13:09:41 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[18-Nov-2026 13:09:41 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[18-Nov-2026 13:09:41 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 8
+[18-Nov-2026 13:09:41 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 9
+[18-Nov-2026 13:09:41 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 10
+[18-Nov-2026 13:09:41 America/Santiago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 12
+[18-Nov-2026 13:11:00 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 13:11:19 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 13:49:39 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 14:07:21 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 14:16:01 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 166
+[18-Nov-2026 14:16:12 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 14:37:37 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 14:38:46 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/admin/dashboard.php on line 176
+[18-Nov-2026 14:42:24 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 166
+[18-Nov-2026 14:43:13 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 166
+[18-Nov-2026 14:43:26 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 166
+[18-Nov-2026 14:58:10 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 14:59:37 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 14:59:38 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 14:59:39 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 14:59:40 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 14:59:41 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 14:59:42 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 15:00:05 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169
+[18-Nov-2026 15:00:52 America/Santiago] PHP Warning:  Undefined variable $estadoFiltro in /home/sebastian/ProyectoINSUCO/app/views/user/misTickets.php on line 169

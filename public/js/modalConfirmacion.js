@@ -111,7 +111,6 @@ async function eliminarTicket(idTicket) {
 
     };
 
-    // Cerrar al presionar fuera
     modal.onclick = (e) => {
         if (e.target === modal) {
             modal.classList.remove('isOpen');
