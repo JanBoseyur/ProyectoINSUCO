@@ -39,11 +39,29 @@ function cambiarEstado(
 function registrarTicket(
     int $idUsuario,
     int $idLugar,
-    string $descripcion
+    string $descripcion,
+    string $categoria
 ): int {
     return insertarTicket(
         $idUsuario,
         $idLugar,
+        $descripcion,
+        $categoria
+    );
+}
+
+function editarTicketFuncionario(
+    int $idTicket,
+    int $idUsuario,
+    int $idLugar,
+    string $categoria,
+    string $descripcion
+): bool {
+    return actualizarTicketFuncionario(
+        $idTicket,
+        $idUsuario,
+        $idLugar,
+        $categoria,
         $descripcion
     );
 }
@@ -77,4 +95,24 @@ function obtenerTicketsFuncionario(int $idUsuario): array
 function obtenerLugaresActivos(): array
 {
     return listarLugaresActivos();
+}
+
+function agregarDependenciaActiva(string $nombre): int
+{
+    return agregarDependencia($nombre);
+}
+
+function desactivarDependencia(int $idDependencia): bool
+{
+    return eliminarDependencia($idDependencia);
+}
+
+function obtenerCategoriasActivas(): array
+{
+    return listarCategorias();
+}
+
+function desactivarCategoria(int $idCategoria): bool
+{
+    return eliminarCategoria($idCategoria);
 }

@@ -18,6 +18,10 @@
 
     <h2>Iniciar Sesión</h2>
 
+    <?php if (($_GET['contrasena'] ?? '') === 'actualizada'): ?>
+        <p role="status">Tu contraseña se actualizó correctamente. Ya puedes iniciar sesión.</p>
+    <?php endif; ?>
+
     <form class = "formContainer" action = "/app/views/auth/login.php" method = "POST">
         
         <div class = "containerLabel">
@@ -55,6 +59,8 @@
         </button>
 
     </form>
+
+    <a class="passwordChangeLink" href="/app/views/auth/cambiarContrasena.php">Cambiar contraseña</a>
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>

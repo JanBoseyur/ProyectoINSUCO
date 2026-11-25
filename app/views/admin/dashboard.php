@@ -1,3 +1,4 @@
+
 <?php
 
 require_once __DIR__ . '/../../controllers/TicketController.php';
@@ -11,6 +12,32 @@ if (!is_array($usuario) || ($usuario['rol'] ?? null) !== 'admin') {
 
 $nombre = $usuario['nombre'] ?? '';
 $tickets = obtenerTickets();
+$categorias = obtenerCategoriasActivas();
+$mensaje = '';
+$tipoMensaje = '';
+
+function fechaTicketEnEspanol(string $fecha): string
+{
+    $momento = new DateTimeImmutable($fecha);
+    $dias = [
+        1 => 'Lunes', 2 => 'Martes', 3 => 'Miércoles', 4 => 'Jueves',
+        5 => 'Viernes', 6 => 'Sábado', 7 => 'Domingo'
+    ];
+    
+    $meses = [
+        1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
+        5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
+        9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'
+    ];
+
+    return sprintf(
+        '%s %d de %s a las %s hrs',
+        $dias[(int) $momento->format('N')],
+        (int) $momento->format('j'),
+        $meses[(int) $momento->format('n')],
+        $momento->format('H:i')
+    );
+}
 
 $ticketsHoy = obtenerTicketsDeHoy();
 $ticketsTodos = count($tickets);
@@ -18,39 +45,60 @@ $ticketsAbiertos = obtenerTicketsAbiertos();
 $ticketsEnProceso = obtenerTicketsEnProceso();
 $ticketsResueltos = obtenerTicketsResueltos();
 
-$funcionarios = [];
-foreach ($tickets as $ticket) {
-    $nombreFuncionario = trim($ticket['funcionario'] ?? '');
-    if ($nombreFuncionario !== '') {
-        $funcionarios[$nombreFuncionario] = $nombreFuncionario;
-    }
-}
-natcasesort($funcionarios);
-
 $cantidadPendientes = count(array_filter($tickets, static function ($ticket) {
     return ($ticket['estado'] ?? '') === 'Pendiente';
 }));
 
-$estadosPermitidos = ['Todos', 'Pendiente', 'En proceso', 'Resuelto'];
-$estadoFiltro = trim((string) ($_GET['estado'] ?? 'Todos'));
-if (!in_array($estadoFiltro, $estadosPermitidos, true)) {
-    $estadoFiltro = 'Todos';
+if (empty($_SESSION['csrf_ticket'])) {
+    $_SESSION['csrf_ticket'] = bin2hex(random_bytes(32));
 }
 
-$funcionarioFiltro = trim((string) ($_GET['funcionario'] ?? ''));
-$tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, $funcionarioFiltro) {
-    $coincideEstado = $estadoFiltro === 'Todos' ||
-        ($ticket['estado'] ?? '') === $estadoFiltro;
-    $coincideFuncionario = $funcionarioFiltro === '' ||
-        stripos($ticket['funcionario'] ?? '', $funcionarioFiltro) !== false;
+if (
+    $_SERVER['REQUEST_METHOD'] === 'POST' &&
+    (isset($_POST['añadir_categoria']) || isset($_POST['eliminar_categoria']))
+) {
+    $token = $_POST['csrf_token'] ?? '';
 
-    return $coincideEstado && $coincideFuncionario;
-});
+    if (!is_string($token) || !hash_equals($_SESSION['csrf_ticket'], $token)) {
+        $mensaje = 'No se pudo validar el formulario.';
+        $tipoMensaje = 'error';
+    } else {
+        try {
+            if (isset($_POST['añadir_categoria'])) {
+                $nombreCategoria = trim($_POST['nombre_categoria'] ?? '');
+
+                if ($nombreCategoria === '' || mb_strlen($nombreCategoria) > 100) {
+                    throw new InvalidArgumentException('Ingresa un nombre de categoría de hasta 100 caracteres.');
+                }
+
+                agregarCategoria($nombreCategoria);
+                $mensaje = 'Categoría agregada correctamente.';
+            } else {
+                $idCategoria = filter_var(
+                    $_POST['id_categoria'] ?? null,
+                    FILTER_VALIDATE_INT
+                );
+
+                if (!$idCategoria || !desactivarCategoria($idCategoria)) {
+                    throw new InvalidArgumentException('No se encontró una categoría activa para eliminar.');
+                }
+
+                $mensaje = 'Categoría eliminada correctamente.';
+            }
+
+            $categorias = obtenerCategoriasActivas();
+            $tipoMensaje = 'categoria_exito';
+            $_SESSION['csrf_ticket'] = bin2hex(random_bytes(32));
+            
+        } catch (Throwable $e) {
+            $mensaje = 'Error: ' . $e->getMessage();
+            $tipoMensaje = 'error';
+        }
+    }
+}
 
 ?>
 
-<body>
-    
     <div class = "welcomeContainer">
         <div class = "titleContainer">
             <i data-lucide = "user-round" class = "iconAnimated"></i>
@@ -103,46 +151,11 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
 
     </div>
 
-<!--     <div class = "ticketFilters">
-
-        <input
-            type = "search"
-            class = "buscadorTicket"
-            id = "buscadorTicket"
-            placeholder = "Buscar tickets..."
-            autocomplete = "off"
-        >
-
-        <select
-            name = "estado"
-            id = "filtroEstado"
-            class = "filterSelect"
-        >
-            <option value = "Todos" <?= $estadoFiltro === 'Todos' ? 'selected' : '' ?>>
-                Todos
-            </option>
-
-            <option value = "Pendiente" <?= $estadoFiltro === 'Pendiente' ? 'selected' : '' ?>>
-                Pendientes
-            </option>
-
-            <option value = "En proceso" <?= $estadoFiltro === 'En proceso' ? 'selected' : '' ?>>
-                En proceso
-            </option>
-
-            <option value = "Resuelto" <?= $estadoFiltro === 'Resuelto' ? 'selected' : '' ?>>
-                Resueltos
-            </option>
-
-        </select>
-
-    </div> -->
-
     <div class = "filterSelectorContainer">
 
         <div class = "buttonFilterSelectorContainer">
 
-            <button type="button"
+            <button type = "button"
                 class="buttonFilterSelector active"
                 data-filter="todos"
                 aria-pressed="true">
@@ -150,7 +163,7 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
                 <span class="filterCount"><?= $ticketsTodos ?></span>
             </button>
 
-            <button type="button"
+            <button type = "button"
                 class="buttonFilterSelector"
                 data-filter="Pendiente"
                 aria-pressed="false">
@@ -158,7 +171,7 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
                 <span class="filterCount"><?= $cantidadPendientes ?></span>
             </button>
 
-            <button type="button"
+            <button type = "button"
                 class="buttonFilterSelector"
                 data-filter="En proceso"
                 aria-pressed="false">
@@ -166,7 +179,7 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
                 <span class="filterCount"><?= $ticketsEnProceso ?></span>
             </button>
 
-            <button type="button"
+            <button type = "button"
                 class="buttonFilterSelector"
                 data-filter="Resuelto"
                 aria-pressed="false">
@@ -176,6 +189,34 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
 
         </div>
 
+    </div>
+
+    <div class="dashboardSearchFilter">
+        <div class="dashboardSearchTitle">
+            <span class="dashboardSearchIcon"><i data-lucide="search"></i></span>
+            <div>
+                <h2>Buscar tickets</h2>
+                <p>Filtra por funcionario o ubicación.</p>
+            </div>
+        </div>
+
+        <div class="dashboardSearchControls">
+            <label class="visuallyHidden" for="criterioBusquedaTicket">Buscar por</label>
+            <select id="criterioBusquedaTicket" aria-label="Buscar por">
+                <option value="funcionario">Funcionario</option>
+                <option value="ubicacion">Ubicación</option>
+            </select>
+            <div class="dashboardSearchInputWrap">
+                <i data-lucide="search" aria-hidden="true"></i>
+                <input
+                    type="search"
+                    id="busquedaTicket"
+                    placeholder="Escribe para buscar..."
+                    aria-label="Texto a buscar"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
     </div>
 
     <div class = "ticketContainer">
@@ -228,30 +269,35 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
 
                <?php foreach ($tickets as $ticket): ?>
 
-                    <tr data-estado = "<?= htmlspecialchars($ticket['estado']) ?>">
-                        <td>
+                    <tr
+                        data-estado="<?= htmlspecialchars($ticket['estado'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                        data-funcionario="<?= htmlspecialchars($ticket['funcionario'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                        data-ubicacion="<?= htmlspecialchars($ticket['lugar'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                    >
+                        
+                        <td data-label="ID">
                             <?= htmlspecialchars((string) $ticket['id']) ?>
                         </td>
 
-                        <td>
+                        <td data-label="Funcionario">
                             <?= htmlspecialchars($ticket['funcionario'] ?? '') ?>
                         </td>
 
-                        <td>
+                        <td data-label="Ubicación">
                             <?= htmlspecialchars($ticket['lugar']) ?>
                         </td>
 
-                        <td>
+                        <td data-label="Descripción">
                             <?= htmlspecialchars($ticket['descripcion'] ?? '') ?>
                         </td>
                         
-                        <td class = "estadoContainer">
+                        <td class="estadoContainer" data-label="Estado">
                             <span class = "state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
                                 <?= htmlspecialchars($ticket['estado'] ?? '') ?>
                             </span>
                         </td>
 
-                        <td class = "iconContainer">
+                        <td class="iconContainer" data-label="Acciones">
                             <button
                                 type = "button"
                                 class = "btnHistorial"
@@ -288,7 +334,28 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
                         
                     </tr>
 
+                    <tr class = "ticketDateRow" data-estado="<?= htmlspecialchars($ticket['estado'], ENT_QUOTES, 'UTF-8') ?>">
+                        <td colspan = "6">
+
+                            <span class = "recordMarker">
+                                <span class = "textMarker">Creado el </span>
+                                <?= htmlspecialchars(
+                                    fechaTicketEnEspanol((string) $ticket['fecha_creacion']),
+                                    ENT_QUOTES,
+                                    'UTF-8'
+                                ) ?>
+                                <span class = "textMarker"> por </span>
+                                <span><?= htmlspecialchars((string) ($ticket['funcionario'] ?? 'Usuario desconocido'), ENT_QUOTES, 'UTF-8') ?></span>
+                            </span>
+
+                        </td>
+                    </tr>
+
                 <?php endforeach; ?>
+
+                <tr id="sinResultadosFiltro" hidden>
+                    <td colspan="6">No se encontraron resultados con esos parámetros.</td>
+                </tr>
 
                 <?php
                     require __DIR__ . '/../components/modalState.php';
@@ -305,6 +372,12 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
         </table>
 
     </div>
+
+    <nav class = "ticketPagination" id = "paginacionTickets" aria-label = "Paginación de tickets" hidden>
+        <button type = "button" id = "paginaAnterior" aria-label = "Página anterior">Anterior</button>
+        <span id = "informacionPaginacion" aria-live = "polite"></span>
+        <button type = "button" id = "paginaSiguiente" aria-label = "Página siguiente">Siguiente</button>
+    </nav>
 
     <?php
     $tituloModal = 'Historial del ticket';
@@ -334,4 +407,3 @@ $tickets = array_filter($tickets, static function ($ticket) use ($estadoFiltro, 
     <script src = "/public/js/modalConfirmacion.js" defer></script>
     <script src = "/public/js/filtroEstado.js" defer></script>
     
-</body>

@@ -43,8 +43,8 @@ procesarLogin();
 
     <title>Proyecto INSUCO</title>
 
-    <link rel="stylesheet" href="/public/css/login.css">
-    <link rel="icon" type="image/png" href="/public/assets/images/wrench.png">
+    <link rel = "stylesheet" href = "/public/css/login.css">
+    <link rel = "icon" type = "image/png" href = "/public/assets/images/wrench.png">
 </head>
 
 <body>

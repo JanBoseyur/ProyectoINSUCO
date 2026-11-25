@@ -13,25 +13,12 @@ function listarTickets(): array
                 t.encargado,
                 l.nombre AS lugar,
                 t.descripcion,
-                t.estado
+                t.estado,
+                t.fecha_creacion
             FROM ticket t
             INNER JOIN usuario u ON t.id_usuario = u.id
-            INNER JOIN lugar l ON t.id_lugar = l.id
+            INNER JOIN dependencias l ON t.id_lugar = l.id
             ORDER BY t.id ASC';
-
-    $stmt = $pdo->query($sql);
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function listarLugaresActivos(): array
-{
-    global $pdo;
-
-    $sql = 'SELECT id, nombre
-            FROM lugar
-            WHERE activo = 1
-            ORDER BY nombre ASC';
 
     $stmt = $pdo->query($sql);
 
@@ -41,15 +28,18 @@ function listarLugaresActivos(): array
 function insertarTicket(
     int $idUsuario,
     int $idLugar,
-    string $descripcion
+    string $descripcion,
+    string $categoria
 ): int {
     global $pdo;
 
     $descripcion = trim($descripcion);
+    $categoria = trim($categoria);
 
     if (
         $idUsuario <= 0 ||
         $idLugar <= 0 ||
+        !categoriaActivaExiste($categoria) ||
         $descripcion === '' ||
         mb_strlen($descripcion) > 2000
     ) {
@@ -60,7 +50,7 @@ function insertarTicket(
 
     // Comprobar que el lugar exista y esté activo.
     $sqlLugar = 'SELECT id
-                 FROM lugar
+                 FROM dependencias
                  WHERE id = :id
                  AND activo = 1';
 
@@ -77,11 +67,13 @@ function insertarTicket(
     $sql = 'INSERT INTO ticket (
                 id_usuario,
                 id_lugar,
+                categoria,
                 encargado,
                 descripcion
             ) VALUES (
                 :id_usuario,
                 :id_lugar,
+                :categoria,
                 :encargado,
                 :descripcion
             )';
@@ -91,11 +83,68 @@ function insertarTicket(
     $stmt->execute([
         'id_usuario' => $idUsuario,
         'id_lugar' => $idLugar,
+        'categoria' => $categoria,
         'encargado' => 'Sin asignar',
         'descripcion' => $descripcion
     ]);
 
     return (int) $pdo->lastInsertId();
+}
+
+function actualizarTicketFuncionario(
+    int $idTicket,
+    int $idUsuario,
+    int $idLugar,
+    string $categoria,
+    string $descripcion
+): bool {
+    global $pdo;
+
+    $categoria = trim($categoria);
+    $descripcion = trim($descripcion);
+
+    if (
+        $idTicket <= 0 ||
+        $idUsuario <= 0 ||
+        $idLugar <= 0 ||
+        !categoriaActivaExiste($categoria) ||
+        $descripcion === '' ||
+        mb_strlen($descripcion) > 1000
+    ) {
+        return false;
+    }
+
+    $sql = 'UPDATE ticket AS t
+            INNER JOIN dependencias AS d ON d.id = :id_lugar AND d.activo = 1
+            SET t.id_lugar = :id_lugar_set,
+                t.categoria = :categoria,
+                t.descripcion = :descripcion
+            WHERE t.id = :id_ticket
+              AND t.id_usuario = :id_usuario';
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        'id_lugar' => $idLugar,
+        'id_lugar_set' => $idLugar,
+        'categoria' => $categoria,
+        'descripcion' => $descripcion,
+        'id_ticket' => $idTicket,
+        'id_usuario' => $idUsuario
+    ]);
+
+    if ($stmt->rowCount() > 0) {
+        return true;
+    }
+
+    $stmt = $pdo->prepare(
+        'SELECT 1 FROM ticket WHERE id = :id_ticket AND id_usuario = :id_usuario'
+    );
+    $stmt->execute([
+        'id_ticket' => $idTicket,
+        'id_usuario' => $idUsuario
+    ]);
+
+    return (bool) $stmt->fetchColumn();
 }
 
 function contarTicketsDeHoy(): int
@@ -290,15 +339,17 @@ function listarTicketsPorUsuario(int $idUsuario): array
 
     $sql = "SELECT
                 t.id,
+                t.id_lugar,
                 u.nombre AS funcionario,
                 t.encargado,
                 l.nombre AS lugar,
                 t.descripcion,
                 t.estado,
+                t.categoria,
                 t.fecha_creacion
             FROM ticket t
             INNER JOIN usuario u ON t.id_usuario = u.id
-            INNER JOIN lugar l ON t.id_lugar = l.id
+            INNER JOIN dependencias l ON t.id_lugar = l.id
             WHERE t.id_usuario = :id_usuario
             ORDER BY t.id DESC";
 
@@ -406,7 +457,7 @@ function buscarTickets(string $termino): array
             t.estado
         FROM ticket t
         INNER JOIN usuario u ON t.id_usuario = u.id
-        INNER JOIN lugar l ON t.id_lugar = l.id
+        INNER JOIN dependencias l ON t.id_lugar = l.id
         WHERE t.encargado LIKE :busqueda
            OR l.nombre LIKE :busqueda
            OR t.descripcion LIKE :busqueda
@@ -421,6 +472,149 @@ function buscarTickets(string $termino): array
     ]);
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function listarLugaresActivos(): array
+{
+    global $pdo;
+
+    $sql = 'SELECT id, nombre
+            FROM dependencias
+            WHERE activo = 1
+            ORDER BY nombre ASC';
+
+    $stmt = $pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function agregarDependencia(string $nombre): int
+{
+    global $pdo;
+
+    $nombre = trim($nombre);
+    if ($nombre === '' || mb_strlen($nombre) > 100) {
+        throw new InvalidArgumentException('El nombre de la dependencia no es válido.');
+    }
+
+    $stmt = $pdo->prepare(
+        'SELECT id, activo FROM dependencias WHERE LOWER(nombre) = LOWER(:nombre) LIMIT 1'
+    );
+    $stmt->execute(['nombre' => $nombre]);
+    $existente = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($existente && (int) $existente['activo'] === 1) {
+        throw new InvalidArgumentException('Ya existe una dependencia con ese nombre.');
+    }
+
+    if ($existente) {
+        $stmt = $pdo->prepare('UPDATE dependencias SET activo = 1 WHERE id = :id');
+        $stmt->execute(['id' => $existente['id']]);
+        return (int) $existente['id'];
+    }
+
+    $stmt = $pdo->prepare(
+        'INSERT INTO dependencias (nombre, activo) VALUES (:nombre, 1)'
+    );
+    $stmt->execute(['nombre' => $nombre]);
+
+    return (int) $pdo->lastInsertId();
+}
+
+function eliminarDependencia(int $idDependencia): bool
+{
+    global $pdo;
+
+    if ($idDependencia <= 0) {
+        return false;
+    }
+
+    $stmt = $pdo->prepare(
+        'UPDATE dependencias SET activo = 0 WHERE id = :id AND activo = 1'
+    );
+    $stmt->execute(['id' => $idDependencia]);
+
+    return $stmt->rowCount() > 0;
+}
+
+function listarCategorias(): array
+{
+    global $pdo;
+
+    $sql = 'SELECT id, nombre
+            FROM categoria
+            WHERE activo = 1
+            ORDER BY nombre ASC';
+
+    $stmt = $pdo->query($sql);
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function agregarCategoria(string $nombre): int
+{
+    global $pdo;
+
+    $nombre = trim($nombre);
+    if ($nombre === '' || mb_strlen($nombre) > 100) {
+        throw new InvalidArgumentException('El nombre de categoría no es válido.');
+    }
+
+    $stmt = $pdo->prepare(
+        'SELECT id, activo FROM categoria WHERE LOWER(nombre) = LOWER(:nombre) LIMIT 1'
+    );
+    $stmt->execute(['nombre' => $nombre]);
+    $existente = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($existente && (int) $existente['activo'] === 1) {
+        throw new InvalidArgumentException('Ya existe una categoría con ese nombre.');
+    }
+
+    if ($existente) {
+        $stmt = $pdo->prepare('UPDATE categoria SET activo = 1 WHERE id = :id');
+        $stmt->execute(['id' => $existente['id']]);
+        return (int) $existente['id'];
+    }
+
+    $stmt = $pdo->prepare(
+        'INSERT INTO categoria (nombre, activo)
+         VALUES (:nombre, 1)'
+    );
+
+    $stmt->execute(['nombre' => $nombre]);
+
+    return (int) $pdo->lastInsertId();
+}
+
+function eliminarCategoria(int $idCategoria): bool
+{
+    global $pdo;
+
+    if ($idCategoria <= 0) {
+        return false;
+    }
+
+    $stmt = $pdo->prepare(
+        'UPDATE categoria SET activo = 0 WHERE id = :id AND activo = 1'
+    );
+    $stmt->execute(['id' => $idCategoria]);
+
+    return $stmt->rowCount() > 0;
+}
+
+function categoriaActivaExiste(string $nombre): bool
+{
+    global $pdo;
+
+    if ($nombre === '') {
+        return false;
+    }
+
+    $stmt = $pdo->prepare(
+        'SELECT 1 FROM categoria WHERE nombre = :nombre AND activo = 1 LIMIT 1'
+    );
+    $stmt->execute(['nombre' => $nombre]);
+
+    return (bool) $stmt->fetchColumn();
 }
 
 #####################################################################

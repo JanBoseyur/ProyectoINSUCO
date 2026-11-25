@@ -64,6 +64,47 @@ function procesarLogin(): void
     exit;
 }
 
+function procesarCambioContrasena(): ?string
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        return null;
+    }
+
+    $token = $_POST['csrf_token'] ?? '';
+    if (!is_string($token) || !hash_equals($_SESSION['csrf_token'] ?? '', $token)) {
+        return 'La solicitud venció. Recarga la página e inténtalo nuevamente.';
+    }
+
+    $correo = $_POST['correo'] ?? '';
+    $nueva = $_POST['contrasena_nueva'] ?? '';
+
+    if (!is_string($correo) || !is_string($nueva)) {
+        return 'Completa los datos con un correo válido.';
+    }
+
+    $correo = trim($correo);
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        return 'Completa los datos con un correo válido.';
+    }
+
+    $usuario = buscarUsuarioPorCorreo($correo);
+    if (!$usuario) {
+        return 'No existe una cuenta asociada a ese correo.';
+    }
+
+    if (strlen($nueva) < 8 || strlen($nueva) > 4096) {
+        return 'La nueva contraseña debe tener al menos 8 caracteres.';
+    }
+
+    if (!actualizarContrasena((int) $usuario['id'], password_hash($nueva, PASSWORD_DEFAULT))) {
+        return 'No fue posible actualizar la contraseña. Inténtalo nuevamente.';
+    }
+
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    header('Location: /app/views/auth/login.php?contrasena=actualizada');
+    exit;
+}
+
 function procesarRegistro(): string
 {
     global $pdo;

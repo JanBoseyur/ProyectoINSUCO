@@ -28,6 +28,7 @@ if (!is_array($usuario)) {
 }
 
 $rol = $usuario['rol'] ?? null;
+$rutaLayout = '/app/views/layout/main.php';
 
 $rolesPermitidos = ['admin', 'funcionario'];
 
@@ -197,12 +198,7 @@ $secciones = [
 
     'admin' => [
         'dashboard' => __DIR__ . '/../admin/dashboard.php',
-        'tickets' => __DIR__ . '/../admin/tickets.php',
-        'usuarios' => __DIR__ . '/../admin/usuarios.php',
-        'configuracion' => __DIR__ . '/../admin/configuracion.php',
-        'a' => __DIR__ . '/../admin/a.php',
-        'b' => __DIR__ . '/../admin/b.php',
-        'c' => __DIR__ . '/../admin/c.php',
+        'configuracion' => __DIR__ . '/../admin/management.php',
     ],
 
     'funcionario' => [
@@ -262,7 +258,7 @@ $navbar = $rol === 'admin'
 
     <?php require $navbar; ?>
 
-    <main class = "contenido">
+    <main class="contenido <?= $rol === 'admin' ? 'adminLayout' : 'funcionarioLayout' ?>">
 
         <div class = "mainContainer">
             <div class = "contentContainer">
@@ -293,6 +289,8 @@ $navbar = $rol === 'admin'
         </div>
 
     </main>
+
+    <script src="/public/js/modalCerrarSesion.js" defer></script>
 
 </body>
 

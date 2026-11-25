@@ -18,3 +18,14 @@ function buscarUsuarioPorCorreo(string $correo): array|false
 
     return $stmt->fetch();
 }
+
+function actualizarContrasena(int $id, string $hash): bool
+{
+    global $pdo;
+
+    $stmt = $pdo->prepare(
+        'UPDATE usuario SET contrasena_hash = :hash WHERE id = :id'
+    );
+
+    return $stmt->execute(['hash' => $hash, 'id' => $id]);
+}

@@ -1,5 +1,5 @@
-/* Apartado Mis Tickets: paleta monocromática */
 
+/* Estilos propios de la tabla Mis Tickets, basados en dashboard.css */
 .misTicketsHeader {
     position: relative;
     margin: 12px 0 28px;
@@ -22,6 +22,170 @@
     line-height: 1.6;
 }
 
+.managementPage {
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.managementMessage {
+    margin: 0 0 18px;
+    padding: 12px 16px;
+    border: 1px solid #cfe7d5;
+    border-radius: 9px;
+    background: #f0faf2;
+    color: #216536;
+}
+
+.managementPage .categoryManagement,
+.managementPage .managementTicketContainer {
+    width: 100%;
+    margin: 0 0 24px;
+    padding: 24px;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+
+.managementSectionHeader h2,
+.managementListTitle {
+    margin: 0 0 7px;
+    color: #171717;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.managementSectionHeader p {
+    margin: 0 0 20px;
+    color: #737373;
+    font-size: 0.9rem;
+}
+
+.categoryCreateForm {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 16px;
+}
+
+.categoryCreateForm .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.categoryCreateForm label {
+    color: #222;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.categoryCreateForm input {
+    width: 100%;
+    min-height: 45px;
+    padding: 11px 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 7px;
+    background: #fafafa;
+    font: inherit;
+}
+
+.categoryCreateForm input:focus {
+    outline: none;
+    border-color: #222;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.07);
+}
+
+.categoryCreateForm button,
+.categoryListItem button {
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid #222;
+    border-radius: 7px;
+    background: #111;
+    color: #fff;
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.categoryCreateForm button:hover,
+.categoryListItem button:hover {
+    background: #404040;
+}
+
+.managementListTitle {
+    margin-top: 28px;
+    font-size: 1rem;
+}
+
+.categoryList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid #eee;
+}
+
+.categoryListItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    color: #262626;
+}
+
+.categoryListItem form {
+    margin: 0;
+}
+
+.categoryListItem button {
+    min-height: 36px;
+    padding: 7px 12px;
+    border-color: #e1bcbc;
+    background: #fff;
+    color: #9f2525;
+}
+
+.categoryListItem button:hover {
+    background: #fff1f1;
+}
+
+.managementEmptyState {
+    padding: 14px;
+    border-radius: 8px;
+    background: #f7f7f7;
+    color: #737373;
+}
+
+.managementTicketForm {
+    max-width: none;
+}
+
+.managementTicketForm .sectionHeader {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .managementPage .categoryManagement,
+    .managementPage .managementTicketContainer {
+        padding: 18px;
+    }
+
+    .categoryCreateForm {
+        grid-template-columns: 1fr;
+    }
+
+    .categoryCreateForm button {
+        width: 100%;
+    }
+}
+
 /* Igual separación y distribución de filtros que en el dashboard. */
 .misTicketsHeader + .filterSelectorContainer {
     margin-bottom: 24px;
@@ -39,92 +203,262 @@
 
 .misTicketsTableContainer {
     width: 100%;
+    max-width: 100%;
     min-width: 0;
-    overflow: hidden;
-    border: 1px solid #dedede;
-    border-radius: 12px;
+    margin-top: 24px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
     background: #fff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.055);
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
 }
 
-.misTicketsTableContainer .ticketTable {
+.misTicketsTableContainer .misTicketsTable {
     width: 100%;
-    min-width: 0;
+    min-width: 760px;
+
     table-layout: fixed;
+    border-collapse: separate;
+
     border-spacing: 0;
+    
     background: #fff;
-    color: #222;
+    color: #262626;
+    font-size: 0.875rem;
+    text-align: left;
 }
 
-.misTicketsTableContainer .ticketTable thead {
-    background: #111;
+.misTicketsTableContainer .misTicketsTable thead {
+    background: #f7f7f7;
 }
 
-.misTicketsTableContainer .ticketTable th {
-    padding: 15px 18px;
+.misTicketsTableContainer .misTicketsTable th {
+    padding: 15px 12px;
     border: 0;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.misTicketsTableContainer .ticketTable .headerLabel {
-    min-height: unset;
+.misTicketsTableContainer .misTicketsTable .misTicketsColumnTitle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 54px;
     justify-content: center;
-    padding: 4px 0;
-    color: #fff;
-    font-size: 0.68rem;
+    gap: 9px;
+    padding: 16px 18px;
+    border-radius: 0;
+    background: transparent;
+    color: #525252;
+    font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
 }
 
-.misTicketsTableContainer .ticketTable th:nth-child(1) { width: 22%; }
-.misTicketsTableContainer .ticketTable th:nth-child(2) { width: 21%; }
-.misTicketsTableContainer .ticketTable th:nth-child(3) { width: 39%; }
-.misTicketsTableContainer .ticketTable th:nth-child(4) { width: 18%; }
+.misTicketsTableContainer .misTicketsTable th:nth-child(1) { width: 22%; }
+.misTicketsTableContainer .misTicketsTable th:nth-child(2) { width: 21%; }
+.misTicketsTableContainer .misTicketsTable th:nth-child(3) { width: 39%; }
+.misTicketsTableContainer .misTicketsTable th:nth-child(4) { width: 18%; }
 
-.misTicketsTableContainer .ticketTable tbody tr {
+.misTicketsTableContainer .misTicketsTable tbody tr {
     background: #fff;
     transition: background-color 160ms ease;
 }
 
-.misTicketsTableContainer .ticketTable tbody tr:nth-child(even) {
-    background: #fafafa;
+.misTicketsTableContainer .misTicketsTable tbody tr:nth-child(even) {
+    background: #fff;
 }
 
-.misTicketsTableContainer .ticketTable tbody tr:hover {
-    background: #f1f1f1;
+.misTicketsTableContainer .misTicketsTable tbody tr:hover {
+    background: #f8f8f8;
 }
 
-.misTicketsTableContainer .ticketTable tbody td {
+.misTicketsTableContainer .misTicketsTable tbody td {
     padding: 17px 18px;
-    border-bottom: 1px solid #e9e9e9;
-    color: #555;
-    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+    color: #262626;
+    font-size: 0.875rem;
     line-height: 1.6;
     text-align: center;
     vertical-align: middle;
     overflow-wrap: anywhere;
 }
 
-.misTicketsTableContainer .ticketTable tbody tr:last-child td {
+.misTicketsTableContainer .misTicketsTable tbody td > * {
+    vertical-align: middle;
+}
+
+.misTicketsTableContainer .misTicketsTable tbody tr:last-child td {
     border-bottom: 0;
 }
 
-.misTicketsTableContainer .ticketTable tbody td:first-child {
+.misTicketsTableContainer .misTicketsTable tbody td:first-child {
     color: #171717;
-    font-weight: 650;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
-.misTicketsTableContainer .ticketTable tbody td:nth-child(3) {
+.misTicketsTableContainer .misTicketsTable tbody td:nth-child(3) {
+    color: #525252;
     white-space: pre-wrap;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.misTicketsTableContainer .ticketTable tbody td.estadoContainer {
+.misTicketsTableContainer .misTicketsDescriptionContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100%;
+    
+    text-align: center;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.misTicketsTableContainer .misTicketsTable tbody td.misTicketsStatusCell {
     text-align: center;
 }
 
-.misTicketsTableContainer .ticketTable tbody td[colspan] {
+.misTicketsTableContainer .misTicketsStatus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: normal;
+    overflow-wrap: anywhere;
+}
+
+.misTicketsTableContainer .misTicketsStatus.pendiente {
+    background-color: #fef3c7;
+    color: #92400e;
+}
+
+.misTicketsTableContainer .misTicketsStatus.en-proceso {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+}
+
+.misTicketsTableContainer .misTicketsStatus.resuelto {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.misTicketsTableContainer .misTicketsStatus.cancelado {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.misTicketsTableContainer .misTicketsTable tbody td[colspan] {
     padding: 42px 18px;
     color: #666;
     text-align: center;
+}
+
+.buttonsContainerFunctions {
+    white-space: nowrap;
+}
+
+.btnEditarTicket {
+    margin-right: 6px;
+    background: #fff;
+    color: #222;
+    border: 1px solid #d4d4d4;
+}
+
+.btnEditarTicket:hover {
+    background: #f3f4f6;
+    color: #111;
+}
+
+.ticketEditModal {
+    --modal-width: 560px;
+}
+
+.ticketEditForm {
+    display: grid;
+    gap: 10px;
+    overflow-y: auto;
+    padding: 20px 22px 22px;
+}
+
+.ticketEditForm label {
+    margin-top: 6px;
+    color: #333;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.ticketEditForm select,
+.ticketEditForm textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #fff;
+    color: #222;
+    font: inherit;
+}
+
+.ticketEditForm textarea {
+    resize: vertical;
+}
+
+.ticketEditMessage {
+    min-height: 1.3em;
+    margin: 0;
+    color: #166534;
+    font-size: .9rem;
+}
+
+.ticketEditMessage.isError {
+    color: #b42318;
+}
+
+.ticketEditActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.ticketEditActions button {
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.ticketEditCancel {
+    background: #f1f1f1;
+    color: #222;
+}
+
+.ticketEditSave {
+    background: #111;
+    color: #fff;
+}
+
+.ticketEditSave:disabled {
+    cursor: wait;
+    opacity: .65;
+}
+
+.misTicketsTableBody {
+    background-color: #fff;
 }
 
 @media (max-width: 700px) {
@@ -146,29 +480,22 @@
         overflow-x: auto;
     }
 
-    .misTicketsTableContainer {
-        overflow: visible;
-        border: 0;
-        background: transparent;
-        box-shadow: none;
-    }
-
-    .misTicketsTableContainer .ticketTable,
-    .misTicketsTableContainer .ticketTable tbody {
+    .misTicketsTableContainer .misTicketsTable,
+    .misTicketsTableContainer .misTicketsTable tbody {
         display: block;
         width: 100%;
     }
 
-    .misTicketsTableContainer .ticketTable {
+    .misTicketsTableContainer .misTicketsTable {
         min-width: 0;
     }
 
-    .misTicketsTableContainer .ticketTable thead {
+    .misTicketsTableContainer .misTicketsTable thead {
         display: none;
     }
 
-    .misTicketsTableContainer .ticketTable tbody tr,
-    .misTicketsTableContainer .ticketTable tbody tr:nth-child(even) {
+    .misTicketsTableContainer .misTicketsTable tbody tr,
+    .misTicketsTableContainer .misTicketsTable tbody tr:nth-child(even) {
         display: grid;
         grid-template-columns: 1fr auto;
         gap: 0 12px;
@@ -180,56 +507,80 @@
         box-shadow: 0 4px 13px rgba(0, 0, 0, 0.045);
     }
 
-    .misTicketsTableContainer .ticketTable tbody tr:hover {
+    .misTicketsTableContainer .misTicketsTable tbody tr:hover {
         background: #fff;
     }
 
-    .misTicketsTableContainer .ticketTable tbody td {
-        display: block;
+    .misTicketsTableContainer .misTicketsTable tbody td {
+        display: flex;
+        flex-direction: column;
         width: auto !important;
         padding: 12px 14px;
         border: 0;
         text-align: center;
+        align-items: center;
+        justify-content: center;
     }
 
-    .misTicketsTableContainer .ticketTable tbody td:nth-child(1) {
+    .misTicketsTableContainer .misTicketsTable tbody td:nth-child(1) {
         grid-column: 1 / -1;
         padding-bottom: 4px;
         color: #111;
         font-size: 0.95rem;
     }
 
-    .misTicketsTableContainer .ticketTable tbody td:nth-child(2) {
+    .misTicketsTableContainer .misTicketsTable tbody td:nth-child(2) {
         grid-column: 1 / -1;
         padding-top: 2px;
         color: #666;
         font-size: 0.82rem;
     }
 
-    .misTicketsTableContainer .ticketTable tbody td:nth-child(3) {
+    .misTicketsTableContainer .misTicketsTable tbody td:nth-child(3) {
         grid-column: 1 / -1;
         padding-top: 5px;
         color: #444;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
 
-    .misTicketsTableContainer .ticketTable tbody td.estadoContainer {
+    .misTicketsTableContainer .misTicketsDescriptionContent {
+        min-height: 0;
+    }
+
+    .misTicketsTableContainer .misTicketsTable tbody td.misTicketsStatusCell {
         grid-column: 1 / -1;
         padding-top: 2px;
         padding-bottom: 14px;
         text-align: center;
     }
 
-    .misTicketsTableContainer .ticketTable tbody td[colspan] {
+    .misTicketsTableContainer .misTicketsTable tbody td[colspan] {
         display: block;
+
         padding: 25px 16px;
         border: 1px solid #dedede;
         border-radius: 10px;
+        
         background: #fff;
     }
 }
 
+@media (max-width: 480px) {
+    .misTicketsTableContainer .ticketTable tbody td:nth-child(3) {
+        grid-column: 1 / -1;
+    }
+
+    .misTicketsTableContainer .ticketTable tbody td:nth-child(4),
+    .misTicketsTableContainer .ticketTable tbody td:nth-child(5) {
+        grid-column: auto;
+        align-items: flex-start;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .misTicketsTableContainer .ticketTable tbody tr {
+    .misTicketsTableContainer .misTicketsTable tbody tr {
         transition: none;
     }
 }

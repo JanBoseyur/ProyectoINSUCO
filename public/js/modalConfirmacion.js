@@ -62,11 +62,15 @@ function crearModalEliminar() {
 async function eliminarTicket(idTicket) {
 
     const modal = crearModalEliminar();
+    modal.querySelector('h2').textContent = 'Eliminar ticket';
+    modal.querySelector('p').textContent = '¿Estás seguro de que deseas eliminar este ticket? Esta acción también eliminará su historial y no se puede deshacer.';
 
     modal.classList.add('isOpen');
 
     const btnCancelar = document.getElementById('cancelarEliminar');
     const btnConfirmar = document.getElementById('confirmarEliminar');
+    btnConfirmar.disabled = false;
+    btnConfirmar.textContent = 'Eliminar ticket';
 
     btnCancelar.onclick = () => {
         modal.classList.remove('isOpen');
@@ -118,3 +122,45 @@ async function eliminarTicket(idTicket) {
     };
 
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('submit', evento => {
+        const formulario = evento.target;
+        if (!(formulario instanceof HTMLFormElement) || !formulario.matches('[data-confirm-delete]')) {
+            return;
+        }
+
+        evento.preventDefault();
+        const botonAccion = evento.submitter;
+
+        const modal = crearModalEliminar();
+        const botonCancelar = modal.querySelector('#cancelarEliminar');
+        const botonConfirmar = modal.querySelector('#confirmarEliminar');
+
+        modal.querySelector('h2').textContent = formulario.dataset.confirmTitle || 'Confirmar eliminación';
+        modal.querySelector('p').textContent = formulario.dataset.confirmMessage || '¿Quieres eliminar este registro?';
+        botonConfirmar.disabled = false;
+        botonConfirmar.textContent = formulario.dataset.confirmButton || 'Eliminar';
+        modal.classList.add('isOpen');
+
+        botonCancelar.onclick = () => modal.classList.remove('isOpen');
+        botonConfirmar.onclick = () => {
+            botonConfirmar.disabled = true;
+
+            // form.submit() omite el botón que inició el envío; preservamos
+            // su name para que el servidor reciba la acción correspondiente.
+            if (botonAccion?.name) {
+                const accion = document.createElement('input');
+                accion.type = 'hidden';
+                accion.name = botonAccion.name;
+                accion.value = botonAccion.value;
+                formulario.appendChild(accion);
+            }
+
+            formulario.submit();
+        };
+        modal.onclick = click => {
+            if (click.target === modal) modal.classList.remove('isOpen');
+        };
+    });
+});

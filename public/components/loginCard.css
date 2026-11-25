@@ -106,3 +106,14 @@
     height: 18px;
     flex-shrink: 0;
 }
+.passwordChangeLink {
+    display: block;
+    margin: 16px auto 0;
+    color: #222;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.passwordChangeLink:hover {
+    text-decoration-thickness: 2px;
+}
