@@ -919,3 +919,26 @@ Stack trace:
 [25-Nov-2026 13:26:14 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 9
 [25-Nov-2026 13:26:14 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 10
 [25-Nov-2026 13:26:14 America/Santiago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 12
+[25-Nov-2026 14:01:34 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[25-Nov-2026 14:01:34 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[25-Nov-2026 14:01:34 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 8
+[25-Nov-2026 14:01:34 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 9
+[25-Nov-2026 14:01:34 America/Santiago] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 10
+[25-Nov-2026 14:01:34 America/Santiago] PHP Warning:  session_set_cookie_params(): Session cookie parameters cannot be changed when a session is active in /home/sebastian/ProyectoINSUCO/config/session.php on line 12
+[25-Nov-2026 14:03:36 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[25-Nov-2026 14:03:36 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[25-Nov-2026 14:03:41 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[25-Nov-2026 14:03:41 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[25-Nov-2026 14:03:42 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[25-Nov-2026 14:03:42 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[25-Nov-2026 14:12:43 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[25-Nov-2026 14:12:43 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[25-Nov-2026 14:31:39 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[26-Nov-2026 08:16:08 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[26-Nov-2026 08:16:08 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[26-Nov-2026 08:46:08 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[26-Nov-2026 08:46:08 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[26-Nov-2026 09:39:49 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[26-Nov-2026 09:39:49 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[26-Nov-2026 10:13:25 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[26-Nov-2026 10:13:25 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.

@@ -1,16 +1,8 @@
-
-<!DOCTYPE html>
-<html lang = "es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel = "stylesheet" href = "/public/components/loginCard.css">
-</head>
+<?php $mensaje = is_string($mensaje ?? null) ? $mensaje : ''; ?>
 
 <div class = "loginCardContainer">
     
-    <a href = "/app/views/auth/register.php" class = "pageHeader"">
+    <a href = "/public/index.php?seccion=registro" class = "pageHeader">
         <i data-lucide = "circle-user"></i>
     </a>
 
@@ -18,11 +10,11 @@
 
     <h2>Iniciar Sesión</h2>
 
-    <?php if (($_GET['contrasena'] ?? '') === 'actualizada'): ?>
-        <p role="status">Tu contraseña se actualizó correctamente. Ya puedes iniciar sesión.</p>
+    <?php if ($mensaje !== ''): ?>
+        <p role="status"><?= htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>
 
-    <form class = "formContainer" action = "/app/views/auth/login.php" method = "POST">
+    <form class = "formContainer" action = "/public/index.php?seccion=login" method = "POST">
         
         <div class = "containerLabel">
             <i class = "iconLabel" data-lucide = "mail"></i>
@@ -41,7 +33,7 @@
 
         <div class = "containerLabel">
             <i class = "iconLabel" data-lucide = "lock"></i>
-            <label class = "label for = "contrasena">Contraseña</label>
+            <label class = "label" for = "contrasena">Contraseña</label>
         </div>
 
         <input
@@ -60,12 +52,7 @@
 
     </form>
 
-    <a class="passwordChangeLink" href="/app/views/auth/cambiarContrasena.php">Cambiar contraseña</a>
-
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+    <a class="passwordChangeLink" href="/public/index.php?seccion=cambiar-contrasena">Cambiar contraseña</a>
 
 </div>
 

@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modalEditarTicket');
     const formulario = document.getElementById('formEditarTicket');

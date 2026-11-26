@@ -1,5 +1,11 @@
 
-<div class = "modalOverlay" id = "modalTicketExito">
+<div
+    class="modalOverlay"
+    id="modalTicketExito"
+    data-auto-open="<?= ($tipoMensaje ?? '') === 'exito' ? 'true' : 'false' ?>"
+    data-title="¡Ticket creado con éxito!"
+    data-message="El ticket ha sido registrado correctamente en el sistema."
+>
 
     <div class = "modalContainer modalExito">
 

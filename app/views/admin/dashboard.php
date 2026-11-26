@@ -1,104 +1,4 @@
 
-<?php
-
-require_once __DIR__ . '/../../controllers/TicketController.php';
-
-$usuario = $_SESSION['usuario'] ?? null;
-
-if (!is_array($usuario) || ($usuario['rol'] ?? null) !== 'admin') {
-    http_response_code(403);
-    exit('No tienes permiso para acceder a esta página.');
-}
-
-$nombre = $usuario['nombre'] ?? '';
-$tickets = obtenerTickets();
-$categorias = obtenerCategoriasActivas();
-$mensaje = '';
-$tipoMensaje = '';
-
-function fechaTicketEnEspanol(string $fecha): string
-{
-    $momento = new DateTimeImmutable($fecha);
-    $dias = [
-        1 => 'Lunes', 2 => 'Martes', 3 => 'Miércoles', 4 => 'Jueves',
-        5 => 'Viernes', 6 => 'Sábado', 7 => 'Domingo'
-    ];
-    
-    $meses = [
-        1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
-        5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
-        9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'
-    ];
-
-    return sprintf(
-        '%s %d de %s a las %s hrs',
-        $dias[(int) $momento->format('N')],
-        (int) $momento->format('j'),
-        $meses[(int) $momento->format('n')],
-        $momento->format('H:i')
-    );
-}
-
-$ticketsHoy = obtenerTicketsDeHoy();
-$ticketsTodos = count($tickets);
-$ticketsAbiertos = obtenerTicketsAbiertos();
-$ticketsEnProceso = obtenerTicketsEnProceso();
-$ticketsResueltos = obtenerTicketsResueltos();
-
-$cantidadPendientes = count(array_filter($tickets, static function ($ticket) {
-    return ($ticket['estado'] ?? '') === 'Pendiente';
-}));
-
-if (empty($_SESSION['csrf_ticket'])) {
-    $_SESSION['csrf_ticket'] = bin2hex(random_bytes(32));
-}
-
-if (
-    $_SERVER['REQUEST_METHOD'] === 'POST' &&
-    (isset($_POST['añadir_categoria']) || isset($_POST['eliminar_categoria']))
-) {
-    $token = $_POST['csrf_token'] ?? '';
-
-    if (!is_string($token) || !hash_equals($_SESSION['csrf_ticket'], $token)) {
-        $mensaje = 'No se pudo validar el formulario.';
-        $tipoMensaje = 'error';
-    } else {
-        try {
-            if (isset($_POST['añadir_categoria'])) {
-                $nombreCategoria = trim($_POST['nombre_categoria'] ?? '');
-
-                if ($nombreCategoria === '' || mb_strlen($nombreCategoria) > 100) {
-                    throw new InvalidArgumentException('Ingresa un nombre de categoría de hasta 100 caracteres.');
-                }
-
-                agregarCategoria($nombreCategoria);
-                $mensaje = 'Categoría agregada correctamente.';
-            } else {
-                $idCategoria = filter_var(
-                    $_POST['id_categoria'] ?? null,
-                    FILTER_VALIDATE_INT
-                );
-
-                if (!$idCategoria || !desactivarCategoria($idCategoria)) {
-                    throw new InvalidArgumentException('No se encontró una categoría activa para eliminar.');
-                }
-
-                $mensaje = 'Categoría eliminada correctamente.';
-            }
-
-            $categorias = obtenerCategoriasActivas();
-            $tipoMensaje = 'categoria_exito';
-            $_SESSION['csrf_ticket'] = bin2hex(random_bytes(32));
-            
-        } catch (Throwable $e) {
-            $mensaje = 'Error: ' . $e->getMessage();
-            $tipoMensaje = 'error';
-        }
-    }
-}
-
-?>
-
     <div class = "welcomeContainer">
         <div class = "titleContainer">
             <i data-lucide = "user-round" class = "iconAnimated"></i>
@@ -191,22 +91,25 @@ if (
 
     </div>
 
-    <div class="dashboardSearchFilter">
-        <div class="dashboardSearchTitle">
-            <span class="dashboardSearchIcon"><i data-lucide="search"></i></span>
+    <div class = "dashboardSearchFilter">
+        
+        <div class = "dashboardSearchTitle">
+            <span class = "dashboardSearchIcon"><i data-lucide="search"></i></span>
             <div>
                 <h2>Buscar tickets</h2>
                 <p>Filtra por funcionario o ubicación.</p>
             </div>
         </div>
 
-        <div class="dashboardSearchControls">
-            <label class="visuallyHidden" for="criterioBusquedaTicket">Buscar por</label>
-            <select id="criterioBusquedaTicket" aria-label="Buscar por">
-                <option value="funcionario">Funcionario</option>
-                <option value="ubicacion">Ubicación</option>
+        <div class = "dashboardSearchControls">
+            <label class = "visuallyHidden" for = "criterioBusquedaTicket">Buscar por</label>
+            
+            <select class = "selectBusqueda" id = "criterioBusquedaTicket" aria-label="Buscar por">
+                <option value = "funcionario">Funcionario</option>
+                <option value = "ubicacion">Ubicación</option>
             </select>
-            <div class="dashboardSearchInputWrap">
+
+            <div class = "dashboardSearchInputWrap">
                 <i data-lucide="search" aria-hidden="true"></i>
                 <input
                     type="search"
@@ -216,6 +119,7 @@ if (
                     autocomplete="off"
                 >
             </div>
+
         </div>
     </div>
 
@@ -269,6 +173,8 @@ if (
 
                <?php foreach ($tickets as $ticket): ?>
 
+                    <?php $descripcionTicket = (string) ($ticket['descripcion'] ?? ''); ?>
+
                     <tr
                         data-estado="<?= htmlspecialchars($ticket['estado'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                         data-funcionario="<?= htmlspecialchars($ticket['funcionario'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
@@ -288,7 +194,19 @@ if (
                         </td>
 
                         <td data-label="Descripción">
-                            <?= htmlspecialchars($ticket['descripcion'] ?? '') ?>
+                            <div class="ticketDescription<?= mb_strlen($descripcionTicket, 'UTF-8') > 180 ? ' isExpandable' : '' ?>">
+                                <span class="ticketDescriptionText"><?= htmlspecialchars($descripcionTicket, ENT_QUOTES, 'UTF-8') ?></span>
+                                <?php if (mb_strlen($descripcionTicket, 'UTF-8') > 180): ?>
+                                    <button
+                                        type="button"
+                                        class="ticketDescriptionToggle"
+                                        data-description-toggle
+                                        data-ticket-id="<?= (int) $ticket['id'] ?>"
+                                        aria-expanded="false"
+                                        aria-label="Expandir descripción del ticket <?= (int) $ticket['id'] ?>"
+                                    >Ver más</button>
+                                <?php endif; ?>
+                            </div>
                         </td>
                         
                         <td class="estadoContainer" data-label="Estado">
@@ -325,7 +243,7 @@ if (
                                 class = "btnHistorial2"
                                 onclick = "eliminarTicket(<?= (int) $ticket['id'] ?>)"
                                 aria-label = "Eliminar ticket"
-                                title = "Ver historial"
+                                title = "Eliminar ticket"
                             >
                                 <i data-lucide = "circle-x" class = "iconDefault2"></i>
                                 <i data-lucide = "x" class = "iconHover2"></i>
@@ -344,8 +262,6 @@ if (
                                     ENT_QUOTES,
                                     'UTF-8'
                                 ) ?>
-                                <span class = "textMarker"> por </span>
-                                <span><?= htmlspecialchars((string) ($ticket['funcionario'] ?? 'Usuario desconocido'), ENT_QUOTES, 'UTF-8') ?></span>
                             </span>
 
                         </td>
@@ -353,8 +269,8 @@ if (
 
                 <?php endforeach; ?>
 
-                <tr id="sinResultadosFiltro" hidden>
-                    <td colspan="6">No se encontraron resultados con esos parámetros.</td>
+                <tr id = "sinResultadosFiltro" hidden>
+                    <td colspan = "6">No se encontraron resultados con esos parámetros.</td>
                 </tr>
 
                 <?php
@@ -397,13 +313,3 @@ if (
         require __DIR__ . '/../components/modal.php';
     ?>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
-
-    <script src = "/public/js/modal.js" defer></script>
-    <script src = "/public/js/modalEstado.js" defer></script>
-    <script src = "/public/js/modalConfirmacion.js" defer></script>
-    <script src = "/public/js/filtroEstado.js" defer></script>
-    

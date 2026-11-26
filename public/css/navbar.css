@@ -199,6 +199,12 @@
     transform: translateX(4px);
 }
 
+@media (min-width: 901px) and (max-width: 1024px) {
+    .navbar {
+        width: 180px;
+    }
+}
+
 /* =========================================
    RESPONSIVE - MÓVILES Y PANTALLAS PEQUEÑAS
 ========================================= */
@@ -284,8 +290,12 @@
         padding: 0 !important;
     }
 
+    main.funcionarioLayout {
+        padding: 0 !important;
+    }
+
     .funcionarioLayout .contentContainer {
-        padding-bottom: 108px;
+        padding-bottom: 132px;
     }
 
     /* Evitar desplazamientos horizontales */
@@ -309,3 +319,4 @@
         font-size: 9px;
     }
 }
+

@@ -83,7 +83,7 @@ async function eliminarTicket(idTicket) {
 
         try {
 
-            const respuesta = await fetch(window.location.href, {
+            const respuesta = await fetch('/public/api/accion_ticket.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

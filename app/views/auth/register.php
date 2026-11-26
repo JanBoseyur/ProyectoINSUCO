@@ -1,77 +1,42 @@
-
-<?php
-
-require_once __DIR__ . '/../../../config/database.php';
-require_once __DIR__ . '/../../controllers/AuthController.php';
-
-$mensaje = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $mensaje = procesarRegistro();
-}
-
-?>
-
 <!DOCTYPE html>
-<html lang = "es">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name = "viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Registro | INSUCO</title>
+    <link rel="stylesheet" href="/public/css/login.css">
+    <link rel="stylesheet" href="/public/components/loginCard.css">
 </head>
+<body class="registerPage">
+    <main class="loginCardContainer registerCard">
+        <h1>Crear cuenta</h1>
 
-<body>
+        <?php if ($mensaje !== ''): ?>
+            <p class="registerMessage" role="status"><?= htmlspecialchars($mensaje, ENT_QUOTES, 'UTF-8') ?></p>
+        <?php endif; ?>
 
-    <h1>Crear cuenta</h1>
+        <form class="formContainer" action="/public/index.php?seccion=registro" method="POST">
+            <label class="label" for="nombre">Nombre</label>
+            <input class="inputField" type="text" id="nombre" name="nombre" maxlength="100" autocomplete="name" required>
 
-    <?php if ($mensaje !== ''): ?>
-        <p><?= htmlspecialchars(
-            $mensaje,
-            ENT_QUOTES,
-            'UTF-8'
-        ) ?></p>
-    <?php endif; ?>
+            <label class="label" for="correo">Correo electrónico</label>
+            <input class="inputField" type="email" id="correo" name="correo" maxlength="150" autocomplete="email" required>
 
-    <form action = "register.php" method = "POST">
-        <label for = "nombre">Nombre</label>
-        <input
-            type="text"
-            id="nombre"
-            name="nombre"
-            maxlength="100"
-            required
-        >
+            <label class="label" for="contrasena">Contraseña</label>
+            <input class="inputField" type="password" id="contrasena" name="contrasena" minlength="8" autocomplete="new-password" required>
 
-        <label for = "correo">Correo electrónico</label>
-        <input
-            type="email"
-            id="correo"
-            name="correo"
-            maxlength="150"
-            required
-        >
+            <label class="label" for="rol">Escoge el rol:</label>
+            <select class="inputField" name="rol" id="rol">
+                <option value="admin">Admin</option>
+                <option value="funcionario">Funcionario</option>
+            </select>
 
-        <label for = "contrasena">Contraseña</label>
-        <input
-            type="password"
-            id="contrasena"
-            name="contrasena"
-            minlength="8"
-            required
-        >
+            <button class="loginButton" type="submit">Registrarme</button>
+        </form>
 
-        <label for = "rol   ">Escoge el rol:</label>
-        <select name = "rol" id = "rol">
-            <option value = "admin">Admin</option>
-            <option value = "funcionario">Funcionario</option>
-        </select>
-
-        <button type = "submit">Registrarme</button>
-    </form>
-
-    <p><a href = "login.php">Volver al login</a></p>
-
+        <a class="passwordChangeLink" href="/public/index.php?seccion=login">Volver al inicio de sesión</a>
+    </main>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/public/js/icons.js" defer></script>
 </body>
-
 </html>

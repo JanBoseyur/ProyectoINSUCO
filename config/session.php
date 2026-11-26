@@ -5,17 +5,27 @@
 // 1. CONFIGURACIÓN DE SESIONES
 // --------------------------------------------------
 
-ini_set('session.use_only_cookies', '1');
-ini_set('session.use_strict_mode', '1');
-ini_set('session.gc_maxlifetime', '1800');
+// Evitar iniciar la sesión más de una vez.
+if (session_status() === PHP_SESSION_NONE) {
 
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
-    'httponly' => true,
-    'samesite' => 'Lax'
-]);
+    // Configuración de seguridad.
+    ini_set('session.use_only_cookies', '1');
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.cookie_httponly', '1');
+
+    // Configuración de cookies.
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => '',
+        'secure' => false, // true si utilizas HTTPS
+        'httponly' => true,
+        'samesite' => 'Lax'
+    ]);
+
+    // Iniciar sesión.
+    session_start();
+}
 
 // --------------------------------------------------
 // 2. INICIAR SESIÓN

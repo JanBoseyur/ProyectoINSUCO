@@ -17,7 +17,7 @@ function procesarLogin(): void
     $contrasena = $_POST['contrasena'] ?? '';
 
     if ($correo === '' || $contrasena === '') {
-        header('Location: /app/views/auth/login.php?error=1');
+        header('Location: /public/index.php?seccion=login&error=1');
         exit;
     }
 
@@ -31,13 +31,13 @@ function procesarLogin(): void
             $usuario['contrasena_hash']
         )
     ) {
-        header('Location: /app/views/auth/login.php?error=1');
+        header('Location: /public/index.php?seccion=login&error=1');
         exit;
     }
 
     // Validar roles autorizados.
     if (!in_array($usuario['rol'], ['admin', 'funcionario'], true)) {
-        header('Location: /app/views/auth/login.php?error=1');
+        header('Location: /public/index.php?seccion=login&error=1');
         exit;
     }
 
@@ -58,7 +58,7 @@ function procesarLogin(): void
         : 'home';
 
     header(
-        'Location: /app/views/layout/main.php?seccion=' . $seccionInicial
+        'Location: /public/index.php?seccion=' . $seccionInicial
     );
 
     exit;
@@ -101,14 +101,12 @@ function procesarCambioContrasena(): ?string
     }
 
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    header('Location: /app/views/auth/login.php?contrasena=actualizada');
+    header('Location: /public/index.php?seccion=login&contrasena=actualizada');
     exit;
 }
 
 function procesarRegistro(): string
 {
-    global $pdo;
-
     $nombre = trim($_POST['nombre'] ?? '');
     $correo = trim($_POST['correo'] ?? '');
     $contrasena = $_POST['contrasena'] ?? '';
@@ -131,21 +129,10 @@ function procesarRegistro(): string
     try {
         $hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
-        $sql = 'INSERT INTO usuario
-                (nombre, rol, correo, contrasena_hash)
-                VALUES (:nombre, :rol, :correo, :hash)';
-
-        $stmt = $pdo->prepare($sql);
-
-        $stmt->execute([
-            'nombre' => $nombre,
-            'rol' => $rol,
-            'correo' => $correo,
-            'hash' => $hash
-        ]);
+        crearUsuario($nombre, $rol, $correo, $hash);
 
         // Redirigir cuando el registro sea exitoso.
-        header('Location: login.php?registro=exitoso');
+        header('Location: /public/index.php?seccion=login&registro=exitoso');
         exit;
 
     } catch (PDOException $e) {

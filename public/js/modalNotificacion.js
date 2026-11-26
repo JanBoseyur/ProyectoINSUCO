@@ -32,4 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
         btnCerrarModalExito.addEventListener('click', cerrarModalExito);
     }
 
+    if (modalTicketExito?.dataset.autoOpen === 'true') {
+        window.mostrarModalExito(
+            modalTicketExito.dataset.title || 'Operación completada',
+            modalTicketExito.dataset.message || ''
+        );
+    }
+
 });

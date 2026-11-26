@@ -1,185 +1,5 @@
 
-<?php
-
-require_once __DIR__ . '/../../controllers/TicketController.php';
-
-$usuario = $_SESSION['usuario'] ?? null;
-
-if (empty($_SESSION['csrf_ticket'])) {
-    $_SESSION['csrf_ticket'] = bin2hex(random_bytes(32));
-}
-
-$lugares = obtenerLugaresActivos();
-$categorias = obtenerCategoriasActivas();
-
-$tickets = obtenerTicketsFuncionario((int) $usuario['id']);
-$nombre = $usuario['nombre'] ?? '';
-$ticketsPendientes = 0;
-$ticketsEnProceso = 0;
-$ticketsResueltos = 0;
-
-foreach ($tickets as $ticket) {
-    switch ($ticket['estado'] ?? '') {
-        case 'Pendiente':
-            $ticketsPendientes++;
-            break;
-        case 'En proceso':
-            $ticketsEnProceso++;
-            break;
-        case 'Resuelto':
-            $ticketsResueltos++;
-            break;
-    }
-}
-
-// Procesar solicitudes para cambiar el estado.
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json; charset=utf-8');
-
-    $datos = json_decode(
-        file_get_contents('php://input'),
-        true
-    );
-
-    if (
-        !is_array($datos) ||
-        ($datos['accion'] ?? '') !== 'cambiar_estado'
-    ) {
-        http_response_code(400);
-
-        echo json_encode([
-            'success' => false,
-            'message' => 'Solicitud no válida.'
-        ]);
-
-        exit;
-    }
-
-    try {
-        $idTicket = filter_var(
-            $datos['id_ticket'] ?? null,
-            FILTER_VALIDATE_INT
-        );
-
-        $estadoNuevo = trim(
-            (string) ($datos['estado'] ?? '')
-        );
-
-        // Obtener los campos opcionales.
-        $descripcionCambio = trim(
-            (string) ($datos['descripcion'] ?? '')
-        );
-
-        $encargadoRecibido = trim(
-            (string) ($datos['encargado'] ?? '')
-        );
-
-        // Si está vacío, se mantiene el encargado actual.
-        $nuevoEncargado = $encargadoRecibido !== ''
-            ? $encargadoRecibido
-            : null;
-
-        $idAutor = (int) ($usuario['id'] ?? 0);
-
-        // Validaciones.
-        if (!$idTicket || $idAutor <= 0) {
-            http_response_code(400);
-
-            echo json_encode([
-                'success' => false,
-                'message' => 'El ticket o el usuario no son válidos.'
-            ]);
-
-            exit;
-        }
-
-        if (mb_strlen($descripcionCambio) > 1000) {
-            http_response_code(400);
-
-            echo json_encode([
-                'success' => false,
-                'message' => 'La descripción no puede superar los 1000 caracteres.'
-            ]);
-
-            exit;
-        }
-
-        if (
-            $nuevoEncargado !== null &&
-            mb_strlen($nuevoEncargado) > 150
-        ) {
-            http_response_code(400);
-
-            echo json_encode([
-                'success' => false,
-                'message' => 'El encargado no puede superar los 150 caracteres.'
-            ]);
-
-            exit;
-        }
-
-        error_log('ID AUTOR ANTES DE CAMBIAR: ' . var_export($idAutor, true));
-        error_log('USUARIO EN SESION: ' . print_r($_SESSION['usuario'] ?? null, true));
-
-        $cambioRealizado = cambiarEstado(
-            $idTicket,
-            $estadoNuevo,
-            $idAutor,
-            $descripcionCambio,
-            $nuevoEncargado
-        );
-
-        if (!$cambioRealizado) {
-            http_response_code(400);
-        }
-
-        echo json_encode([
-            'success' => $cambioRealizado,
-            'changed' => $cambioRealizado,
-            'message' => $cambioRealizado
-                ? 'Cambios guardados correctamente.'
-                : 'No se pudo actualizar el ticket. Revisa el registro de errores de PHP.'
-        ]);
-
-    } catch (Throwable $e) {
-        error_log(
-            'Error al cambiar estado: ' . $e->getMessage()
-        );
-
-        http_response_code(500);
-
-        echo json_encode([
-            'success' => false,
-            'message' => 'No se pudieron guardar los cambios.'
-        ]);
-    }
-
-    exit;
-}
-
-$nombre = $usuario['nombre'] ?? '';
-
-?>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Mis tickets</title>
-
-    <link rel = "stylesheet" href = "/public/css/misTickets.css">
-</head>
-
-<body>
-    
-    <div class = "welcomeContainer">
-        <div class = "titleContainer">
-            <i data-lucide = "user-round" class = "iconAnimated"></i>
-            <h2>Bienvenido, <?= htmlspecialchars($nombre) ?>!</h2>
-        </div>
-    </div>
-
-    <div class = "sectionHeader misTicketsHeader">
+    <div class = "sectionHeader misTicketsHeader misTicketsPageHeader">
         <h1>Mis tickets</h1>
         <p>Consulta y realiza seguimiento de tus solicitudes de soporte técnico.</p>
     </div>
@@ -214,32 +34,32 @@ $nombre = $usuario['nombre'] ?? '';
             
                 <tr class = "colContainer">
                     <th>
-                        <div class = "headerLabel">             
-                            <span>Categoria</span>
+                        <div class = "headerLabel misTicketsColumnTitle">
+                            <span>Categoría</span>
                         </div>
                     </th>
 
                     <th>
-                        <div class = "headerLabel">
+                        <div class = "headerLabel misTicketsColumnTitle">
                             <span>Ubicación</span>
                         </div>
                     </th>
                 
                     <th>
-                        <div class = "headerLabel">
+                        <div class = "headerLabel misTicketsColumnTitle">
                             <span>Descripción</span>
                         </div>
                     </th>
 
                     <th>
-                        <div class = "headerLabel">
+                        <div class = "headerLabel misTicketsColumnTitle">
                             <span>Estado</span>
                         </div>
                     </th>
 
                     <th>
-                        <div class = "headerLabel">
-                            <span></span>
+                        <div class = "headerLabel misTicketsColumnTitle">
+                            <span>Acciones</span>
                         </div>
                     </th>
                 </tr>
@@ -250,27 +70,41 @@ $nombre = $usuario['nombre'] ?? '';
 
                <?php foreach ($tickets as $ticket): ?>
 
+                    <?php $descripcionTicket = (string) ($ticket['descripcion'] ?? ''); ?>
+
                     <tr data-estado = "<?= htmlspecialchars($ticket['estado']) ?>">
 
-                        <td>
+                        <td data-label="Categoría">
                             <?= htmlspecialchars($ticket['categoria']) ?>
                         </td>
 
-                        <td>
+                        <td data-label="Ubicación">
                             <?= htmlspecialchars($ticket['lugar'] ?? '') ?>
                         </td>
 
-                        <td>
-                            <?= htmlspecialchars($ticket['descripcion'] ?? '') ?>
+                        <td data-label="Descripción">
+                            <div class="ticketDescription<?= mb_strlen($descripcionTicket, 'UTF-8') > 180 ? ' isExpandable' : '' ?>">
+                                <span class="ticketDescriptionText"><?= htmlspecialchars($descripcionTicket, ENT_QUOTES, 'UTF-8') ?></span>
+                                <?php if (mb_strlen($descripcionTicket, 'UTF-8') > 180): ?>
+                                    <button
+                                        type="button"
+                                        class="ticketDescriptionToggle"
+                                        data-description-toggle
+                                        data-ticket-id="<?= (int) $ticket['id'] ?>"
+                                        aria-expanded="false"
+                                        aria-label="Expandir descripción del ticket <?= (int) $ticket['id'] ?>"
+                                    >Ver más</button>
+                                <?php endif; ?>
+                            </div>
                         </td>
                         
-                        <td class = "estadoContainer">
+                        <td class = "estadoContainer" data-label="Estado">
                             <span class = "state <?= htmlspecialchars(str_replace(' ', '-', strtolower(trim($ticket['estado'] ?? '')))) ?>">
                                 <?= htmlspecialchars($ticket['estado'] ?? '') ?>
                             </span>
                         </td>
 
-                        <td class = "buttonsContainerFunctions">
+                        <td class = "buttonsContainerFunctions" data-label="Acciones">
                             <button
                                 type = "button"
                                 class = "btnHistorial btnEditarTicket"
@@ -282,10 +116,20 @@ $nombre = $usuario['nombre'] ?? '';
                                 title = "Editar ticket"
                                 aria-label = "Editar ticket <?= (int) $ticket['id'] ?>"
                             >
-                                <i data-lucide = "pencil"></i>
+                                <i data-lucide = "pencil" class="iconDefault"></i>
+                                <i data-lucide = "pencil-line" class="iconHover"></i>
                             </button>
                         </td>
                         
+                    </tr>
+
+                    <tr class = "ticketDateRow" data-estado="<?= htmlspecialchars($ticket['estado'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+                        <td colspan = "5">
+                            <span class = "recordMarker">
+                                <span class = "textMarker">Creado el </span>
+                                <?= htmlspecialchars(fechaTicketEnEspanol((string) $ticket['fecha_creacion']), ENT_QUOTES, 'UTF-8') ?>
+                            </span>
+                        </td>
                     </tr>
 
                 <?php endforeach; ?>
@@ -296,7 +140,7 @@ $nombre = $usuario['nombre'] ?? '';
 
                 <?php if (empty($tickets)): ?>
                     <tr>
-                        <td colspan = "6">No hay tickets registrados.</td>
+                        <td colspan = "5">No hay tickets registrados.</td>
                     </tr>
                 <?php endif; ?>
 
@@ -317,13 +161,18 @@ $nombre = $usuario['nombre'] ?? '';
         <section class = "modalContainer ticketEditModal" role = "dialog" aria-modal = "true" aria-labelledby = "tituloEditarTicket">
            
             <header class = "modalHeader">
+
+                <div class = "modalHistorialIcon">
+                    <i data-lucide = "square-pen"></i>
+                </div>
+
                 <h2 id = "tituloEditarTicket">Editar ticket</h2>
                 <button type = "button" class = "modalClose" data-modal-close aria-label="Cerrar modal">&times;</button>
             </header>
 
             <form id = "formEditarTicket" class = "ticketEditForm">
                 <input type = "hidden" name = "id_ticket" id = "editarIdTicket">
-                <input type = "hidden" name = "csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_ticket'], ENT_QUOTES, 'UTF-8') ?>">
+                <input type = "hidden" name = "csrf_token" value="<?= htmlspecialchars($csrfTicket, ENT_QUOTES, 'UTF-8') ?>">
 
                 <label for = "editarCategoria">Categoría</label>
                 <select name = "categoria" id = "editarCategoria" required>
@@ -357,14 +206,3 @@ $nombre = $usuario['nombre'] ?? '';
 
     </div>
 
-    <script src = "https://unpkg.com/lucide@latest"></script>
-    <script>
-        lucide.createIcons();
-    </script>
-
-    <script src = "/public/js/filtroEstado.js" defer></script>
-    <script src = "/public/js/editarTicket.js" defer></script>
-    
-</body>
-
-</html>

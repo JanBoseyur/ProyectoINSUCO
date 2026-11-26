@@ -3,20 +3,87 @@
    FORMULARIO DE CREACIÓN DE TICKETS
 ========================================= */
 
+.homeWelcome {
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 16px;
+    text-align: center;
+}
+
+.homeWelcome h2 {
+    margin: 0;
+}
+
 .contenedor-tickets {
     padding: 30px;
+}
+
+.ticket-container {
+    width: 100%;
+    max-width: 820px;
+    margin: 28px auto 0;
 }
 
 .formularioContainer {
     display: flex;
     flex-direction: column;
     text-align: left;
-    
-    gap: 22px;
+    gap: 24px;
 
     width: 100%;
-    max-width: 480px;
+    max-width: 100%;
     box-sizing: border-box;
+    min-width: 0;
+    padding: 32px;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+}
+
+.ticketFormHeading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.ticketFormIcon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    border-radius: 13px;
+    background: #171717;
+    color: #fff;
+}
+
+.ticketFormIcon svg {
+    width: 23px;
+    height: 23px;
+}
+
+.ticketFormHeading .misTicketsHeader {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.ticketFormHeading .misTicketsHeader h1 {
+    margin: 0 0 5px;
+    color: #171717;
+    font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+    letter-spacing: -0.035em;
+}
+
+.ticketFormHeading .misTicketsHeader p {
+    color: #737373;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 /* =========================================
@@ -26,10 +93,12 @@
 .formularioContainer .form-group {
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 8px;
 }
 
 .ticket-form-error {
+    width: 100%;
+    box-sizing: border-box;
     margin: 0 0 16px;
     padding: 12px 14px;
     color: #8a1f1f;
@@ -46,14 +115,20 @@
 
 .formularioContainer select {
     width: 100%;
+    min-width: 0;
+    min-height: 44px;
     box-sizing: border-box;
-    padding: 13px 15px;
+    padding: 10px 40px 10px 12px;
     font-family: inherit;
     font-size: 14px;
     color: #222222;
     background: #fafafa;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
     border: 1px solid #d9d9d9;
-    border-radius: 7px;
+    border-radius: 9px;
+    cursor: pointer;
 }
 
 @media (max-width: 520px) {
@@ -68,6 +143,10 @@
     font-weight: 600;
 }
 
+.formularioContainer .form-group > label {
+    line-height: 1.4;
+}
+
 /* =========================================
    INPUTS Y TEXTAREA
 ========================================= */
@@ -75,9 +154,11 @@
 .formularioContainer input,
 .formularioContainer textarea {
     width: 100%;
+    min-width: 0;
+    min-height: 44px;
     box-sizing: border-box;
 
-    padding: 13px 15px;
+    padding: 10px 12px;
 
     font-family: inherit;
     font-size: 14px;
@@ -85,7 +166,7 @@
 
     background: #fafafa;
     border: 1px solid #d9d9d9;
-    border-radius: 7px;
+    border-radius: 9px;
 
     outline: none;
     transition: all 0.2s ease;
@@ -99,6 +180,7 @@
 /* Hover */
 
 .formularioContainer input:hover:not(:disabled),
+.formularioContainer select:hover,
 .formularioContainer textarea:hover {
     border-color: #888888;
     background: #ffffff;
@@ -107,7 +189,9 @@
 /* Focus */
 
 .formularioContainer input:focus,
+.formularioContainer select:focus,
 .formularioContainer textarea:focus {
+    outline: none;
     background: #ffffff;
     border-color: #222222;
     
@@ -128,11 +212,35 @@
 /* Textarea */
 
 .formularioContainer textarea {
-    min-height: 140px;
+    min-height: 160px;
 
     resize: vertical;
 
     line-height: 1.6;
+}
+
+.ticketFormHint {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin: 0;
+    color: #737373;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.ticketFormHint svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 15px;
+    margin-top: 1px;
+}
+
+.ticketFormActions {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 4px;
+    border-top: 1px solid #eee;
 }
 
 /* =========================================
@@ -144,21 +252,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    align-self: center;
+    align-self: flex-end;
 
     gap: 8px;
 
-    width: fit-content;
-    min-width: 160px;
+    min-width: 180px;
+    min-height: 46px;
 
-    margin-top: 5px;
-    padding: 13px 24px;
+    margin-top: 16px;
+    padding: 12px 18px;
 
     background: #030303;
     color: #ffffff;
 
     border: 1px solid #474747;
-    border-radius: 7px;
+    border-radius: 9px;
 
     font-family: inherit;
     font-size: 14px;
@@ -237,10 +345,15 @@
     }
 
     .formularioContainer {
-        padding: 20px;
+        gap: 20px;
+        padding: 24px;
     }
 
     .formularioContainer button {
+        width: 100%;
+    }
+
+    .ticketFormActions {
         width: 100%;
     }
 
@@ -250,5 +363,61 @@
 
     .homeTicketsSection .buttonFilterSelectorContainer {
         gap: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor-tickets {
+        padding: 12px;
+    }
+
+    .formularioContainer {
+        gap: 18px;
+        padding: 18px 16px;
+    }
+
+    .ticket-container {
+        margin-top: 20px;
+    }
+
+    .ticketFormHeading {
+        align-items: flex-start;
+        gap: 12px;
+        padding-bottom: 16px;
+    }
+
+    .ticketFormIcon {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+        border-radius: 11px;
+    }
+
+    .ticketFormIcon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .ticketFormHeading .misTicketsHeader p {
+        font-size: 0.82rem;
+    }
+
+    .formularioContainer .selects-container {
+        gap: 12px;
+    }
+
+    .homeTicketsSection .buttonFilterSelectorContainer {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .homeTicketsSection .buttonFilterSelector {
+        flex: 0 0 auto;
+    }
+
+    .homeTicketsContainer {
+        max-width: 100%;
+        overflow-x: auto;
     }
 }

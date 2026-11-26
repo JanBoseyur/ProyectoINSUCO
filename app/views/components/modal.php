@@ -8,8 +8,6 @@ $anchoModal = $anchoModal ?? '10000px';
 
 ?>
 
-<link rel = "stylesheet" href="<?= BASE_URL ?>/public/components/modal.css">
-
 <div
     class = "modalOverlay"
     id = "<?= htmlspecialchars($idModal) ?>"

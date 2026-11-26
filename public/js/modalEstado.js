@@ -61,7 +61,7 @@ document.querySelectorAll('#modalEstado [data-estado]')
             procesandoCambioEstado = true;
 
             try {
-                const respuesta = await fetch(window.location.pathname + window.location.search,
+                const respuesta = await fetch('/public/api/accion_ticket.php',
                     {
                     method: 'POST',
                     headers: {
@@ -78,7 +78,17 @@ document.querySelectorAll('#modalEstado [data-estado]')
                     })
                 });
 
-                const datos = await respuesta.json();
+                const respuestaTexto = await respuesta.text();
+                let datos;
+
+                try {
+                    datos = JSON.parse(respuestaTexto);
+                } catch (error) {
+                    console.error('Respuesta no JSON al cambiar el estado:', respuestaTexto);
+                    throw new Error(
+                        'El servidor devolvió una respuesta inesperada. Recarga la página e inténtalo de nuevo.'
+                    );
+                }
 
                 if (!respuesta.ok || !datos.success) {
                     throw new Error(

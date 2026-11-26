@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const botonesFiltro = document.querySelectorAll('.buttonFilterSelector');
     const filas = Array.from(document.querySelectorAll('#tablaTickets tr[data-estado]'))

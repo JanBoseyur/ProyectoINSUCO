@@ -10,8 +10,9 @@
     
     background: #fff;
 
-    border-radius: 12px;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
 
     overflow: hidden;
     animation: modalEntrada 0.2s ease;
@@ -28,15 +29,20 @@
 
     gap: 16px;
     padding: 18px 22px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .modalHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
 
     gap: 16px;
     padding: 20px 22px;
 
-    margin-bottom: 4px;
+    margin-bottom: 0;
     border-bottom: 1px solid #e5e7eb;
 }
 
@@ -77,10 +83,13 @@
 
     margin-left: auto;
 
+    width: 34px;
+    height: 34px;
     padding: 4px;
     flex-shrink: 0;
 
     border: none;
+    border-radius: 7px;
     background: transparent;
     color: #6b7280;
 
@@ -88,9 +97,11 @@
     line-height: 1;
     
     cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
 }
 
 .modalClose:hover {
+    background: #f3f4f6;
     color: #111827;
 }
 
@@ -313,14 +324,16 @@
 /* Responsive */
 @media (max-width: 420px) {
     .opcionesEstado {
-        gap: 7px;
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
 
     .opcionEstado {
-        flex-direction: column;
-        gap: 6px;
-        padding: 12px 5px;
-        font-size: 11px;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 12px 14px;
+        font-size: 14px;
     }
 }
 

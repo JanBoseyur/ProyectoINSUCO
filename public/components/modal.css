@@ -8,10 +8,10 @@
     align-items: center;
 
     inset: 0;
-    z-index: 1000;
+    z-index: 11000;
     
     padding: 16px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(17, 17, 17, 0.52);
 }
 
 .modalOverlay.isOpen {
@@ -26,11 +26,14 @@
 
     max-width: var(--modal-width, 600px);
     max-height: 90vh;
+    max-height: 90dvh;
     
     background: #fff;
+    font-family: 'Inter', sans-serif;
 
-    border-radius: 12px;
-    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
 
     overflow: hidden;
     animation: modalEntrada 0.2s ease;
@@ -38,6 +41,7 @@
 
 /* Título y botón de cierre */
 .modalHeader1, #modalHeader1 {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -47,15 +51,21 @@
 
     gap: 16px;
     padding: 18px 22px;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .modalHeader {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
 
     gap: 16px;
     padding: 20px 22px;
 
-    margin-bottom: 4px;
+    margin-bottom: 0;
     border-bottom: 1px solid #e5e7eb;
 }
 
@@ -89,6 +99,16 @@
     overflow-wrap: anywhere;
 }
 
+.modalHeader1 h2,
+.modalHeader h2 {
+    position: absolute;
+    left: 50%;
+    width: max-content;
+    max-width: calc(100% - 120px);
+    text-align: center;
+    transform: translateX(-50%);
+}
+
 .modalClose {
     display: inline-flex;
     align-items: center;
@@ -96,10 +116,13 @@
 
     margin-left: auto;
 
+    width: 34px;
+    height: 34px;
     padding: 4px;
     flex-shrink: 0;
 
     border: none;
+    border-radius: 7px;
     background: transparent;
     color: #6b7280;
 
@@ -107,9 +130,11 @@
     line-height: 1;
     
     cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease;
 }
 
 .modalClose:hover {
+    background: #f3f4f6;
     color: #111827;
 }
 

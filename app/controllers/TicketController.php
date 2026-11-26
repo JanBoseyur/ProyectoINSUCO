@@ -2,20 +2,12 @@
 <?php
 
 require_once __DIR__ . '/../models/Ticket.php';
+require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../../config/database.php';
 
 function obtenerAdministradores(): array
 {
-    global $pdo;
-
-    $sql = "SELECT id, nombre, correo
-            FROM usuario
-            WHERE rol = 'admin'";
-
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return listarAdministradores();
 }
 
 function cambiarEstado(
@@ -90,6 +82,28 @@ function obtenerTicketsResueltos(): int
 function obtenerTicketsFuncionario(int $idUsuario): array
 {
     return listarTicketsPorUsuario($idUsuario);
+}
+
+function fechaTicketEnEspanol(string $fecha): string
+{
+    $momento = new DateTimeImmutable($fecha);
+    $dias = [
+        1 => 'Lunes', 2 => 'Martes', 3 => 'Miércoles', 4 => 'Jueves',
+        5 => 'Viernes', 6 => 'Sábado', 7 => 'Domingo'
+    ];
+    $meses = [
+        1 => 'Enero', 2 => 'Febrero', 3 => 'Marzo', 4 => 'Abril',
+        5 => 'Mayo', 6 => 'Junio', 7 => 'Julio', 8 => 'Agosto',
+        9 => 'Septiembre', 10 => 'Octubre', 11 => 'Noviembre', 12 => 'Diciembre'
+    ];
+
+    return sprintf(
+        '%s %d de %s a las %s hrs',
+        $dias[(int) $momento->format('N')],
+        (int) $momento->format('j'),
+        $meses[(int) $momento->format('n')],
+        $momento->format('H:i')
+    );
 }
 
 function obtenerLugaresActivos(): array
