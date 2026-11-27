@@ -942,3 +942,11 @@ Stack trace:
 [26-Nov-2026 09:39:49 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
 [26-Nov-2026 10:13:25 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
 [26-Nov-2026 10:13:25 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[27-Nov-2026 08:22:48 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[27-Nov-2026 08:22:48 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[27-Nov-2026 08:23:11 America/Santiago] PHP Notice:  session_start(): Ignoring session_start() because a session is already active (started from /home/sebastian/ProyectoINSUCO/app/controllers/AuthController.php on line 5) in /home/sebastian/ProyectoINSUCO/index.php on line 13
+[27-Nov-2026 08:23:11 America/Santiago] [PRUEBA] El registro de errores funciona correctamente.
+[27-Nov-2026 08:33:14 America/Santiago] No se pudo enviar la notificación por correo: Invalid address:  (From): 
+[27-Nov-2026 08:34:29 America/Santiago] No se pudo enviar la notificación por correo: Invalid address:  (From): 
+[27-Nov-2026 08:49:38 America/Santiago] No se pudo enviar la notificación por correo: SMTP Error: Could not authenticate.
+[27-Nov-2026 08:50:14 America/Santiago] No se pudo enviar la notificación por correo: SMTP Error: Could not authenticate.

@@ -1,6 +1,10 @@
 
 # Configuración local de la base de datos
 /config/database.php
+/config/mail.local.php
+**/mail.local.php
+/config/
+/logs/
 
 # Variables de entorno
 .env
